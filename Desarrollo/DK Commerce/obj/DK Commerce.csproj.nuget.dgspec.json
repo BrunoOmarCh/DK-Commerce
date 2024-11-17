@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\USUARIO\\Desktop\\Nueva carpeta\\DK-Commerce\\DK Commerce\\DK Commerce.csproj": {}
+    "C:\\Users\\USUARIO\\Desktop\\Nueva carpeta\\DK-Commerce\\Desarrollo\\DK Commerce\\DK Commerce.csproj": {}
   },
   "projects": {
-    "C:\\Users\\USUARIO\\Desktop\\Nueva carpeta\\DK-Commerce\\DK Commerce\\DK Commerce.csproj": {
+    "C:\\Users\\USUARIO\\Desktop\\Nueva carpeta\\DK-Commerce\\Desarrollo\\DK Commerce\\DK Commerce.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\USUARIO\\Desktop\\Nueva carpeta\\DK-Commerce\\DK Commerce\\DK Commerce.csproj",
+        "projectUniqueName": "C:\\Users\\USUARIO\\Desktop\\Nueva carpeta\\DK-Commerce\\Desarrollo\\DK Commerce\\DK Commerce.csproj",
         "projectName": "DK Commerce",
-        "projectPath": "C:\\Users\\USUARIO\\Desktop\\Nueva carpeta\\DK-Commerce\\DK Commerce\\DK Commerce.csproj",
+        "projectPath": "C:\\Users\\USUARIO\\Desktop\\Nueva carpeta\\DK-Commerce\\Desarrollo\\DK Commerce\\DK Commerce.csproj",
         "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\USUARIO\\Desktop\\Nueva carpeta\\DK-Commerce\\DK Commerce\\obj\\",
+        "outputPath": "C:\\Users\\USUARIO\\Desktop\\Nueva carpeta\\DK-Commerce\\Desarrollo\\DK Commerce\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config",
