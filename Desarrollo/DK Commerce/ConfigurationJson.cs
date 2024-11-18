@@ -1,39 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-    
-namespace DK_Commerce
+﻿using Microsoft.Extensions.Configuration;
+
+namespace DK_Commerce;
+[CLSCompliant(true)]
+
+public static class ConfigurationJson
 {
-   public static class Conversiones
+    public static string GetAppSettings(string key)
     {
-        public static bool? ToNullableBool(string value)
+        try
         {
-            bool? bValue = null;
 
-            if (value == null || value == "null")
-            {
-                bValue = null;
-            }
-            else
-            {
-                bValue = bool.Parse(value);
-            }
+            IConfiguration config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .AddEnvironmentVariables()
+                .Build();
+            var itemsConfig = config.GetSection("AppSettings")
+                .GetChildren().ToDictionary(x => x.Key, x => x.Value);
 
-            return bValue;
+            return itemsConfig[key];
         }
-
-        public static string ToValueOrStringNull(bool? value)
+        catch (Exception)
         {
-            if (!value.HasValue)
-            {
-                return "null";
-            }
-            else
-            {
-                return value.Value.ToString();
-            }
+            return null;
+        }
+    }
+    public static string GetConnectionStrings(string key)
+    {
+        try
+        {
+            IConfiguration config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .AddEnvironmentVariables()
+                .Build();
+            var itemsConfig = config.GetSection("ConnectionStrings")
+                .GetChildren().ToDictionary(x => x.Key, x => x.Value);
+
+            return itemsConfig[key];
+        }
+        catch (Exception)
+        {
+            return null;
         }
     }
 }
