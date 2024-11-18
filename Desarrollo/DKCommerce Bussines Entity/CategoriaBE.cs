@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DKCommerce_Bussines_Entity
 {
-    public class Categoria
+    public class CategoriaBE
     {
         public int CategoriaId { get; set; } 
         public string Nombre { get; set; } 
