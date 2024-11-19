@@ -10,8 +10,8 @@ namespace DKCommerce_Bussines_Entity
     {
         public int CompañiaDeEnvioId { get; set; }
         public string NombreCompañia { get; set; }
-        public string Ruc { get; set; }
-        public string Telefono { get; set; }
+        public string? Ruc { get; set; }
+        public string? Telefono { get; set; }
        
     }
 }
