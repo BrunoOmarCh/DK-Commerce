@@ -10,7 +10,7 @@ namespace DKCommerce_Bussines_Entity
     {
         public string ClienteId { get; set; }
         public string NombreRazonSocial { get; set; }
-        public string TipoDocumento { get; set; }
+        public string TipoDocumento { get; set; }   
         public string NroDocumento { get; set; }
         public int? ContactoId { get; set; }
         public string Direccion { get; set; }
