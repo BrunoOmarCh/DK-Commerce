@@ -18,7 +18,7 @@ namespace DKCommerceBussinesEntity
         public decimal? Igv { get; set; }
         public decimal? Isc { get; set; }
         public decimal? PrecioVenta{ get; set;  }  
-        public short? UnidadesEnexistencia { get; set; }
+        public short? UnidadesEnExistencia { get; set; }
         public short? UnidadesEnPedido {  get; set; }
         public short? NivelNuevoPedido { get; set; }
         public bool Suspendido {  get; set; }
