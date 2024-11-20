@@ -8,6 +8,10 @@ namespace DKCommerceDataAccess
 {
     public class ProductoDA
     {
+        public const string UpProveedorInsert = "UpProveedorInsert";
+        public const string UpProveedorUpdate = "UpProveedorUpdate";
+        public const string UpProveedorDelete = "UpProveedorDelete";
+        public const string UpProveedorSelById = "UpProveedorSelById";
 
     }
 }
