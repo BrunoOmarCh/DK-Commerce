@@ -614,11 +614,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\USUARIO\\Desktop\\Nueva carpeta\\DK-Commerce\\Desarrollo\\DK Commerce\\DK Commerce.csproj",
-      "projectName": "DK Commerce",
-      "projectPath": "C:\\Users\\USUARIO\\Desktop\\Nueva carpeta\\DK-Commerce\\Desarrollo\\DK Commerce\\DK Commerce.csproj",
+      "projectUniqueName": "C:\\Users\\USUARIO\\Desktop\\Nueva carpeta\\DK-Commerce\\Desarrollo\\Libreria\\Libreria.csproj",
+      "projectName": "Libreria",
+      "projectPath": "C:\\Users\\USUARIO\\Desktop\\Nueva carpeta\\DK-Commerce\\Desarrollo\\Libreria\\Libreria.csproj",
       "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\USUARIO\\Desktop\\Nueva carpeta\\DK-Commerce\\Desarrollo\\DK Commerce\\obj\\",
+      "outputPath": "C:\\Users\\USUARIO\\Desktop\\Nueva carpeta\\DK-Commerce\\Desarrollo\\Libreria\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config",

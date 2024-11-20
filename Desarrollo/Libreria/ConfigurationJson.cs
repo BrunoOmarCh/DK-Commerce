@@ -3,7 +3,7 @@
 namespace DK_Commerce;
 [CLSCompliant(true)]
 
-public static class ConfigurationJson
+public static class Libreria
 {
     public static string GetAppSettings(string key)
     {

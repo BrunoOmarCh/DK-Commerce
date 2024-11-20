@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DK_Commerce;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DKCommerceDataAccess
 {
-    public class ProductoDA
+    public class ProductoDA : ConfigDataAccess
     {
         public const string UpProveedorInsert = "UpProveedorInsert";
         public const string UpProveedorUpdate = "UpProveedorUpdate";

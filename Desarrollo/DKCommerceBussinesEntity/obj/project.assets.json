@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\USUARIO\\Desktop\\Nueva carpeta\\DK-Commerce\\Desarrollo\\DKCommerce Bussines Entity\\DKCommerce Bussines Entity.csproj",
-      "projectName": "DKCommerce Bussines Entity",
-      "projectPath": "C:\\Users\\USUARIO\\Desktop\\Nueva carpeta\\DK-Commerce\\Desarrollo\\DKCommerce Bussines Entity\\DKCommerce Bussines Entity.csproj",
+      "projectUniqueName": "C:\\Users\\USUARIO\\Desktop\\Nueva carpeta\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\DKCommerceBussinesEntity.csproj",
+      "projectName": "DKCommerceBussinesEntity",
+      "projectPath": "C:\\Users\\USUARIO\\Desktop\\Nueva carpeta\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\DKCommerceBussinesEntity.csproj",
       "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\USUARIO\\Desktop\\Nueva carpeta\\DK-Commerce\\Desarrollo\\DKCommerce Bussines Entity\\obj\\",
+      "outputPath": "C:\\Users\\USUARIO\\Desktop\\Nueva carpeta\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config",
