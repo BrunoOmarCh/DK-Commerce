@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace DK_Commerce;
+namespace Libreria;
 [CLSCompliant(true)]
 
-public static class Libreria
+public static class ConfigurationJson
 {
     public static string GetAppSettings(string key)
     {

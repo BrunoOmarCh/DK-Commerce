@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace DK_Commerce
+namespace Libreria
 {
     public class ConfigDataAccess
     {
