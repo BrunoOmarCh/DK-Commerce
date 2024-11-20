@@ -7,7 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Libreria\Libreria.csproj" />
+	<PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+	<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DKCommerceBussinesEntity\DKCommerceBussinesEntity.csproj" />
+    <ProjectReference Include="..\Libreria\Libreria.csproj" />
+  </ItemGroup>
+	
 </Project>
