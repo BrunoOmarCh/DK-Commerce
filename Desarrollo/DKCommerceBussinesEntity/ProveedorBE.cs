@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DKCommerce_Bussines_Entity
+namespace DKCommerceBussinesEntity
 {
     public class ProveedorBE
     {
