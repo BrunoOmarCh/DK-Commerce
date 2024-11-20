@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DKCommerceDataAccess")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9594113f3d785cb3372391cc1a3b326ce0842a99")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6edea7d6df620c2f2b44389cd958ed2f61b6786a")]
 [assembly: System.Reflection.AssemblyProductAttribute("DKCommerceDataAccess")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DKCommerceDataAccess")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
