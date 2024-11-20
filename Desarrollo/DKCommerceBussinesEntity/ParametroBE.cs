@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DKCommerceBussinesEntity
 {
-    public class Parametro
+    public class ParametroBE
     {
         public int Clave { get; set; }
         public string? Grupo { get; set; }
