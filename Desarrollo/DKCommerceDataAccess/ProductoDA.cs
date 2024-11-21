@@ -262,6 +262,62 @@ namespace DKCommerceDataAccess
             }
         }
 
+        public void Update(int idProducto, ProductoBE beProducto)
+        {
+            var conn = Configuration.GetConnectionString("DK_Commerce");
+
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    using (var sqlTran = sqlCon.BeginTransaction())
+                    {
+                        try
+                        {
+                            sqlCmd.Connection = sqlCon;
+                            sqlCmd.CommandText = UpProductoUpdate;
+                            sqlCmd.CommandType = CommandType.StoredProcedure;
+                            sqlCmd.Transaction = sqlTran;
+
+                            sqlCmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
+
+                            sqlCmd.Parameters.Add("@NombreProducto", SqlDbType.NVarChar).Value = beProducto.NombreProducto;
+                            sqlCmd.Parameters.Add("@ProveedorId", SqlDbType.Int).Value = beProducto.ProveedorId;
+                            sqlCmd.Parameters.Add("@CategoriaId", SqlDbType.Int).Value = beProducto.CategoriaId;
+                            sqlCmd.Parameters.Add("@PrecioLista", SqlDbType.Decimal).Value = beProducto.PrecioLista;
+                            if (beProducto.Igv.HasValue)
+                            {
+                                sqlCmd.Parameters.Add("@Igv", SqlDbType.Decimal).Value = beProducto.Igv.Value;
+                            }
+                            else
+                            {
+                                sqlCmd.Parameters.Add("@Igv", SqlDbType.Decimal).Value = DBNull.Value;
+                            }
+                            if (beProducto.Isc.HasValue)
+                            {
+                                sqlCmd.Parameters.Add("@Isc", SqlDbType.Decimal).Value = beProducto.Isc.Value;
+                            }
+                            else
+                            {
+                                sqlCmd.Parameters.Add("@Isc", SqlDbType.Decimal).Value = DBNull.Value;
+                            }
+                            sqlCmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value = beProducto.PrecioVenta;
+                            sqlCmd.Parameters.Add("@Suspendido", SqlDbType.Bit).Value = beProducto.Suspendido;
+
+                            sqlCmd.ExecuteNonQuery();
+                            sqlTran.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            sqlTran?.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+        }
+
 
     }
 }
