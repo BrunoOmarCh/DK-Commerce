@@ -177,6 +177,90 @@ namespace DKCommerceDataAccess
             }
         }
 
+        public List<ProductoBE> Paginacion(string texto, int tamañoPagina,
+            int nroPagina, string nombreColumna, bool? orderBy)
+        {
+            var ProductoList = new List<ProductoBE>();
+            var conn = Configuration.GetConnectionString("DK_Commerce");
+            SqlDataReader dr = null;
+
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    try
+                    {
+                        sqlCmd.Connection = sqlCon;
+                        sqlCmd.CommandText = UpProductoPagination;
+                        sqlCmd.CommandType = CommandType.StoredProcedure;
+
+                        sqlCmd.Parameters.Add("@Texto", SqlDbType.NVarChar).Value = texto;
+                        sqlCmd.Parameters.Add("@TamañoPagina", SqlDbType.Int).Value = tamañoPagina;
+                        sqlCmd.Parameters.Add("@NroPagina", SqlDbType.Int).Value = nroPagina;
+                        if (string.IsNullOrWhiteSpace(nombreColumna))
+                        {
+                            sqlCmd.Parameters.Add("@NombreColumna", SqlDbType.VarChar).Value = DBNull.Value;
+                        }
+                        else
+                        {
+                            sqlCmd.Parameters.Add("@NombreColumna", SqlDbType.VarChar).Value = nombreColumna;
+                        }
+                        if (orderBy.HasValue)
+                        {
+                            sqlCmd.Parameters.Add("@OrderBy", SqlDbType.Bit).Value = orderBy.Value;
+                        }
+                        else
+                        {
+                            sqlCmd.Parameters.Add("@OrderBy", SqlDbType.Bit).Value = DBNull.Value;
+                        }
+
+                        dr = sqlCmd.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            var beProducto = new ProductoBE();
+
+                            beProducto.IdProducto = int.Parse(dr["IdProducto"].ToString()!);
+                            beProducto.NombreProducto = Convert.ToString(dr["NombreProducto"]);
+                            beProducto.ProveedorId = int.Parse(dr["ProveedorId"].ToString()!);
+                            beProducto.CategoriaId = int.Parse(dr["CategoriaId"].ToString()!);
+                            beProducto.CantidadPorUnidad = Convert.ToString(dr["CantidadPorUnidad"]);
+                            beProducto.PrecioLista = decimal.Parse(dr["PrecioLista"].ToString()!);
+                            if (dr["Descuento"] != DBNull.Value)
+                            {
+                                beProducto.Descuento = decimal.Parse(dr["Descuento"].ToString()!);
+                            }
+                            if (dr["Igv"] != DBNull.Value)
+                            {
+                                beProducto.Igv = decimal.Parse(dr["Igv"].ToString()!);
+                            }
+                            if (dr["Isc"] != DBNull.Value)
+                            {
+                                beProducto.Isc = decimal.Parse(dr["Isc"].ToString()!);
+                            }
+                            beProducto.PrecioVenta = decimal.Parse(dr["PrecioVenta"].ToString()!);
+                            beProducto.UnidadesEnExistencia = short.Parse(dr["UnidadesEnExistencia"].ToString()!);
+                            beProducto.UnidadesEnPedido = short.Parse(dr["UnidadesEnPedido"].ToString()!);
+                            beProducto.NivelNuevoPedido = short.Parse(dr["NivelNuevoPedido"].ToString()!);
+                            beProducto.Suspendido = bool.Parse(dr["Suspendido"].ToString()!);
+
+                            ProductoList.Add(beProducto);
+                        }
+
+                        return ProductoList;
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        dr?.Close();// ?: Si no es null el objeto, cerrarlo
+                        dr?.Dispose(); // ?: Si no es null, descargarlo de memoria
+                    }
+                }
+            }
+        }
 
 
     }
