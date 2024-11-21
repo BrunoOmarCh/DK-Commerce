@@ -64,10 +64,10 @@ namespace DKCommerceDataAccess
                             beProducto.PrecioVenta = decimal.Parse(dr["PrecioVenta"].ToString()!);
                             beProducto.UnidadesEnExistencia = short.Parse(dr["UnidadesEnExistencia"].ToString()!);
                             beProducto.UnidadesEnPedido = short.Parse(dr["UnidadesEnPedido"].ToString()!);
-                            beProducto.NivelNuevoPedido = int.Parse(dr["NivelNuevoPedido"].ToString()!);
+                            beProducto.NivelNuevoPedido = short.Parse(dr["NivelNuevoPedido"].ToString()!);
                             beProducto.Suspendido = bool.Parse(dr["Suspendido"].ToString()!);
                         }
-
+                        
                         return beProducto;
                     }
                     catch (Exception ex)
@@ -82,6 +82,63 @@ namespace DKCommerceDataAccess
                 }
             }
         }
+
+        public void Insert(ProductoBE beProducto)
+        {
+            var conn = Configuration.GetConnectionString("Dk_Commerce");
+
+            using (var sqlCon = new SqlConnection(conn)) // Conecta a la base de datos
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())// Conectará al procedure
+                {
+                    using (var sqlTran = sqlCon.BeginTransaction())
+                    {
+                        try
+                        {
+                            sqlCmd.Connection = sqlCon;
+                            sqlCmd.CommandText = UpProductoInsert;
+                            sqlCmd.CommandType = CommandType.StoredProcedure;
+                            sqlCmd.Transaction = sqlTran;
+
+                            sqlCmd.Parameters.Add("@NombreProducto", SqlDbType.NVarChar).Value = beProducto.NombreProducto;
+                            sqlCmd.Parameters.Add("@ProveedorId", SqlDbType.Int).Value = beProducto.ProveedorId;
+                            sqlCmd.Parameters.Add("@CategoriaId", SqlDbType.Int).Value = beProducto.CategoriaId;
+                            sqlCmd.Parameters.Add("@PrecioLista", SqlDbType.Decimal).Value = beProducto.PrecioLista;
+                            if (beProducto.Igv.HasValue)// Manejo de tipo nullable (tipo que soporta null)
+                            {
+                                sqlCmd.Parameters.Add("@Igv", SqlDbType.Decimal).Value = beProducto.Igv.Value;
+                            }
+                            else
+                            {
+                                sqlCmd.Parameters.Add("@Igv", SqlDbType.Decimal).Value = DBNull.Value;//DBNull.Value: Un valor NULL de la base de datos
+                            }
+                            if (beProducto.Isc.HasValue)
+                            {
+                                sqlCmd.Parameters.Add("@Isc", SqlDbType.Decimal).Value = beProducto.Isc.Value;
+                            }
+                            else
+                            {
+                                sqlCmd.Parameters.Add("@Isc", SqlDbType.Decimal).Value = DBNull.Value;
+                            }
+                            sqlCmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value = beProducto.PrecioVenta;
+                            // Bit en SQL Server equivalente a Booleano en C#  
+                            sqlCmd.Parameters.Add("@Suspendido", SqlDbType.Bit).Value = beProducto.Suspendido;
+
+                            sqlCmd.ExecuteNonQuery();//<----- Ejecuta el comando (procedure)
+                            sqlTran.Commit();//<----- Confirma la operación (transacción)
+                        }
+                        catch (Exception ex)
+                        {
+                            sqlTran?.Rollback();
+                            throw ex;
+                        }
+                    }
+                }
+            } //using: Al cerrar las llaves, se libera el objeto, luego ya no existe
+        }
+
+
 
 
     }
