@@ -56,7 +56,20 @@ namespace DKCommerceBussinesLogic
             }
         }
 
+        public List<ProductoBE> Paginacion(string texto, int tamañoPagina,
+            int nroPagina, string nombreColumna, bool? orderBy)
+        {
+            try
+            {
+                var daProducto = new ProductoDA();
 
+                return daProducto.Paginacion(texto, tamañoPagina, nroPagina, nombreColumna, orderBy);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
 
