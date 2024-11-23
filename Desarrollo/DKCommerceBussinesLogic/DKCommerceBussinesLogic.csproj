@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DKCommerceBussinesEntity\DKCommerceBussinesEntity.csproj" />
+    <ProjectReference Include="..\DKCommerceDataAccess\DKCommerceDataAccess.csproj" />
+  </ItemGroup>
+
 </Project>
