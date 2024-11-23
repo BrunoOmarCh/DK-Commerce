@@ -85,6 +85,20 @@ namespace DKCommerceBussinesLogic
             }
         }
 
+        public void Status(int idProducto, ProductoBE beProducto)
+        {
+            try
+            {
+                var daProducto = new ProductoDA();
+
+                daProducto.Status(idProducto, beProducto);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
     }
 }
