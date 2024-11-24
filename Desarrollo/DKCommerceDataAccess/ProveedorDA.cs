@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace DKCommerceDataAccess
 {
-    internal class ProveedorDA
+    public class ProveedorDA
     {
+        public const string UpProveedorInsert = "UpProveedorInsert";
+        public const string UpProveedorUpdate = "UpProveedorUpdate";
+        public const string UpProveedorDelete = "UpProveedorDelete";
+        public const string UpProveedorSelById = "UpProveedorSelById";
+
     }
 }
