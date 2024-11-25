@@ -28,6 +28,12 @@ namespace DKCommerceAPI.Controllers
             blProveedor.Insert(beProveedor);
         }
 
-
+        [HttpPut]
+        [Route("update/{proveedorId}")]
+        public void Update(int proveedorId, ProveedorBE beProveedor)
+        {
+            var blProveedor = new ProveedorBL();
+            blProveedor.Update(proveedorId, beProveedor);
+        }
     }
 }
