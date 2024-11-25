@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DKCommerceBussinesEntity;
+using DKCommerceDataAccess;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +10,21 @@ namespace DKCommerceBussinesLogic
 {
     public class ProveedorBL
     {
+        public ProveedorBE SelectById(int idProveedor)
+        {
+            try
+            {
+                var daProveedor = new ProveedorDA();
+                ProveedorBE beProveedor;
+
+                beProveedor = daProveedor.SelectById(idProveedor);
+                return beProveedor;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
     }
 }
