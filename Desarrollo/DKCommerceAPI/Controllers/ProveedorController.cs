@@ -1,5 +1,6 @@
 ﻿using DKCommerceBussinesEntity;
 using DKCommerceBussinesLogic;
+using DKCommerceDataAccess;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DKCommerceAPI.Controllers
@@ -18,6 +19,15 @@ namespace DKCommerceAPI.Controllers
             return blProveedor.SelectById(ProveedorId);
 
         }
+
+        [HttpPost]
+        [Route("insert")]
+        public void Insert(ProveedorBE beProveedor)
+        {
+            var blProveedor = new ProveedorBL();
+            blProveedor.Insert(beProveedor);
+        }
+
 
     }
 }
