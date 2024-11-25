@@ -35,5 +35,15 @@ namespace DKCommerceAPI.Controllers
             var blProveedor = new ProveedorBL();
             blProveedor.Update(proveedorId, beProveedor);
         }
+
+        [HttpDelete]
+        [Route("delete/{ProveedorId}")]
+        public void Delete(int ProveedorId)
+        {
+            var blProveedor = new ProveedorBL();
+            blProveedor.Delete(ProveedorId);
+        }
+
+
     }
 }
