@@ -240,6 +240,40 @@ namespace DKCommerceDataAccess
             }
         }
 
+        public void Delete(int idProveedor)
+        {
+            var conn = Configuration.GetConnectionString("Pluton");
+
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    using (var sqlTran = sqlCon.BeginTransaction())
+                    {
+                        try
+                        {
+                            sqlCmd.Connection = sqlCon;
+                            sqlCmd.CommandText = UpProveedorDelete;
+                            sqlCmd.CommandType = CommandType.StoredProcedure;
+                            sqlCmd.Transaction = sqlTran;
+
+                            sqlCmd.Parameters.Add("@ProveedorId", SqlDbType.Int).Value = idProveedor;
+
+                            sqlCmd.ExecuteNonQuery();
+                            sqlTran.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            sqlTran?.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+        }
+
 
     }
 }
+
