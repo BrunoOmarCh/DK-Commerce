@@ -1,6 +1,7 @@
 ﻿using DKCommerceBussinesEntity;
 using DKCommerceBussinesLogic;
 using DKCommerceDataAccess;
+using Libreria;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DKCommerceAPI.Controllers
@@ -28,6 +29,19 @@ namespace DKCommerceAPI.Controllers
             var blProducto = new ProductoBL();
 
             blProducto.Insert(beProducto);
+        }
+
+        [HttpGet]
+        [Route("paginacion/{texto}/{tamañoPagina}/{nroPagina}/{nombreColumna}/{orderBy}")]
+        public List<ProductoBE> Paginacion(string texto, int tamañoPagina,
+    int nroPagina, string nombreColumna, string orderBy)
+        {
+            var blProducto = new ProductoBL();
+            bool? bOrderBy;
+
+            bOrderBy = Conversiones.ToNullableBool(orderBy);
+
+            return blProducto.Paginacion(texto, tamañoPagina, nroPagina, nombreColumna, bOrderBy);
         }
 
     }
