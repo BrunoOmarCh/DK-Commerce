@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DKCommerceBussinesEntity;
+using DKCommerceBussinesLogic;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DKCommerceAPI.Controllers
 {
-    public class ProductoController : Controller
+    [ApiController]
+    [Route("api/producto")]
+    public class ProductoController : ControllerBase
     {
-        public IActionResult Index()
+        [HttpGet]// Método HTTP GET
+        [Route("select-by-id/{idProducto}")]// Ruta en la web del método
+        public ProductoBE SelectById(int idProducto)
         {
-            return View();
+            var blProducto = new ProductoBL();
+
+            return blProducto.SelectById(idProducto);
         }
+
     }
 }
