@@ -34,7 +34,7 @@ namespace DKCommerceAPI.Controllers
         [HttpGet]
         [Route("paginacion/{texto}/{tamañoPagina}/{nroPagina}/{nombreColumna}/{orderBy}")]
         public List<ProductoBE> Paginacion(string texto, int tamañoPagina,
-    int nroPagina, string nombreColumna, string orderBy)
+            int nroPagina, string nombreColumna, string orderBy)
         {
             var blProducto = new ProductoBL();
             bool? bOrderBy;
@@ -44,5 +44,13 @@ namespace DKCommerceAPI.Controllers
             return blProducto.Paginacion(texto, tamañoPagina, nroPagina, nombreColumna, bOrderBy);
         }
 
+        [HttpPut]
+        [Route("update/{idProducto}")]
+        public void Update(int idProducto, ProductoBE beProducto)
+        {
+            var blProducto = new ProductoBL();
+
+            blProducto.Update(idProducto, beProducto);
+        }
     }
 }
