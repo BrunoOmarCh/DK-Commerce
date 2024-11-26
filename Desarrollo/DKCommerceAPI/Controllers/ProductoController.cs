@@ -52,5 +52,15 @@ namespace DKCommerceAPI.Controllers
 
             blProducto.Update(idProducto, beProducto);
         }
+
+        [HttpDelete]
+        [Route("delete/{idProducto}")]
+        public void Delete(int idProducto)
+        {
+            var blProducto = new ProductoBL();
+
+            blProducto.Delete(idProducto);
+        }
+
     }
 }
