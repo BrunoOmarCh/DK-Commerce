@@ -18,10 +18,10 @@ namespace DKCommerceDataAccess
         public const string UpCategoriaDelete = "UpCategoriaDelete";
         public const string UpCategoriaSelById = "UpCategoriaSelById";
 
-        public Categoria SelectById(int categoriaId)
+        public CategoriaBE SelectById(int categoriaId)
         {
-            Categoria beCategoria = null;
-            var conn = Configuration.GetConnectionString("Mercurio");
+            CategoriaBE beCategoria = null;
+            var conn = Configuration.GetConnectionString("DK_Commerce");
             SqlDataReader dr = null;
 
             using (var SqlCon = new SqlConnection(conn))
@@ -39,7 +39,7 @@ namespace DKCommerceDataAccess
                         dr = SqlCmd.ExecuteReader();
                         while (dr.Read())
                         {
-                            beCategoria = new Categoria();
+                            beCategoria = new CategoriaBE();
                             // Se lee el objeto, se lo convierte a String y luego a Int
                             beCategoria.CategoriaId = int.Parse(dr["CategoriaId"].ToString());
                             beCategoria.Nombre = dr["Nombre"].ToString();
@@ -61,6 +61,42 @@ namespace DKCommerceDataAccess
                 }
             }
         }
+
+        public void Insert(CategoriaBE beCategoria)
+        {
+            var conn = Configuration.GetConnectionString("DK_Commerce");
+
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    using (var sqlTran = sqlCon.BeginTransaction())
+                    {
+                        try
+                        {
+                            sqlCmd.Connection = sqlCon;
+                            sqlCmd.CommandType = CommandType.StoredProcedure;
+                            sqlCmd.CommandText = UpCategoriaInsert;
+                            sqlCmd.Transaction = sqlTran;
+
+                            sqlCmd.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = beCategoria.Nombre;
+                            sqlCmd.Parameters.Add("@Descripcion", SqlDbType.NVarChar).Value = beCategoria.Descripcion;
+                            sqlCmd.Parameters.Add("@Suspendido", SqlDbType.Bit).Value = beCategoria.Suspendido;
+
+                            sqlCmd.ExecuteNonQuery();// Ejecuta el procedimiento almacenado, Ej Elegir a enviar Yape
+                            sqlTran.Commit();// Confirma la operacion en la base de datos, ej: Transferir un Yape
+                        }
+                        catch (Exception ex)
+                        {
+                            sqlTran.Rollback();// Deshacer todo lo avanzado
+                            throw ex;
+                        }
+                    }
+                }
+            }
+        }
+
 
 
     }
