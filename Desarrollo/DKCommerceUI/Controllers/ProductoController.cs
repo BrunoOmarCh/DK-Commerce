@@ -24,6 +24,12 @@ namespace DKCommerceUI.Controllers
 
             _mapper = config.CreateMapper();
         }
+        public IActionResult Index()// Corresponde a una página web
+        {
+            return View();// Retorna una vista
+            // Es decir
+            // Devuelve la página web al navegador en la pc del usuario
+        }
 
     }
 }
