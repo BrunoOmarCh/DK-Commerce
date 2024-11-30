@@ -161,6 +161,16 @@
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
         }
+      },
+      "DKCommerceBussinesEntity/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/DKCommerceBussinesEntity.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DKCommerceBussinesEntity.dll": {}
+        }
       }
     }
   },
@@ -429,11 +439,17 @@
         "system.runtime.compilerservices.unsafe.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "DKCommerceBussinesEntity/1.0.0": {
+      "type": "project",
+      "path": "../DKCommerceBussinesEntity/DKCommerceBussinesEntity.csproj",
+      "msbuildProject": "../DKCommerceBussinesEntity/DKCommerceBussinesEntity.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
       "AutoMapper >= 13.0.1",
+      "DKCommerceBussinesEntity >= 1.0.0",
       "Microsoft.AspNetCore.JsonPatch >= 8.0.7",
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 8.0.7",
       "Newtonsoft.Json >= 13.0.3"
@@ -466,7 +482,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\DKCommerceBussinesEntity.csproj": {
+              "projectPath": "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\DKCommerceBussinesEntity.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

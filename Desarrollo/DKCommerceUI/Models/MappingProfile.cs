@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using DKCommerceBussinesEntity;
+using DKCommerceUI.Models;
 using MercurioBE;
 
 namespace MercurioUI.Models
@@ -7,8 +9,8 @@ namespace MercurioUI.Models
     {
         public MappingProfile()
         {
-            CreateMap<ProductoModel, Producto>();
-            CreateMap<Producto, ProductoModel>();
+            CreateMap<ProductoModel, ProductoBE>();
+            CreateMap<ProductoBE, ProductoModel>();
 
             CreateMap<Categoria, CategoriaModel>();
             CreateMap<CategoriaModel, CategoriaModel>();
