@@ -30,6 +30,11 @@ namespace DKCommerceUI.Controllers
             // Es decir
             // Devuelve la página web al navegador en la pc del usuario
         }
-
+        [HttpGet]
+        [Route("nuevo")]
+        public IActionResult Nuevo()
+        {
+            return View();
+        }
     }
 }
