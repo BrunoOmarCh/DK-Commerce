@@ -1,5 +1,148 @@
 [
   {
+    "ContainingType": "DKCommerceAPI.Controllers.ProductoController",
+    "Method": "Delete",
+    "RelativePath": "api/producto/delete/{idProducto}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idProducto",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DKCommerceAPI.Controllers.ProductoController",
+    "Method": "Insert",
+    "RelativePath": "api/producto/insert",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "beProducto",
+        "Type": "DKCommerceBussinesEntity.ProductoBE",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DKCommerceAPI.Controllers.ProductoController",
+    "Method": "Paginacion",
+    "RelativePath": "api/producto/paginacion/{texto}/{tama\u00F1oPagina}/{nroPagina}/{nombreColumna}/{orderBy}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "texto",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "tama\u00F1oPagina",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "nroPagina",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "nombreColumna",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "orderBy",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[DKCommerceBussinesEntity.ProductoBE, DKCommerceBussinesEntity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DKCommerceAPI.Controllers.ProductoController",
+    "Method": "SelectById",
+    "RelativePath": "api/producto/select-by-id/{idProducto}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idProducto",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DKCommerceBussinesEntity.ProductoBE",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DKCommerceAPI.Controllers.ProductoController",
+    "Method": "Update",
+    "RelativePath": "api/producto/update/{idProducto}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idProducto",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "beProducto",
+        "Type": "DKCommerceBussinesEntity.ProductoBE",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "DKCommerceAPI.Controllers.ProveedorController",
     "Method": "Delete",
     "RelativePath": "api/proveedor/delete/{ProveedorId}",

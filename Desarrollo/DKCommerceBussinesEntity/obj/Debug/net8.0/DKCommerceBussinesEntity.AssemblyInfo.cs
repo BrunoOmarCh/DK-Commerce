@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DKCommerceBussinesEntity")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+30a883c82a996cece193f6b1d173f8a173977c29")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5eeb98b99c26278a2d7be587a9b5768896dd671e")]
 [assembly: System.Reflection.AssemblyProductAttribute("DKCommerceBussinesEntity")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DKCommerceBussinesEntity")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

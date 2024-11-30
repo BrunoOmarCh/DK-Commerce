@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DKCommerceAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9186747a3f2a87b60368d7d4246af6dcbc8f45a2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5eeb98b99c26278a2d7be587a9b5768896dd671e")]
 [assembly: System.Reflection.AssemblyProductAttribute("DKCommerceAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DKCommerceAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

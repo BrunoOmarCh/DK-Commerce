@@ -49,7 +49,7 @@ namespace DKCommerceDataAccess
                             beProducto.CategoriaId = int.Parse(dr["CategoriaId"].ToString()!);
                             beProducto.CantidadPorUnidad = Convert.ToString(dr["CantidadPorUnidad"]);
                             beProducto.PrecioLista = decimal.Parse(dr["PrecioLista"].ToString()!);
-                            if (dr["Descuento"] != DBNull.Value)
+                            /*if (dr["Descuento"] != DBNull.Value)
                             {
                                 beProducto.Descuento = decimal.Parse(dr["Descuento"].ToString()!);
                             }
@@ -60,14 +60,18 @@ namespace DKCommerceDataAccess
                             if (dr["Isc"] != DBNull.Value)
                             {
                                 beProducto.Isc = decimal.Parse(dr["Isc"].ToString()!);
-                            }
+                            }*/
+
+                            beProducto.Descuento = dr["Descuento"] != DBNull.Value ? (decimal?)dr["Descuento"] : null;
+                            beProducto.Igv = dr["Igv"] != DBNull.Value ? (decimal?)dr["Igv"] : null;
+                            beProducto.Isc = dr["Isc"] != DBNull.Value ? (decimal?)dr["Isc"] : null;
+
                             beProducto.PrecioVenta = decimal.Parse(dr["PrecioVenta"].ToString()!);
                             beProducto.UnidadesEnExistencia = short.Parse(dr["UnidadesEnExistencia"].ToString()!);
                             beProducto.UnidadesEnPedido = short.Parse(dr["UnidadesEnPedido"].ToString()!);
                             beProducto.NivelNuevoPedido = short.Parse(dr["NivelNuevoPedido"].ToString()!);
                             beProducto.Suspendido = bool.Parse(dr["Suspendido"].ToString()!);
                         }
-                        
                         return beProducto;
                     }
                     catch (Exception ex)
