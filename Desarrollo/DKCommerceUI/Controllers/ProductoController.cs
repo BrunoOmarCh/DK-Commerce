@@ -83,5 +83,34 @@ namespace DKCommerceUI.Controllers
                 throw ex;
             }
         }
+        [HttpPost]
+        [Route("insert")]
+        public async Task Insert(string producto)// Si el método es asíncrono y no devuelve valor debe ser Task
+        {
+            try
+            {
+                var dtoProducto = JsonConvert.DeserializeObject<ProductoModel>(producto);
+
+                using (var cliente = new HttpClient())
+                {
+                    cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                    cliente.DefaultRequestHeaders.Clear();
+                    cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    // Pendiente: Convertir de Model a Entity
+                    //Encoding.UTF8: Tipo de texto con tíldes y dieresis
+                    var beProducto = _mapper.Map<ProductoBE>(dtoProducto);
+                    var jsonContent = new StringContent(JsonConvert.SerializeObject(beProducto), Encoding.UTF8, "application/json");
+                    var res = await cliente.PostAsync("api/producto/insert", jsonContent);
+                    if (!res.IsSuccessStatusCode)// Si el mensaje indica no éxito, disparar una excepción.
+                    {
+                        throw new Exception(res.StatusCode.ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
