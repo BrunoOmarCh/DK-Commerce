@@ -15,6 +15,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\DKCommerceBussinesEntity\DKCommerceBussinesEntity.csproj" />
+	  <ProjectReference Include="..\Libreria\Libreria.csproj" />
 	</ItemGroup>
 	
 
