@@ -135,6 +135,24 @@ namespace DKCommerceUI.Controllers
             }
         }
 
+        [HttpDelete]
+        [Route("delete/{idProducto}")]
+        public async Task Delete(int idProducto)
+        {
+            using (var cliente = new HttpClient())
+            {
+                cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("MercurioApi"));
+                cliente.DefaultRequestHeaders.Clear();
+                cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var res = await cliente.DeleteAsync("api/producto/delete/" + idProducto + "/");
+                if (!res.IsSuccessStatusCode)
+                {
+                    throw new Exception(res.StatusCode.ToString());
+                }
+            }
+        }
+
 
     }
 }
