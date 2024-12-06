@@ -141,7 +141,7 @@ namespace DKCommerceUI.Controllers
         {
             using (var cliente = new HttpClient())
             {
-                cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("MercurioApi"));
+                cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
                 cliente.DefaultRequestHeaders.Clear();
                 cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -154,5 +154,35 @@ namespace DKCommerceUI.Controllers
         }
 
 
+        [HttpGet]
+        [Route("paginacion/{texto}/{tamañoPagina}/{nroPagina}/{nombreColumna}/{orderBy?}")]
+        public async Task<JsonResult> Paginacion(string texto, int tamañoPagina, int nroPagina, string nombreColumna, bool? orderBy)
+        {
+            List<ProductoModel> mdlProductosList;
+
+            using (var cliente = new HttpClient())
+            {
+                cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                cliente.DefaultRequestHeaders.Clear();
+                cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var res = await cliente.GetAsync("api/producto/paginacion/" + texto + "/" +
+                    tamañoPagina + "/" +
+                    nroPagina + "/" +
+                    nombreColumna + "/" +
+                    Conversiones.ToValueOrStringNull(orderBy) + "/");// Si es null convertirlo a "null"
+                if (res.IsSuccessStatusCode)
+                {
+                    var productLstResult = res.Content.ReadAsStringAsync().Result;
+                    mdlProductosList = JsonConvert.DeserializeObject<List<ProductoModel>>(productLstResult)!;
+                }
+                else
+                {
+                    throw new Exception(res.StatusCode.ToString());
+                }
+            }
+
+            return Json(mdlProductosList);
+        }
     }
 }
