@@ -112,5 +112,29 @@ namespace DKCommerceUI.Controllers
                 throw ex;
             }
         }
+
+        [HttpPut]
+        [Route("update/{idProducto}")]
+        public async Task Update(int idProducto, string producto)
+        {
+            var dtoProducto = JsonConvert.DeserializeObject<ProductoModel>(producto);
+
+            using (var cliente = new HttpClient())
+            {
+                cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("MercurioApi"));
+                cliente.DefaultRequestHeaders.Clear();
+                cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var beProducto = _mapper.Map<Producto>(dtoProducto);
+                var jsonContent = new StringContent(JsonConvert.SerializeObject(beProducto), Encoding.UTF8, "application/json");
+                var res = await cliente.PutAsync("api/producto/update/" + idProducto, jsonContent);
+                if (!res.IsSuccessStatusCode)
+                {
+                    throw new Exception(res.StatusCode.ToString());
+                }
+            }
+        }
+
+
     }
 }
