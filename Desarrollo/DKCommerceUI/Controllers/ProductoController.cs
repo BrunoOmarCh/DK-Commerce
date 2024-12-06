@@ -121,11 +121,11 @@ namespace DKCommerceUI.Controllers
 
             using (var cliente = new HttpClient())
             {
-                cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("MercurioApi"));
+                cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
                 cliente.DefaultRequestHeaders.Clear();
                 cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var beProducto = _mapper.Map<Producto>(dtoProducto);
+                var beProducto = _mapper.Map<ProductoBE>(dtoProducto);
                 var jsonContent = new StringContent(JsonConvert.SerializeObject(beProducto), Encoding.UTF8, "application/json");
                 var res = await cliente.PutAsync("api/producto/update/" + idProducto, jsonContent);
                 if (!res.IsSuccessStatusCode)
