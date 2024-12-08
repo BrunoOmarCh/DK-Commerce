@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DKCommerceUI.Controllers
 {
+    [Route("proveedor")]
+
     public class ProveedorController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        private readonly IMapper _mapper;
+
     }
 }
