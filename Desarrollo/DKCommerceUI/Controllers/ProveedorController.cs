@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DKCommerceBussinesEntity;
 using Libreria;
 using MercurioUI.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -53,7 +54,7 @@ namespace DKCommerceUI.Controllers
                 if (res.IsSuccessStatusCode)
                 {
                     var mainProductoResult = await res.Content.ReadAsStringAsync();
-                    var beProveedor = JsonConvert.DeserializeObject<Proveedor>(mainProductoResult);
+                    var beProveedor = JsonConvert.DeserializeObject<ProveedorBE>(mainProductoResult);
 
                     dtoProveedor = _mapper.Map<ProveedorModel>(beProveedor);
                 }
