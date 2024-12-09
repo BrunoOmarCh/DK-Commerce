@@ -121,7 +121,7 @@ namespace DKCommerceUI.Controllers
                     cliente.DefaultRequestHeaders.Clear();
                     cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    var beProveedor = _mapper.Map<Proveedor>(dtoProveedor);
+                    var beProveedor = _mapper.Map<ProveedorBE>(dtoProveedor);
                     var jsonContent = new StringContent(JsonConvert.SerializeObject(beProveedor), Encoding.UTF8, "application/json");
 
                     var res = await cliente.PostAsync("api/proveedor/insert", jsonContent);
