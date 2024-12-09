@@ -117,7 +117,7 @@ namespace DKCommerceUI.Controllers
                 var dtoProveedor = JsonConvert.DeserializeObject<ProveedorModel>(jsonProveedor);
                 using (var cliente = new HttpClient())
                 {
-                    cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("PlutonApi"));
+                    cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
                     cliente.DefaultRequestHeaders.Clear();
                     cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -134,6 +134,23 @@ namespace DKCommerceUI.Controllers
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+        [HttpDelete]
+        [Route("delete/{proveedorId}")]
+        public async Task Delete(int proveedorId)
+        {
+            using (var cliente = new HttpClient())
+            {
+                cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                cliente.DefaultRequestHeaders.Clear();
+                cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var res = await cliente.DeleteAsync("api/proveedor/delete/" + proveedorId + "/");
+                if (!res.IsSuccessStatusCode)
+                {
+                    throw new Exception(res.StatusCode.ToString());
+                }
             }
         }
 
