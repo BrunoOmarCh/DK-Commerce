@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DKCommerceBussinesEntity;
+using DKCommerceUI.Models;
 using Libreria;
 using MercurioUI.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -39,11 +40,11 @@ namespace DKCommerceUI.Controllers
         public async Task<CategoriaModel> SelectById(int categoriaId)
         {
             CategoriaModel dtoCategoria = null;
-            Categoria beCategoria = null;
+            CategoriaBE beCategoria = null;
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("MercurioApi"));
+                client.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceApi"));
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -51,7 +52,7 @@ namespace DKCommerceUI.Controllers
                 if (res.IsSuccessStatusCode)
                 {
                     var categoriaResult = res.Content.ReadAsStringAsync().Result;// Se lee la respuesta
-                    beCategoria = JsonConvert.DeserializeObject<Categoria>(categoriaResult)!;
+                    beCategoria = JsonConvert.DeserializeObject<CategoriaBE>(categoriaResult)!;
                     dtoCategoria = _mapper.Map<CategoriaModel>(beCategoria);
 
                 }
