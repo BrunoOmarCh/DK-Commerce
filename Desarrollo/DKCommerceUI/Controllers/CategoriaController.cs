@@ -24,6 +24,11 @@ namespace DKCommerceUI.Controllers
         {
             return View();
         }
-
+        [HttpGet]
+        [Route("nuevo")]
+        public IActionResult Nuevo()
+        {
+            return View();// Vista -> Página web
+        }
     }
 }
