@@ -4,3 +4,18 @@
 @section Styles {
     <link href="~/views/proveedor/index.css" rel="stylesheet" />
 }
+<form id="ProveedorFrm">
+    <label for="ProveedorBuscarTxt">Buscar Proveedor</label>
+    <input id="ProveedorBuscarTxt" type="text" autocomplete="off" />
+    <button id="BuscarBtn" type="button">Buscar</button>
+    <br />
+    <div id="ProveedorResult"></div>
+
+    <br><br><br>
+    <label for="ProveedorIdTxt">Proveedor </label>
+    <input id="ProveedorIdTxt" type="text" autocomplete="off" />
+    <button id="EliminarBtn" type="button">Eliminar</button>
+</form>
+@section Scripts {
+    <script src="~/views/proveedor/index.js"></script>
+}
