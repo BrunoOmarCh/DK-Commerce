@@ -1,13 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using MercurioUI.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DKCommerceUI.Controllers
 {
     [Route("categoria")]
     public class CategoriaController : Controller
     {
-        public IActionResult Index()
+        private IMapper _mapper;// IMapper: Es una interfaz, es decir, permite 'herededar' de una clase adicional
+
+        public CategoriaController()
         {
-            return View();
+            var config = new MapperConfiguration(
+                x =>
+                {
+                    x.AddProfile(new MappingProfile());
+                });
+            _mapper = config.CreateMapper();
         }
+
     }
 }
