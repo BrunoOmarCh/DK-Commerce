@@ -17,6 +17,10 @@
 	  <ProjectReference Include="..\DKCommerceBussinesEntity\DKCommerceBussinesEntity.csproj" />
 	  <ProjectReference Include="..\Libreria\Libreria.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="wwwroot\imagenes\" />
+	</ItemGroup>
 	
 
 </Project>
