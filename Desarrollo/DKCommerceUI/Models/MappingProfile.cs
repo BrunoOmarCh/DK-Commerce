@@ -13,6 +13,10 @@ namespace MercurioUI.Models
 
             CreateMap<ProveedorModel, ProveedorBE>();
             CreateMap<ProveedorBE, ProveedorModel>();
+
+            CreateMap<CategoriaModel,CategoriaBE>();
+            CreateMap<CategoriaBE, CategoriaModel>();
+
         }
     }
 }
