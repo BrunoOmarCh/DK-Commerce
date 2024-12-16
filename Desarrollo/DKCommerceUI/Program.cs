@@ -1,5 +1,10 @@
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllersWithViews().AddNewtonsoftJson(opt =>
+{
+    opt.UseMemberCasing();
+});
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
