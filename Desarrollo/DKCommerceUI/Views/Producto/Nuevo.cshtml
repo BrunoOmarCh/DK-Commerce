@@ -1,5 +1,28 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
+@section Styles {
+    <link href="~/views/producto/nuevo.css" rel="stylesheet" />
+}
+<form id="NuevoFrm">
+    <button id="GuardarBtn" type="button">Guardar</button>
+
+    <label for="NombreTxt">Nombre</label>
+    <input id="NombreTxt" type="text" autocomplete="off" />
+
+    <br />
+    <label for="PrecioTxt">Precio</label>
+    <input id="PrecioTxt" type="number" autocomplete="off" />
+
+    <br />
+    <label for="ProveedorId">ProveedorId</label>
+    <input id="ProveedorIdTxt" type="number" autocomplete="off" />
+
+    <br />
+    <label for="CategoriaId">CategoriaId</label>
+    <input id="CategoriaIdTxt" type="number" autocomplete="off" />
+</form>
+<!-- Se añaden aqui elementos ocultos -->
+@section Scripts {
+    <script src="~/views/producto/nuevo.js"></script>
 }
