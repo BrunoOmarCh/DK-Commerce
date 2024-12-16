@@ -1,5 +1,53 @@
 [
   {
+    "ContainingType": "DKCommerceAPI.Controllers.CategoriaController",
+    "Method": "Insert",
+    "RelativePath": "api/categoria/insert",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "beCategoria",
+        "Type": "DKCommerceBussinesEntity.CategoriaBE",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "DKCommerceAPI.Controllers.CategoriaController",
+    "Method": "SelectById",
+    "RelativePath": "api/categoria/select-by-id/{categoriaId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoriaId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "DKCommerceBussinesEntity.CategoriaBE",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "DKCommerceAPI.Controllers.ProductoController",
     "Method": "Delete",
     "RelativePath": "api/producto/delete/{idProducto}",
