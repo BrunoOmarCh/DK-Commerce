@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceAPI\\DKCommerceAPI.csproj": {}
+    "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceAPI\\DKCommerceAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceAPI\\DKCommerceAPI.csproj": {
+    "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceAPI\\DKCommerceAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceAPI\\DKCommerceAPI.csproj",
+        "projectUniqueName": "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceAPI\\DKCommerceAPI.csproj",
         "projectName": "DKCommerceAPI",
-        "projectPath": "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceAPI\\DKCommerceAPI.csproj",
-        "packagesPath": "C:\\Users\\ROBERTO-SN850\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceAPI\\obj\\",
+        "projectPath": "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceAPI\\DKCommerceAPI.csproj",
+        "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\USUARIO\\Desktop\\DKCOmmerce\\DK-Commerce\\Desarrollo\\DKCommerceAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ROBERTO-SN850\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -29,11 +29,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\DKCommerceBussinesEntity.csproj": {
-                "projectPath": "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\DKCommerceBussinesEntity.csproj"
+              "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\DKCommerceBussinesEntity.csproj": {
+                "projectPath": "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\DKCommerceBussinesEntity.csproj"
               },
-              "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesLogic\\DKCommerceBussinesLogic.csproj": {
-                "projectPath": "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesLogic\\DKCommerceBussinesLogic.csproj"
+              "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesLogic\\DKCommerceBussinesLogic.csproj": {
+                "projectPath": "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesLogic\\DKCommerceBussinesLogic.csproj"
               }
             }
           }
@@ -77,21 +77,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\DKCommerceBussinesEntity.csproj": {
+    "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\DKCommerceBussinesEntity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\DKCommerceBussinesEntity.csproj",
+        "projectUniqueName": "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\DKCommerceBussinesEntity.csproj",
         "projectName": "DKCommerceBussinesEntity",
-        "projectPath": "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\DKCommerceBussinesEntity.csproj",
-        "packagesPath": "C:\\Users\\ROBERTO-SN850\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\obj\\",
+        "projectPath": "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\DKCommerceBussinesEntity.csproj",
+        "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\USUARIO\\Desktop\\DKCOmmerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ROBERTO-SN850\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -138,21 +138,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesLogic\\DKCommerceBussinesLogic.csproj": {
+    "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesLogic\\DKCommerceBussinesLogic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesLogic\\DKCommerceBussinesLogic.csproj",
+        "projectUniqueName": "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesLogic\\DKCommerceBussinesLogic.csproj",
         "projectName": "DKCommerceBussinesLogic",
-        "projectPath": "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesLogic\\DKCommerceBussinesLogic.csproj",
-        "packagesPath": "C:\\Users\\ROBERTO-SN850\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesLogic\\obj\\",
+        "projectPath": "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesLogic\\DKCommerceBussinesLogic.csproj",
+        "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\USUARIO\\Desktop\\DKCOmmerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesLogic\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ROBERTO-SN850\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -167,11 +167,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\DKCommerceBussinesEntity.csproj": {
-                "projectPath": "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\DKCommerceBussinesEntity.csproj"
+              "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\DKCommerceBussinesEntity.csproj": {
+                "projectPath": "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\DKCommerceBussinesEntity.csproj"
               },
-              "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceDataAccess\\DKCommerceDataAccess.csproj": {
-                "projectPath": "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceDataAccess\\DKCommerceDataAccess.csproj"
+              "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceDataAccess\\DKCommerceDataAccess.csproj": {
+                "projectPath": "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceDataAccess\\DKCommerceDataAccess.csproj"
               }
             }
           }
@@ -206,21 +206,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceDataAccess\\DKCommerceDataAccess.csproj": {
+    "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceDataAccess\\DKCommerceDataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceDataAccess\\DKCommerceDataAccess.csproj",
+        "projectUniqueName": "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceDataAccess\\DKCommerceDataAccess.csproj",
         "projectName": "DKCommerceDataAccess",
-        "projectPath": "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceDataAccess\\DKCommerceDataAccess.csproj",
-        "packagesPath": "C:\\Users\\ROBERTO-SN850\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceDataAccess\\obj\\",
+        "projectPath": "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceDataAccess\\DKCommerceDataAccess.csproj",
+        "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\USUARIO\\Desktop\\DKCOmmerce\\DK-Commerce\\Desarrollo\\DKCommerceDataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ROBERTO-SN850\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -235,11 +235,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\DKCommerceBussinesEntity.csproj": {
-                "projectPath": "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\DKCommerceBussinesEntity.csproj"
+              "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\DKCommerceBussinesEntity.csproj": {
+                "projectPath": "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesEntity\\DKCommerceBussinesEntity.csproj"
               },
-              "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\Libreria\\Libreria.csproj": {
-                "projectPath": "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\Libreria\\Libreria.csproj"
+              "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\Libreria\\Libreria.csproj": {
+                "projectPath": "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\Libreria\\Libreria.csproj"
               }
             }
           }
@@ -284,21 +284,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\Libreria\\Libreria.csproj": {
+    "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\Libreria\\Libreria.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\Libreria\\Libreria.csproj",
+        "projectUniqueName": "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\Libreria\\Libreria.csproj",
         "projectName": "Libreria",
-        "projectPath": "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\Libreria\\Libreria.csproj",
-        "packagesPath": "C:\\Users\\ROBERTO-SN850\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ROBERTO-SN850\\Desktop\\DK Commerce\\DK-Commerce\\Desarrollo\\Libreria\\obj\\",
+        "projectPath": "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\Libreria\\Libreria.csproj",
+        "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\USUARIO\\Desktop\\DKCOmmerce\\DK-Commerce\\Desarrollo\\Libreria\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ROBERTO-SN850\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -355,7 +355,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
