@@ -6,7 +6,7 @@ function fnEliminar(idProducto) {
         contentType: "application/json; chartset=utf-8",// Trabaja con objetos Json; en formato UTF-8 (soporta tildes)
         async: true,
         cache: false,
-        url: "https://localhost:7178/producto/delete/" + idProducto,
+        url: "https://localhost:7220/producto/delete/" + idProducto,
         success: function () {
             alert("Se eliminó el producto de código '" + idProducto + "', con éxito.");
         },
