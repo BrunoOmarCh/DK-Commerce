@@ -139,10 +139,7 @@
       },
       "DKCommerceBussinesEntity/1.0.0": {
         "runtime": {
-          "DKCommerceBussinesEntity.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "DKCommerceBussinesEntity.dll": {}
         }
       },
       "Libreria/1.0.0": {
@@ -151,10 +148,7 @@
           "Microsoft.Extensions.Configuration.Json": "8.0.0"
         },
         "runtime": {
-          "Libreria.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "Libreria.dll": {}
         }
       }
     }

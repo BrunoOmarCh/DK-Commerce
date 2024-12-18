@@ -1,3 +1,24 @@
 .vs/
 *.suo
 *.user
+
+# Ignorar carpetas bin y obj en cualquier subdirectorio
+**/bin/
+**/obj/
+
+# Archivos generados automáticamente
+*.pdb
+*.dll
+*.exe
+*.deps.json
+*.runtimeconfig.json
+*.cache
+*.sourcelink.json
+*.FileListAbsolute.txt
+
+# Logs y otros archivos temporales
+*.log
+
+# Archivos específicos de Visual Studio
+.vs/
+

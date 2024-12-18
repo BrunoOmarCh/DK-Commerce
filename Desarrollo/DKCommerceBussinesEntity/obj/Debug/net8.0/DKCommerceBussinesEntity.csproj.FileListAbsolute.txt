@@ -10,3 +10,15 @@ C:\Users\ROBERTO-SN850\Desktop\DK Commerce\DK-Commerce\Desarrollo\DKCommerceBuss
 C:\Users\ROBERTO-SN850\Desktop\DK Commerce\DK-Commerce\Desarrollo\DKCommerceBussinesEntity\obj\Debug\net8.0\refint\DKCommerceBussinesEntity.dll
 C:\Users\ROBERTO-SN850\Desktop\DK Commerce\DK-Commerce\Desarrollo\DKCommerceBussinesEntity\obj\Debug\net8.0\DKCommerceBussinesEntity.pdb
 C:\Users\ROBERTO-SN850\Desktop\DK Commerce\DK-Commerce\Desarrollo\DKCommerceBussinesEntity\obj\Debug\net8.0\ref\DKCommerceBussinesEntity.dll
+C:\Users\USUARIO\Desktop\DKCommerce\DK-Commerce\Desarrollo\DKCommerceBussinesEntity\bin\Debug\net8.0\DKCommerceBussinesEntity.deps.json
+C:\Users\USUARIO\Desktop\DKCommerce\DK-Commerce\Desarrollo\DKCommerceBussinesEntity\bin\Debug\net8.0\DKCommerceBussinesEntity.dll
+C:\Users\USUARIO\Desktop\DKCommerce\DK-Commerce\Desarrollo\DKCommerceBussinesEntity\bin\Debug\net8.0\DKCommerceBussinesEntity.pdb
+C:\Users\USUARIO\Desktop\DKCommerce\DK-Commerce\Desarrollo\DKCommerceBussinesEntity\obj\Debug\net8.0\DKCommerceBussinesEntity.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USUARIO\Desktop\DKCommerce\DK-Commerce\Desarrollo\DKCommerceBussinesEntity\obj\Debug\net8.0\DKCommerceBussinesEntity.AssemblyInfoInputs.cache
+C:\Users\USUARIO\Desktop\DKCommerce\DK-Commerce\Desarrollo\DKCommerceBussinesEntity\obj\Debug\net8.0\DKCommerceBussinesEntity.AssemblyInfo.cs
+C:\Users\USUARIO\Desktop\DKCommerce\DK-Commerce\Desarrollo\DKCommerceBussinesEntity\obj\Debug\net8.0\DKCommerceBussinesEntity.csproj.CoreCompileInputs.cache
+C:\Users\USUARIO\Desktop\DKCommerce\DK-Commerce\Desarrollo\DKCommerceBussinesEntity\obj\Debug\net8.0\DKCommerceBussinesEntity.sourcelink.json
+C:\Users\USUARIO\Desktop\DKCommerce\DK-Commerce\Desarrollo\DKCommerceBussinesEntity\obj\Debug\net8.0\DKCommerceBussinesEntity.dll
+C:\Users\USUARIO\Desktop\DKCommerce\DK-Commerce\Desarrollo\DKCommerceBussinesEntity\obj\Debug\net8.0\refint\DKCommerceBussinesEntity.dll
+C:\Users\USUARIO\Desktop\DKCommerce\DK-Commerce\Desarrollo\DKCommerceBussinesEntity\obj\Debug\net8.0\DKCommerceBussinesEntity.pdb
+C:\Users\USUARIO\Desktop\DKCommerce\DK-Commerce\Desarrollo\DKCommerceBussinesEntity\obj\Debug\net8.0\ref\DKCommerceBussinesEntity.dll

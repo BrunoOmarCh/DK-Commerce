@@ -195,10 +195,7 @@
       },
       "DKCommerceBussinesEntity/1.0.0": {
         "runtime": {
-          "DKCommerceBussinesEntity.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "DKCommerceBussinesEntity.dll": {}
         }
       },
       "DKCommerceBussinesLogic/1.0.0": {
@@ -207,10 +204,7 @@
           "DKCommerceDataAccess": "1.0.0"
         },
         "runtime": {
-          "DKCommerceBussinesLogic.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "DKCommerceBussinesLogic.dll": {}
         }
       },
       "DKCommerceDataAccess/1.0.0": {
@@ -221,10 +215,7 @@
           "System.Data.SqlClient": "4.8.6"
         },
         "runtime": {
-          "DKCommerceDataAccess.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "DKCommerceDataAccess.dll": {}
         }
       },
       "Libreria/1.0.0": {
@@ -233,10 +224,7 @@
           "Microsoft.Extensions.Configuration.Json": "8.0.0"
         },
         "runtime": {
-          "Libreria.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "Libreria.dll": {}
         }
       }
     }
