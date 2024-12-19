@@ -13,16 +13,27 @@ namespace DKCommerceUI.Controllers
     [Route("categoria")]
     public class CategoriaController : Controller
     {
-        private IMapper _mapper;// IMapper: Es una interfaz, es decir, permite 'herededar' de una clase adicional
+        //private readonly IMapper _mapper;
+
+        private IMapper _mapper;// IMapper: Es una interfaz, es decir,
+        //permite heredar de una clase adicional
 
         public CategoriaController()
         {
+            /*var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
+            });
+            _mapper = config.CreateMapper();*/
+
             var config = new MapperConfiguration(
                 x =>
                 {
                     x.AddProfile(new MappingProfile());
-                });
+                }
+                );
             _mapper = config.CreateMapper();
+
         }
         [HttpGet]
         [Route("index")]
@@ -40,26 +51,31 @@ namespace DKCommerceUI.Controllers
         [Route("select-by-id/{categoriaId}")]
         public async Task<CategoriaModel> SelectById(int categoriaId)
         {
-            CategoriaModel dtoCategoria = null;
-            CategoriaBE beCategoria = null;
-
-            using (var client = new HttpClient())
+            try
             {
-                client.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceApi"));
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                CategoriaModel dtoCategoria = null;
+                CategoriaBE beCategoria = null;
 
-                var res = await client.GetAsync("api/categoria/select-by-id" + categoriaId + "/");
-                if (res.IsSuccessStatusCode)
+                using (var cliente = new HttpClient())
                 {
-                    var categoriaResult = res.Content.ReadAsStringAsync().Result;// Se lee la respuesta
-                    beCategoria = JsonConvert.DeserializeObject<CategoriaBE>(categoriaResult)!;
-                    dtoCategoria = _mapper.Map<CategoriaModel>(beCategoria);
+                    cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                    cliente.DefaultRequestHeaders.Clear();
+                    cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+                    var res = await cliente.GetAsync("api/categoria/select-by-id/" + categoriaId + "/");
+                    if (res.IsSuccessStatusCode)
+                    {
+                        var categoriaResult = res.Content.ReadAsStringAsync().Result;
+                        beCategoria = JsonConvert.DeserializeObject<CategoriaBE>(categoriaResult)!;
+                        dtoCategoria = _mapper.Map<CategoriaModel>(beCategoria);
+                    }
                 }
+                return dtoCategoria;
             }
-
-            return dtoCategoria;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         [HttpPost]
         [Route("insert")]
