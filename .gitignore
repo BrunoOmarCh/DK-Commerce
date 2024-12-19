@@ -1,3 +1,4 @@
+# Archivos específicos de Visual Studio
 .vs/
 *.suo
 *.user
@@ -18,7 +19,4 @@
 
 # Logs y otros archivos temporales
 *.log
-
-# Archivos específicos de Visual Studio
-.vs/
 

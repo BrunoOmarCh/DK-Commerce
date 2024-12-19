@@ -72,7 +72,7 @@
         "projectName": "DKCommerceBussinesLogic",
         "projectPath": "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesLogic\\DKCommerceBussinesLogic.csproj",
         "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\USUARIO\\Desktop\\DKCOmmerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesLogic\\obj\\",
+        "outputPath": "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceBussinesLogic\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -140,7 +140,7 @@
         "projectName": "DKCommerceDataAccess",
         "projectPath": "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceDataAccess\\DKCommerceDataAccess.csproj",
         "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\USUARIO\\Desktop\\DKCOmmerce\\DK-Commerce\\Desarrollo\\DKCommerceDataAccess\\obj\\",
+        "outputPath": "C:\\Users\\USUARIO\\Desktop\\DKCommerce\\DK-Commerce\\Desarrollo\\DKCommerceDataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config",

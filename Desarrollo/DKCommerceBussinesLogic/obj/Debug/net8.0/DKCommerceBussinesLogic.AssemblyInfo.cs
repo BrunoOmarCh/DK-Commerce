@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DKCommerceBussinesLogic")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+12d700667f86348d5ee32f63dd1be466d3228e89")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e0074722687eb778f742aa186335ec96d039f1ee")]
 [assembly: System.Reflection.AssemblyProductAttribute("DKCommerceBussinesLogic")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DKCommerceBussinesLogic")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
