@@ -9,19 +9,23 @@ namespace DKCommerceAPI.Controllers
     [Route("api/categoria")]
     public class CategoriaController : ControllerBase
     {
-        [HttpGet]
-        [Route("select-by-id/{categoriaId}")]
-        public CategoriaBE SelectById(int categoriaId)
+        [HttpGet]// Método HTTP GET
+        [Route("select-by-id/{idCategoria}")]// Ruta en la web del método
+        public CategoriaBE SelectById(int idCategoria)
         {
             var blCategoria = new CategoriaBL();
 
-            return blCategoria.SelectById(categoriaId);
+            return blCategoria.SelectById(idCategoria);
         }
+
 
         [HttpPost]
         [Route("insert")]
         public void Insert(CategoriaBE beCategoria)
         {
+            //Nota
+            // Verificar que los campos obligatorios de la base de datos esten completos.
+            // Api Rest no siempre informa de los errores.
             var blCategoria = new CategoriaBL();
 
             blCategoria.Insert(beCategoria);
@@ -33,6 +37,15 @@ namespace DKCommerceAPI.Controllers
             var blCategoria = new CategoriaBL();
 
             blCategoria.Update(CategoriaId, beCategoria);
+        }
+
+        [HttpDelete]
+        [Route("delete/{CategoriaId}")]
+        public void Delete(int CategoriaId)
+        {
+            var blCategoria = new CategoriaBL();
+
+            blCategoria.Delete(CategoriaId);
         }
 
     }
