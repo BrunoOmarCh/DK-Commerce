@@ -26,7 +26,7 @@ function fnGet(idProveedor) {
         dataType: "json",
         async: true,
         cache: false,
-        url: "https://localhost:7138/proveedor/select-by-id/" + idProveedor,
+        url: "https://localhost:7220/proveedor/select-by-id/" + idProveedor,
         success: function (data) {
             console.info("data:", data);
             var proveedor = "Nombre: " + data.Nombre + "<br>" +
