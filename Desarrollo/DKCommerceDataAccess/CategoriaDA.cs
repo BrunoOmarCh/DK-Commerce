@@ -98,6 +98,40 @@ namespace DKCommerceDataAccess
         }
 
 
+        public void Update(int idCategoria, Categoria beCategoria)
+        {
+            var conn = Configuration.GetConnectionString("Mercurio");
 
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    using (var sqlTran = sqlCon.BeginTransaction())
+                    {
+                        try
+                        {
+                            sqlCmd.Connection = sqlCon;
+                            sqlCmd.CommandText = UpCategoriaUpdate;
+                            sqlCmd.CommandType = CommandType.StoredProcedure;
+                            sqlCmd.Transaction = sqlTran;
+
+                            sqlCmd.Parameters.Add("@CategoriaId", SqlDbType.Int).Value = idCategoria;
+                            sqlCmd.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = beCategoria.Nombre;
+                            sqlCmd.Parameters.Add("@Descripcion", SqlDbType.NVarChar).Value = beCategoria.Descripcion;
+                            sqlCmd.Parameters.Add("@Suspendido", SqlDbType.Bit).Value = beCategoria.Suspendido;
+
+                            sqlCmd.ExecuteNonQuery();
+                            sqlTran.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            sqlTran?.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
