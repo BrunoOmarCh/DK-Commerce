@@ -21,7 +21,7 @@ function fnInsert() {
         async: true,
         cache: false,
         data: { proveedor: JSON.stringify(proveedor) },
-        url: "https://localhost:7138/proveedor/insert",
+        url: "https://localhost:7220/proveedor/insert",
         dataType: "text",
         crossDomain: true,
         success: function () {
