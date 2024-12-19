@@ -16,7 +16,7 @@ function fnUpdate(idProveedor) {
     };
 
     console.log("Datos del proveedor:", proveedor);
-    console.log("URL de la solicitud:", "https://localhost:7138/proveedor/update/" + idProveedor);
+    console.log("URL de la solicitud:", "https://localhost:7220/proveedor/update/" + idProveedor);
 
     $.ajax({
         type: "PUT",
