@@ -74,7 +74,6 @@ namespace DKCommerceDataAccess
                 }
             }
         }
-
         public void Insert(ProductoBE beProducto)
         {
             var conn = Configuration.GetConnectionString("Dk Commerce");
@@ -124,6 +123,7 @@ namespace DKCommerceDataAccess
                 }
             }
         }
+
 
 
 
