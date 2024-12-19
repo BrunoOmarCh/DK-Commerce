@@ -24,7 +24,7 @@ function fnUpdate(idProveedor) {
         cache: false,
         data: JSON.stringify(proveedor),
         contentType: "application/json",
-        url: "https://localhost:7138/proveedor/update/" + idProveedor,
+        url: "https://localhost:7220/proveedor/update/" + idProveedor,
         success: function () {
             alert("Se actualizó el proveedor: " + $("#NombreTxt").val());
         },

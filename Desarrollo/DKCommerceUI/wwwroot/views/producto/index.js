@@ -26,7 +26,7 @@ function fnGet(idProducto) {
         dataType: "json",
         async: true,
         cache: false,
-        url: "https://localhost:7178/producto/select-by-id/" + idProducto,
+        url: "https://localhost:7220/producto/select-by-id/" + idProducto,
         success: function (data) {
             console.info("data:", data);
             var producto = "Nombre: " + data.NombreProducto + "<br>" +

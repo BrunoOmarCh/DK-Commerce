@@ -6,7 +6,7 @@ function fnEliminar(idProveedor) {
         contentType: "application/json; chartset=utf-8",// Trabaja con objetos Json; en formato UTF-8 (soporta tildes)
         async: true,
         cache: false,
-        url: "https://localhost:7138/proveedor/delete/" + idProveedor,
+        url: "https://localhost:7220/proveedor/delete/" + idProveedor,
         success: function () {
             alert("Se eliminó el proveedor de código '" + idProveedor + "', con éxito.");
         },
