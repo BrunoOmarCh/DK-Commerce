@@ -21,7 +21,7 @@ namespace DKCommerceDataAccess
         public ProveedorBE SelectById(int idProveedor)
         {
             ProveedorBE beProveedor = null;
-            var conn = Configuration.GetConnectionString("DK_Commerce");
+            var conn = Configuration.GetConnectionString("DK Commerce");
             SqlDataReader dr = null;
 
             using (var sqlCon = new SqlConnection(conn))
@@ -73,7 +73,7 @@ namespace DKCommerceDataAccess
 
         public void Insert(ProveedorBE beProveedor)
         {
-            var conn = Configuration.GetConnectionString("DK_Commerce");
+            var conn = Configuration.GetConnectionString("DK Commerce");
 
             using (var sqlCon = new SqlConnection(conn))
             {
@@ -155,7 +155,7 @@ namespace DKCommerceDataAccess
 
         public void Update(int idProveedor, ProveedorBE beProveedor)
         {
-            var conn = Configuration.GetConnectionString("DK_Commerce");
+            var conn = Configuration.GetConnectionString("DK Commerce");
 
             using (var sqlCon = new SqlConnection(conn))
             {
@@ -242,7 +242,7 @@ namespace DKCommerceDataAccess
 
         public void Delete(int idProveedor)
         {
-            var conn = Configuration.GetConnectionString("Pluton");
+            var conn = Configuration.GetConnectionString("DK Commerce");
 
             using (var sqlCon = new SqlConnection(conn))
             {

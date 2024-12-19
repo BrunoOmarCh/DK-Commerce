@@ -77,63 +77,60 @@ namespace DKCommerceDataAccess
 
         public void Insert(ProductoBE beProducto)
         {
-            var conn = Configuration.GetConnectionString("Dk_Commerce");
+            var conn = Configuration.GetConnectionString("Dk Commerce");
 
-            using (var sqlCon = new SqlConnection(conn)) // Conecta a la base de datos
+            using (var sqlCon = new SqlConnection(conn))
             {
                 sqlCon.Open();
-                using (var sqlCmd = new SqlCommand())// Conectará al procedure
+                using (var sqlCmd = new SqlCommand())
                 {
                     using (var sqlTran = sqlCon.BeginTransaction())
                     {
                         try
                         {
                             sqlCmd.Connection = sqlCon;
-                            sqlCmd.CommandText = UpProductoInsert;
+                            sqlCmd.CommandText = UpProductoInsert;  // Nombre del procedimiento almacenado
                             sqlCmd.CommandType = CommandType.StoredProcedure;
                             sqlCmd.Transaction = sqlTran;
 
+                            // Los valores no nulos se asignan directamente
                             sqlCmd.Parameters.Add("@NombreProducto", SqlDbType.NVarChar).Value = beProducto.NombreProducto;
-                            sqlCmd.Parameters.Add("@ProveedorId", SqlDbType.Int).Value = beProducto.ProveedorId;
-                            sqlCmd.Parameters.Add("@CategoriaId", SqlDbType.Int).Value = beProducto.CategoriaId;
-                            sqlCmd.Parameters.Add("@PrecioLista", SqlDbType.Decimal).Value = beProducto.PrecioLista;
-                            if (beProducto.Igv.HasValue)// Manejo de tipo nullable (tipo que soporta null)
-                            {
-                                sqlCmd.Parameters.Add("@Igv", SqlDbType.Decimal).Value = beProducto.Igv.Value;
-                            }
-                            else
-                            {
-                                sqlCmd.Parameters.Add("@Igv", SqlDbType.Decimal).Value = DBNull.Value;//DBNull.Value: Un valor NULL de la base de datos
-                            }
-                            if (beProducto.Isc.HasValue)
-                            {
-                                sqlCmd.Parameters.Add("@Isc", SqlDbType.Decimal).Value = beProducto.Isc.Value;
-                            }
-                            else
-                            {
-                                sqlCmd.Parameters.Add("@Isc", SqlDbType.Decimal).Value = DBNull.Value;
-                            }
-                            sqlCmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value = beProducto.PrecioVenta;
-                            // Bit en SQL Server equivalente a Booleano en C#  
                             sqlCmd.Parameters.Add("@Suspendido", SqlDbType.Bit).Value = beProducto.Suspendido;
+                            sqlCmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value = beProducto.IdProducto;
 
-                            sqlCmd.ExecuteNonQuery();//<----- Ejecuta el comando (procedure)
-                            sqlTran.Commit();//<----- Confirma la operación (transacción)
+                            // Los valores nulos se manejan con DBNull.Value (si es null en el modelo, pasamos DBNull.Value)
+                            sqlCmd.Parameters.Add("@ProveedorId", SqlDbType.Int).Value = beProducto.ProveedorId ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@CategoriaId", SqlDbType.Int).Value = beProducto.CategoriaId ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@CantidadPorUnidad", SqlDbType.NVarChar).Value = beProducto.CantidadPorUnidad ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@PrecioLista", SqlDbType.Decimal).Value = beProducto.PrecioLista ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@Descuento", SqlDbType.Decimal).Value = beProducto.Descuento ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@Igv", SqlDbType.Decimal).Value = beProducto.Igv ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@Isc", SqlDbType.Decimal).Value = beProducto.Isc ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value = beProducto.PrecioVenta ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@UnidadesEnExistencia", SqlDbType.SmallInt).Value = beProducto.UnidadesEnExistencia ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@UnidadesEnPedido", SqlDbType.SmallInt).Value = beProducto.UnidadesEnPedido ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@NivelNuevoPedido", SqlDbType.Int).Value = beProducto.NivelNuevoPedido ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = beProducto.UsuarioId ?? (object)DBNull.Value;
+
+                            sqlCmd.ExecuteNonQuery(); // Ejecuta el procedimiento almacenado
+                            sqlTran.Commit(); // Confirma la transacción
                         }
                         catch (Exception ex)
                         {
-                            sqlTran?.Rollback();
+                            sqlTran?.Rollback(); // Deshace si ocurre un error
                             throw ex;
                         }
                     }
                 }
-            } //using: Al cerrar las llaves, se libera el objeto, luego ya no existe
+            }
         }
+
+
 
         public bool Exists(int idProducto)
         {
             bool existe = false;// bool equivale a bit en SQL Server
-            var conn = Configuration.GetConnectionString("Dk_Commerce");
+            var conn = Configuration.GetConnectionString("Dk Commerce");
             SqlDataReader dr = null;
 
             using (var sqlCon = new SqlConnection(conn))
@@ -169,11 +166,10 @@ namespace DKCommerceDataAccess
             }
         }
 
-        public List<ProductoBE> Paginacion(string texto, int tamañoPagina,
-            int nroPagina, string nombreColumna, bool? orderBy)
+        public List<ProductoBE> Paginacion(string texto, int tamañoPagina, int nroPagina, string nombreColumna, bool? orderBy)
         {
             var ProductoList = new List<ProductoBE>();
-            var conn = Configuration.GetConnectionString("DK_Commerce");
+            var conn = Configuration.GetConnectionString("DK Commerce");
             SqlDataReader dr = null;
 
             using (var sqlCon = new SqlConnection(conn))
@@ -190,51 +186,60 @@ namespace DKCommerceDataAccess
                         sqlCmd.Parameters.Add("@Texto", SqlDbType.NVarChar).Value = texto;
                         sqlCmd.Parameters.Add("@TamañoPagina", SqlDbType.Int).Value = tamañoPagina;
                         sqlCmd.Parameters.Add("@NroPagina", SqlDbType.Int).Value = nroPagina;
-                        if (string.IsNullOrWhiteSpace(nombreColumna))
-                        {
-                            sqlCmd.Parameters.Add("@NombreColumna", SqlDbType.VarChar).Value = DBNull.Value;
-                        }
-                        else
-                        {
-                            sqlCmd.Parameters.Add("@NombreColumna", SqlDbType.VarChar).Value = nombreColumna;
-                        }
-                        if (orderBy.HasValue)
-                        {
-                            sqlCmd.Parameters.Add("@OrderBy", SqlDbType.Bit).Value = orderBy.Value;
-                        }
-                        else
-                        {
-                            sqlCmd.Parameters.Add("@OrderBy", SqlDbType.Bit).Value = DBNull.Value;
-                        }
+
+                        // Manejo de valores opcionales
+                        sqlCmd.Parameters.Add("@NombreColumna", SqlDbType.VarChar).Value =
+                            string.IsNullOrWhiteSpace(nombreColumna) ? (object)DBNull.Value : nombreColumna;
+                        sqlCmd.Parameters.Add("@OrderBy", SqlDbType.Bit).Value =
+                            orderBy.HasValue ? (object)orderBy.Value : DBNull.Value;
 
                         dr = sqlCmd.ExecuteReader();
                         while (dr.Read())
                         {
                             var beProducto = new ProductoBE();
 
+                            // Los valores obligatorios
                             beProducto.IdProducto = int.Parse(dr["IdProducto"].ToString()!);
-                            beProducto.NombreProducto = Convert.ToString(dr["NombreProducto"]);
-                            beProducto.ProveedorId = int.Parse(dr["ProveedorId"].ToString()!);
-                            beProducto.CategoriaId = int.Parse(dr["CategoriaId"].ToString()!);
-                            beProducto.CantidadPorUnidad = Convert.ToString(dr["CantidadPorUnidad"]);
-                            beProducto.PrecioLista = decimal.Parse(dr["PrecioLista"].ToString()!);
-                            if (dr["Descuento"] != DBNull.Value)
-                            {
-                                beProducto.Descuento = decimal.Parse(dr["Descuento"].ToString()!);
-                            }
-                            if (dr["Igv"] != DBNull.Value)
-                            {
-                                beProducto.Igv = decimal.Parse(dr["Igv"].ToString()!);
-                            }
-                            if (dr["Isc"] != DBNull.Value)
-                            {
-                                beProducto.Isc = decimal.Parse(dr["Isc"].ToString()!);
-                            }
-                            beProducto.PrecioVenta = decimal.Parse(dr["PrecioVenta"].ToString()!);
-                            beProducto.UnidadesEnExistencia = short.Parse(dr["UnidadesEnExistencia"].ToString()!);
-                            beProducto.UnidadesEnPedido = short.Parse(dr["UnidadesEnPedido"].ToString()!);
-                            beProducto.NivelNuevoPedido = short.Parse(dr["NivelNuevoPedido"].ToString()!);
+                            beProducto.NombreProducto = dr["NombreProducto"].ToString()!; // Siempre tiene valor
                             beProducto.Suspendido = bool.Parse(dr["Suspendido"].ToString()!);
+
+                            // Los valores opcionales
+                            beProducto.ProveedorId = dr["ProveedorId"] != DBNull.Value
+                                ? int.Parse(dr["ProveedorId"].ToString()!)
+                                : null;
+                            beProducto.CategoriaId = dr["CategoriaId"] != DBNull.Value
+                                ? int.Parse(dr["CategoriaId"].ToString()!)
+                                : null;
+                            beProducto.CantidadPorUnidad = dr["CantidadPorUnidad"] != DBNull.Value
+                                ? dr["CantidadPorUnidad"].ToString()
+                                : null;
+                            beProducto.PrecioLista = dr["PrecioLista"] != DBNull.Value
+                                ? decimal.Parse(dr["PrecioLista"].ToString()!)
+                                : null;
+                            beProducto.Descuento = dr["Descuento"] != DBNull.Value
+                                ? decimal.Parse(dr["Descuento"].ToString()!)
+                                : null;
+                            beProducto.Igv = dr["Igv"] != DBNull.Value
+                                ? decimal.Parse(dr["Igv"].ToString()!)
+                                : null;
+                            beProducto.Isc = dr["Isc"] != DBNull.Value
+                                ? decimal.Parse(dr["Isc"].ToString()!)
+                                : null;
+                            beProducto.PrecioVenta = dr["PrecioVenta"] != DBNull.Value
+                                ? decimal.Parse(dr["PrecioVenta"].ToString()!)
+                                : null;
+                            beProducto.UnidadesEnExistencia = dr["UnidadesEnExistencia"] != DBNull.Value
+                                ? short.Parse(dr["UnidadesEnExistencia"].ToString()!)
+                                : null;
+                            beProducto.UnidadesEnPedido = dr["UnidadesEnPedido"] != DBNull.Value
+                                ? short.Parse(dr["UnidadesEnPedido"].ToString()!)
+                                : null;
+                            beProducto.NivelNuevoPedido = dr["NivelNuevoPedido"] != DBNull.Value
+                                ? int.Parse(dr["NivelNuevoPedido"].ToString()!)
+                                : null;
+                            beProducto.UsuarioId = dr["UsuarioId"] != DBNull.Value
+                                ? int.Parse(dr["UsuarioId"].ToString()!)
+                                : null;
 
                             ProductoList.Add(beProducto);
                         }
@@ -247,16 +252,17 @@ namespace DKCommerceDataAccess
                     }
                     finally
                     {
-                        dr?.Close();// ?: Si no es null el objeto, cerrarlo
-                        dr?.Dispose(); // ?: Si no es null, descargarlo de memoria
+                        dr?.Close(); // Si no es null, cierra el objeto
+                        dr?.Dispose(); // Libera memoria si no es null
                     }
                 }
             }
         }
 
+
         public void Update(int idProducto, ProductoBE beProducto)
         {
-            var conn = Configuration.GetConnectionString("DK_Commerce");
+            var conn = Configuration.GetConnectionString("DK Commerce");
 
             using (var sqlCon = new SqlConnection(conn))
             {
@@ -272,37 +278,39 @@ namespace DKCommerceDataAccess
                             sqlCmd.CommandType = CommandType.StoredProcedure;
                             sqlCmd.Transaction = sqlTran;
 
+                            // Parámetro obligatorio: IdProducto
                             sqlCmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
 
+                            // Parámetro obligatorio: NombreProducto
                             sqlCmd.Parameters.Add("@NombreProducto", SqlDbType.NVarChar).Value = beProducto.NombreProducto;
-                            sqlCmd.Parameters.Add("@ProveedorId", SqlDbType.Int).Value = beProducto.ProveedorId;
-                            sqlCmd.Parameters.Add("@CategoriaId", SqlDbType.Int).Value = beProducto.CategoriaId;
-                            sqlCmd.Parameters.Add("@PrecioLista", SqlDbType.Decimal).Value = beProducto.PrecioLista;
-                            if (beProducto.Igv.HasValue)
-                            {
-                                sqlCmd.Parameters.Add("@Igv", SqlDbType.Decimal).Value = beProducto.Igv.Value;
-                            }
-                            else
-                            {
-                                sqlCmd.Parameters.Add("@Igv", SqlDbType.Decimal).Value = DBNull.Value;
-                            }
-                            if (beProducto.Isc.HasValue)
-                            {
-                                sqlCmd.Parameters.Add("@Isc", SqlDbType.Decimal).Value = beProducto.Isc.Value;
-                            }
-                            else
-                            {
-                                sqlCmd.Parameters.Add("@Isc", SqlDbType.Decimal).Value = DBNull.Value;
-                            }
-                            sqlCmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value = beProducto.PrecioVenta;
+
+                            // Parámetros opcionales: ProveedorId y CategoriaId
+                            sqlCmd.Parameters.Add("@ProveedorId", SqlDbType.Int).Value =
+                                beProducto.ProveedorId.HasValue ? (object)beProducto.ProveedorId.Value : DBNull.Value;
+                            sqlCmd.Parameters.Add("@CategoriaId", SqlDbType.Int).Value =
+                                beProducto.CategoriaId.HasValue ? (object)beProducto.CategoriaId.Value : DBNull.Value;
+
+                            // Parámetros opcionales: PrecioLista, Igv, Isc, PrecioVenta
+                            sqlCmd.Parameters.Add("@PrecioLista", SqlDbType.Decimal).Value =
+                                beProducto.PrecioLista.HasValue ? (object)beProducto.PrecioLista.Value : DBNull.Value;
+
+                            sqlCmd.Parameters.Add("@Igv", SqlDbType.Decimal).Value =
+                                beProducto.Igv.HasValue ? (object)beProducto.Igv.Value : DBNull.Value;
+                            sqlCmd.Parameters.Add("@Isc", SqlDbType.Decimal).Value =
+                                beProducto.Isc.HasValue ? (object)beProducto.Isc.Value : DBNull.Value;
+                            sqlCmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value =
+                                beProducto.PrecioVenta.HasValue ? (object)beProducto.PrecioVenta.Value : DBNull.Value;
+
+                            // Parámetro obligatorio: Suspendido
                             sqlCmd.Parameters.Add("@Suspendido", SqlDbType.Bit).Value = beProducto.Suspendido;
 
+                            // Ejecutar la consulta
                             sqlCmd.ExecuteNonQuery();
-                            sqlTran.Commit();
+                            sqlTran.Commit(); // Confirmar la transacción
                         }
                         catch (Exception)
                         {
-                            sqlTran?.Rollback();
+                            sqlTran?.Rollback(); // Rollback en caso de error
                             throw;
                         }
                     }
@@ -310,9 +318,10 @@ namespace DKCommerceDataAccess
             }
         }
 
+
         public void Status(int idProducto, ProductoBE beProducto)
         {
-            var conn = Configuration.GetConnectionString("DK_Commerce");
+            var conn = Configuration.GetConnectionString("DK Commerce");
 
             using (var sqlCon = new SqlConnection(conn))
             {
@@ -345,7 +354,7 @@ namespace DKCommerceDataAccess
 
         public void Delete(int idProducto)
         {
-            var conn = Configuration.GetConnectionString("Mercurio");
+            var conn = Configuration.GetConnectionString("DK Commerce");
 
             using (var sqlCon = new SqlConnection(conn))
             {
