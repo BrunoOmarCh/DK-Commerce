@@ -10,18 +10,42 @@ namespace DKCommerceBussinesLogic
 {
     public class CategoriaBL
     {
-        public CategoriaBE SelectById(int categoriaId)
+        public CategoriaBE SelectById(int idCategoria)
         {
             var daCategoria = new CategoriaDA();
 
-            return daCategoria.SelectById(categoriaId);
+            return daCategoria.SelectById(idCategoria);
+            /*try
+            {
+                var daCategoria = new CategoriaDA();
+                Categoria beCategoria;
+
+                beCategoria = daCategoria.SelectById(idCategoria);
+                return beCategoria;
+            }
+            catch (Exception ex)
+            {
+                // Se habilita un log de eventos
+
+                throw ex;
+            }*/
         }
 
         public void Insert(CategoriaBE beCategoria)
         {
             var daCategoria = new CategoriaDA();
-
             daCategoria.Insert(beCategoria);
+            /*try
+            {
+
+                var daCategoria = new CategoriaDA();
+
+                daCategoria.Insert(beCategoria);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }*/
         }
     }
 }
