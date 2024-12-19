@@ -21,7 +21,7 @@ namespace DKCommerceDataAccess
         public CategoriaBE SelectById(int categoriaId)
         {
             CategoriaBE beCategoria = null;
-            var conn = Configuration.GetConnectionString("DK_Commerce");
+            var conn = Configuration.GetConnectionString("DK Commerce");
             SqlDataReader dr = null;
 
             using (var SqlCon = new SqlConnection(conn))
@@ -64,7 +64,7 @@ namespace DKCommerceDataAccess
 
         public void Insert(CategoriaBE beCategoria)
         {
-            var conn = Configuration.GetConnectionString("DK_Commerce");
+            var conn = Configuration.GetConnectionString("DK Commerce");
 
             using (var sqlCon = new SqlConnection(conn))
             {
@@ -98,9 +98,9 @@ namespace DKCommerceDataAccess
         }
 
 
-        public void Update(int idCategoria, Categoria beCategoria)
+        public void Update(int idCategoria, CategoriaBE beCategoria)
         {
-            var conn = Configuration.GetConnectionString("Mercurio");
+            var conn = Configuration.GetConnectionString("DK Commerce");
 
             using (var sqlCon = new SqlConnection(conn))
             {
