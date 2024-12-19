@@ -20,7 +20,7 @@ namespace DKCommerceBussinesEntity
         public decimal? PrecioVenta{ get; set;  }  
         public short? UnidadesEnExistencia { get; set; }
         public short? UnidadesEnPedido {  get; set; }
-        public short? NivelNuevoPedido { get; set; }
+        public int? NivelNuevoPedido { get; set; }
         public bool Suspendido {  get; set; }
         public int? UsuarioId { get; set; }
 
