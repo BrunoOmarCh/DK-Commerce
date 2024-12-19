@@ -1,5 +1,6 @@
 ﻿using DKCommerceBussinesEntity;
 using DKCommerceBussinesLogic;
+using DKCommerceDataAccess;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DKCommerceAPI.Controllers
@@ -25,5 +26,14 @@ namespace DKCommerceAPI.Controllers
 
             blCategoria.Insert(beCategoria);
         }
+        [HttpPut]
+        [Route("update/{CategoriaId}")]
+        public void Update(int CategoriaId, CategoriaBE beCategoria)
+        {
+            var blCategoria = new CategoriaBL();
+
+            blCategoria.Update(CategoriaId, beCategoria);
+        }
+
     }
 }
