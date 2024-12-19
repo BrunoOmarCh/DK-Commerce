@@ -60,5 +60,19 @@ namespace DKCommerceBussinesLogic
                 throw ex;
             }
         }
+        public void Delete(int idCategoria)
+        {
+            try
+            {
+                var daCategoria = new CategoriaDA();
+
+                daCategoria.Delete(idCategoria);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        
     }
 }
