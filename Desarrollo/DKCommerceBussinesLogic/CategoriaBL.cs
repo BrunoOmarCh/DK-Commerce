@@ -12,13 +12,12 @@ namespace DKCommerceBussinesLogic
     {
         public CategoriaBE SelectById(int idCategoria)
         {
-            var daCategoria = new CategoriaDA();
-
-            return daCategoria.SelectById(idCategoria);
-            /*try
+            // var daCategoria = new CategoriaDA();
+            // return daCategoria.SelectById(idCategoria);
+            try
             {
                 var daCategoria = new CategoriaDA();
-                Categoria beCategoria;
+                CategoriaBE beCategoria;
 
                 beCategoria = daCategoria.SelectById(idCategoria);
                 return beCategoria;
@@ -28,14 +27,14 @@ namespace DKCommerceBussinesLogic
                 // Se habilita un log de eventos
 
                 throw ex;
-            }*/
+            } 
         }
 
         public void Insert(CategoriaBE beCategoria)
         {
-            var daCategoria = new CategoriaDA();
-            daCategoria.Insert(beCategoria);
-            /*try
+            // var daCategoria = new CategoriaDA();
+            // daCategoria.Insert(beCategoria);
+            try
             {
 
                 var daCategoria = new CategoriaDA();
@@ -45,7 +44,7 @@ namespace DKCommerceBussinesLogic
             catch (Exception ex)
             {
                 throw ex;
-            }*/
+            }
         }
         public void Update(int idCategoria, CategoriaBE beCategoria)
         {
