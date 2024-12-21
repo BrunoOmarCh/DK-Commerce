@@ -41,17 +41,18 @@ namespace DKCommerceDataAccess
                         {
                             beCategoria = new CategoriaBE();
                             // Se lee el objeto, se lo convierte a String y luego a Int
-                            beCategoria.CategoriaId = int.Parse(dr["CategoriaId"].ToString());
-                            beCategoria.Nombre = dr["Nombre"].ToString();
-                            beCategoria.Descripcion = dr["Descripcion"].ToString();
-                            beCategoria.Suspendido = bool.Parse(dr["Suspendido"].ToString());
+                            beCategoria.CategoriaId = categoriaId;
+                            beCategoria.Nombre = Convert.ToString(dr["Nombre"]);
+                            beCategoria.Descripcion = dr["Descripcion"] != DBNull.Value ? dr["Descripcion"].ToString() : null; // Verificación para nullable
+                            beCategoria.Suspendido = Convert.ToBoolean(dr["Suspendido"]); // Convertir directamente porque no puede ser nulo
+
                         }
 
                         return beCategoria;
                     }
                     catch (Exception ex)
                     {
-                        throw ex;
+                        throw new Exception("Error al seleccionar categoría por ID.", ex);
                     }
                     finally
                     {
@@ -81,8 +82,10 @@ namespace DKCommerceDataAccess
                             sqlCmd.Transaction = sqlTran;
 
                             sqlCmd.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = beCategoria.Nombre;
-                            sqlCmd.Parameters.Add("@Descripcion", SqlDbType.NVarChar).Value = beCategoria.Descripcion;
+                            sqlCmd.Parameters.Add("@Descripcion", SqlDbType.NVarChar).Value = (object?)beCategoria.Descripcion ?? DBNull.Value;
                             sqlCmd.Parameters.Add("@Suspendido", SqlDbType.Bit).Value = beCategoria.Suspendido;
+
+
 
                             sqlCmd.ExecuteNonQuery();// Ejecuta el procedimiento almacenado, Ej Elegir a enviar Yape
                             sqlTran.Commit();// Confirma la operacion en la base de datos, ej: Transferir un Yape
@@ -90,7 +93,7 @@ namespace DKCommerceDataAccess
                         catch (Exception ex)
                         {
                             sqlTran.Rollback();// Deshacer todo lo avanzado
-                            throw ex;
+                            throw new Exception("Error al insertar categoría.", ex);
                         }
                     }
                 }
@@ -118,16 +121,16 @@ namespace DKCommerceDataAccess
 
                             sqlCmd.Parameters.Add("@CategoriaId", SqlDbType.Int).Value = idCategoria;
                             sqlCmd.Parameters.Add("@Nombre", SqlDbType.NVarChar).Value = beCategoria.Nombre;
-                            sqlCmd.Parameters.Add("@Descripcion", SqlDbType.NVarChar).Value = beCategoria.Descripcion;
+                            sqlCmd.Parameters.Add("@Descripcion", SqlDbType.NVarChar).Value = (object?)beCategoria.Descripcion ?? DBNull.Value;
                             sqlCmd.Parameters.Add("@Suspendido", SqlDbType.Bit).Value = beCategoria.Suspendido;
 
                             sqlCmd.ExecuteNonQuery();
                             sqlTran.Commit();
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
                             sqlTran?.Rollback();
-                            throw;
+                            throw new Exception("Error al actualizar categoría.", ex);
                         }
                     }
                 }
@@ -157,10 +160,10 @@ namespace DKCommerceDataAccess
                             sqlCmd.ExecuteNonQuery();
                             sqlTran.Commit();
                         }
-                        catch (Exception)
+                        catch (Exception ex )
                         {
                             sqlTran?.Rollback();
-                            throw;
+                            throw new Exception("Error al eliminar categoría.", ex);
                         }
                     }
                 }
