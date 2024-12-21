@@ -41,6 +41,11 @@ namespace DKCommerceDataAccess
                         {
                             beContactoProveedor = new ContactoProveedorBE();
 
+                            beContactoProveedor.ContactoProveedorId= ContactoProveedorId ; 
+                            beContactoProveedor.NombreContacto = dr["NombreContacto"] == DBNull.Value ? null : Convert.ToString(dr["NombreContacto"])!;
+                            beContactoProveedor.CargoContacto = dr["CargoContacto"] == DBNull.Value ? null : Convert.ToString(dr["CargoContacto"])!;
+                            beContactoProveedor.DNI = dr["DNI"] == DBNull.Value ? null : Convert.ToString(dr["DNI"])!;
+
                         }
 
                         return beContactoProveedor;
