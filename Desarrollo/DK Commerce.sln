@@ -24,6 +24,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DKCommerceUI", "DKCommerceU
 		{FC3A4345-9E78-4D8D-9395-032117B3A2B6} = {FC3A4345-9E78-4D8D-9395-032117B3A2B6}
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pruebas", "Pruebas\Pruebas.csproj", "{CBC28A37-7B55-4D5E-879D-6496E2657A64}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,10 @@ Global
 		{A3F7EB35-898C-47CE-A31F-680F644EACA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3F7EB35-898C-47CE-A31F-680F644EACA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3F7EB35-898C-47CE-A31F-680F644EACA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBC28A37-7B55-4D5E-879D-6496E2657A64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBC28A37-7B55-4D5E-879D-6496E2657A64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBC28A37-7B55-4D5E-879D-6496E2657A64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBC28A37-7B55-4D5E-879D-6496E2657A64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
