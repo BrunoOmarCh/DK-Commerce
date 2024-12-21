@@ -95,7 +95,7 @@ namespace DKCommerceDataAccess
                             // Los valores no nulos se asignan directamente
                             sqlCmd.Parameters.Add("@NombreProducto", SqlDbType.NVarChar).Value = beProducto.NombreProducto;
                             sqlCmd.Parameters.Add("@Suspendido", SqlDbType.Bit).Value = beProducto.Suspendido;
-                            sqlCmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value = beProducto.IdProducto;
+                        //    sqlCmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value = beProducto.IdProducto;
 
                             // Los valores nulos se manejan con DBNull.Value (si es null en el modelo, pasamos DBNull.Value)
                             sqlCmd.Parameters.Add("@ProveedorId", SqlDbType.Int).Value = beProducto.ProveedorId ?? (object)DBNull.Value;
