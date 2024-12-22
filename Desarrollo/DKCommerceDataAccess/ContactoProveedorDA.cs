@@ -98,5 +98,48 @@ namespace DKCommerceDataAccess
             }
         }
 
+        public void Update(int idContactoProveedor, ContactoProveedorBE beContactoProveedor)
+        {
+            var conn = Configuration.GetConnectionString("DK Commerce");
+
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    using (var sqlTran = sqlCon.BeginTransaction())
+                    {
+                        try
+                        {
+                            sqlCmd.Connection = sqlCon;
+                            sqlCmd.CommandText = "UpContactoProveedorUpdate";
+                            sqlCmd.CommandType = CommandType.StoredProcedure;
+                            sqlCmd.Transaction = sqlTran;
+
+                            sqlCmd.Parameters.Add("@IdContactoProveedor", SqlDbType.Int).Value = idContactoProveedor;
+                            sqlCmd.Parameters.Add("@NombreContacto", SqlDbType.NVarChar).Value =
+                                beContactoProveedor.NombreContacto != null ? (object)beContactoProveedor.NombreContacto :DBNull.Value;
+                            sqlCmd.Parameters.Add("@CargoContacto", SqlDbType.NVarChar).Value =
+                                beContactoProveedor.CargoContacto != null ? (object)beContactoProveedor.CargoContacto : DBNull.Value;
+                            sqlCmd.Parameters.Add("@DNI", SqlDbType.NVarChar).Value = 
+                                beContactoProveedor.DNI != null ? (object)beContactoProveedor.DNI: DBNull.Value;
+
+                            // Ejecutar la consulta
+                            sqlCmd.ExecuteNonQuery();
+                            sqlTran.Commit(); // Confirmar la transacción
+                        }
+                        catch (Exception)
+                        {
+                            sqlTran?.Rollback(); // Rollback en caso de error
+                            throw;
+                        }
+                    }
+                }
+            }
+        }
+
+
+
     }
 }
+
