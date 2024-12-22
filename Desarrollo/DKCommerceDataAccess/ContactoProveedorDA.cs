@@ -138,6 +138,39 @@ namespace DKCommerceDataAccess
             }
         }
 
+        public void Delete(int idContactoProveedor)
+        {
+            var conn = Configuration.GetConnectionString("DK Commerce");
+
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    using (var sqlTran = sqlCon.BeginTransaction())
+                    {
+                        try
+                        {
+                            sqlCmd.Connection = sqlCon;
+                            sqlCmd.CommandText = UpContactoProveedorDelete;
+                            sqlCmd.CommandType = CommandType.StoredProcedure;
+                            sqlCmd.Transaction = sqlTran;
+
+                            sqlCmd.Parameters.Add("@ContactoProveedorId", SqlDbType.Int).Value = idContactoProveedor;
+
+                            sqlCmd.ExecuteNonQuery();
+                            sqlTran.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            sqlTran?.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+        }
+
 
 
     }
