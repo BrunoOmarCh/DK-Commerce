@@ -63,5 +63,40 @@ namespace DKCommerceDataAccess
             }
         }
 
+        public void Insert(ContactoProveedorBE beContactoProveedor)
+        {
+            var conn = Configuration.GetConnectionString("DK Commerce");
+
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    using (var sqlTran = sqlCon.BeginTransaction())
+                    {
+                        try
+                        {
+                            sqlCmd.Connection = sqlCon;
+                            sqlCmd.CommandText = UpContactoProveedorInsert;
+                            sqlCmd.CommandType = CommandType.StoredProcedure;
+                            sqlCmd.Transaction = sqlTran;
+
+                            sqlCmd.Parameters.Add("@NombreContacto", SqlDbType.NVarChar).Value = beContactoProveedor.NombreContacto ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@CargoContacto", SqlDbType.NVarChar).Value= beContactoProveedor.CargoContacto ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@DNI", SqlDbType.NVarChar).Value = beContactoProveedor.DNI ?? (object)DBNull.Value;
+
+                            sqlCmd.ExecuteNonQuery();
+                            sqlTran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            sqlTran?.Rollback();
+                            throw ex;
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }
