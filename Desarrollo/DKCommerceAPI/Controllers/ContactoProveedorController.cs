@@ -31,5 +31,16 @@ namespace DKCommerceAPI.Controllers
         }
 
 
+        [HttpPut]
+        [Route("update/{idContactoProveedor}")]
+        public void Update(int idContactoProveedor, ContactoProveedorBE beContactoProveedor)
+        {
+            var blContactoProveedor = new ContactoProveedorBL();
+
+            blContactoProveedor.Update(idContactoProveedor, beContactoProveedor);
+        }
+
+
+
     }
 }
