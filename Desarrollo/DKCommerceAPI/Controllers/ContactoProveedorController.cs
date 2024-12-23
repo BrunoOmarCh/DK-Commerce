@@ -17,5 +17,19 @@ namespace DKCommerceAPI.Controllers
 
             return blContactoProveedor.SelectById(idContactoProveedor);
         }
+
+        [HttpPost]
+        [Route("insert")]
+        public void Insert(ContactoProveedorBE beContactoProveedor)
+        {
+            //Nota
+            // Verificar que los campos obligatorios de la base de datos esten completos.
+            // Api Rest no siempre informa de los errores.
+            var blContactoProveedor = new ContactoProveedorBL();
+
+            blContactoProveedor.Insert(beContactoProveedor);
+        }
+
+
     }
 }
