@@ -40,7 +40,18 @@ namespace DKCommerceAPI.Controllers
             blContactoProveedor.Update(idContactoProveedor, beContactoProveedor);
         }
 
+        [HttpDelete]
+        [Route("delete/{idContactoProveedor}")]
+        public void Delete(int idContactoProveedor)
+        {
+            var blContactoProveedor = new ContactoProveedorBL();
 
+            blContactoProveedor.Delete(idContactoProveedor);
+        }
 
     }
+
+
+
+}
 }
