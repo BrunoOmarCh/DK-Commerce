@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DKCommerceBussinesEntity;
+using DKCommerceBussinesLogic;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DKCommerceAPI.Controllers
 {
-    public class ContactoProveedorController : Controller
+    [ApiController]
+    [Route("api/contactoProveedor")]
+
+    public class ContactoProveedorController : ControllerBase
     {
-        public IActionResult Index()
+        [HttpGet]// Método HTTP GET
+        [Route("select-by-id/{idContactoProveedor}")]// Ruta en la web del método
+        public ContactoProveedorBE SelectById(int idContactoProveedor)
         {
-            return View();
+            var blContactoProveedor = new ContactoProveedorBL();
+
+            return blContactoProveedor.SelectById(idContactoProveedor);
         }
     }
 }
