@@ -44,7 +44,7 @@ namespace DKCommerceDataAccess
                             beContactoProveedor.ContactoProveedorId= ContactoProveedorId ; 
                             beContactoProveedor.NombreContacto = dr["NombreContacto"] == DBNull.Value ? null : Convert.ToString(dr["NombreContacto"])!;
                             beContactoProveedor.CargoContacto = dr["CargoContacto"] == DBNull.Value ? null : Convert.ToString(dr["CargoContacto"])!;
-                            beContactoProveedor.DNI = dr["DNI"] == DBNull.Value ? null : Convert.ToString(dr["DNI"])!;
+                            beContactoProveedor.Dni = dr["Dni"] == DBNull.Value ? null : Convert.ToString(dr["Dni"])!;
 
                         }
 
@@ -83,7 +83,7 @@ namespace DKCommerceDataAccess
 
                             sqlCmd.Parameters.Add("@NombreContacto", SqlDbType.NVarChar).Value = beContactoProveedor.NombreContacto ?? (object)DBNull.Value;
                             sqlCmd.Parameters.Add("@CargoContacto", SqlDbType.NVarChar).Value= beContactoProveedor.CargoContacto ?? (object)DBNull.Value;
-                            sqlCmd.Parameters.Add("@DNI", SqlDbType.NVarChar).Value = beContactoProveedor.DNI ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@Dni", SqlDbType.NVarChar).Value = beContactoProveedor.Dni ?? (object)DBNull.Value;
 
                             sqlCmd.ExecuteNonQuery();
                             sqlTran.Commit();
@@ -121,8 +121,8 @@ namespace DKCommerceDataAccess
                                 beContactoProveedor.NombreContacto != null ? (object)beContactoProveedor.NombreContacto :DBNull.Value;
                             sqlCmd.Parameters.Add("@CargoContacto", SqlDbType.NVarChar).Value =
                                 beContactoProveedor.CargoContacto != null ? (object)beContactoProveedor.CargoContacto : DBNull.Value;
-                            sqlCmd.Parameters.Add("@DNI", SqlDbType.NVarChar).Value = 
-                                beContactoProveedor.DNI != null ? (object)beContactoProveedor.DNI: DBNull.Value;
+                            sqlCmd.Parameters.Add("@Dni", SqlDbType.NVarChar).Value = 
+                                beContactoProveedor.Dni != null ? (object)beContactoProveedor.Dni : DBNull.Value;
 
                             // Ejecutar la consulta
                             sqlCmd.ExecuteNonQuery();
