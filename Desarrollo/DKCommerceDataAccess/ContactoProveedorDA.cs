@@ -116,7 +116,7 @@ namespace DKCommerceDataAccess
                             sqlCmd.CommandType = CommandType.StoredProcedure;
                             sqlCmd.Transaction = sqlTran;
 
-                            sqlCmd.Parameters.Add("@IdContactoProveedor", SqlDbType.Int).Value = idContactoProveedor;
+                            sqlCmd.Parameters.Add("@ContactoProveedorId", SqlDbType.Int).Value = idContactoProveedor;
                             sqlCmd.Parameters.Add("@NombreContacto", SqlDbType.NVarChar).Value =
                                 beContactoProveedor.NombreContacto != null ? (object)beContactoProveedor.NombreContacto :DBNull.Value;
                             sqlCmd.Parameters.Add("@CargoContacto", SqlDbType.NVarChar).Value =
