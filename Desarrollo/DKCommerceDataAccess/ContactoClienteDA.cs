@@ -20,7 +20,7 @@ namespace DKCommerceDataAccess
 
         public ContactoClienteBE SelectById(int ContactoClienteId)
         {
-            ContactoProveedorBE beContactoProveedor = null;
+            ContactoClienteBE beContactoCliente = null;
             var conn = Configuration.GetConnectionString("DK Commerce");
             SqlDataReader dr = null;
 
@@ -32,23 +32,24 @@ namespace DKCommerceDataAccess
                     try
                     {
                         sqlCmd.Connection = sqlCon;
-                        sqlCmd.CommandText = UpContactoProveedorSelById;
+                        sqlCmd.CommandText = UpContactoClienteInsert;
                         sqlCmd.CommandType = CommandType.StoredProcedure;
 
-                        sqlCmd.Parameters.Add("@ContactoProveedorId", SqlDbType.Int).Value = ContactoProveedorId;
+                        sqlCmd.Parameters.Add("@ContactoId", SqlDbType.Int).Value = ContactoClienteId;
                         dr = sqlCmd.ExecuteReader();
                         while (dr.Read())
                         {
-                            beContactoProveedor = new ContactoProveedorBE();
+                            beContactoCliente = new ContactoClienteBE();
 
-                            beContactoProveedor.ContactoProveedorId = ContactoProveedorId;
-                            beContactoProveedor.NombreContacto = dr["NombreContacto"] == DBNull.Value ? null : Convert.ToString(dr["NombreContacto"])!;
-                            beContactoProveedor.CargoContacto = dr["CargoContacto"] == DBNull.Value ? null : Convert.ToString(dr["CargoContacto"])!;
-                            beContactoProveedor.Dni = dr["Dni"] == DBNull.Value ? null : Convert.ToString(dr["Dni"])!;
+                            beContactoCliente.ContactoId = ContactoClienteId;
+                            beContactoCliente.NombreContacto = dr["NombreContacto"] == DBNull.Value ? null : Convert.ToString(dr["NombreContacto"])!;
+                            beContactoCliente.CargoContacto = dr["CargoContacto"] == DBNull.Value ? null : Convert.ToString(dr["CargoContacto"])!;
+                            beContactoCliente.TipoDocumento= dr["TipoDocumento"] == DBNull.Value ? null : Convert.ToString(dr["TipoDocumento"])!;
+                            beContactoCliente.NroDocumento= dr["NroDocumento"] == DBNull.Value ? null : Convert.ToString(dr["NroDocumento"])!;
 
                         }
 
-                        return beContactoProveedor;
+                        return beContactoCliente;
                     }
                     catch (Exception ex)
                     {
