@@ -39,7 +39,7 @@ namespace DKCommerceDataAccess
                             {
                                 CompañiaDeEnvioId = idCompaniaEnvio,
                                 NombreCompañia = dr["NombreCompañia"]?.ToString(),
-                                Ruc = dr["Ruc"] == DBNull.Value ? null : Convert.ToString(dr["CargoContacto"])!,
+                                Ruc = dr["Ruc"] == DBNull.Value ? null : Convert.ToString(dr["Ruc"])!,
                                 Telefono = dr["Telefono"] == DBNull.Value ? null : Convert.ToString(dr["Telefono"])!
                             };
                         }
@@ -127,6 +127,38 @@ namespace DKCommerceDataAccess
                         catch (Exception)
                         {
                             sqlTran?.Rollback(); // Rollback en caso de error
+                            throw;
+                        }
+                    }
+                }
+            }
+        }
+        public void Delete(int idCompaniaEnvio)
+        {
+            var conn = Configuration.GetConnectionString("DK Commerce");
+
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    using (var sqlTran = sqlCon.BeginTransaction())
+                    {
+                        try
+                        {
+                            sqlCmd.Connection = sqlCon;
+                            sqlCmd.CommandText = UpCompaniaEnvioDelete;
+                            sqlCmd.CommandType = CommandType.StoredProcedure;
+                            sqlCmd.Transaction = sqlTran;
+
+                            sqlCmd.Parameters.Add("@CompañiaDeEnvioId", SqlDbType.Int).Value = idCompaniaEnvio;
+
+                            sqlCmd.ExecuteNonQuery();
+                            sqlTran.Commit();
+                        }
+                        catch (Exception)
+                        {
+                            sqlTran?.Rollback();
                             throw;
                         }
                     }
