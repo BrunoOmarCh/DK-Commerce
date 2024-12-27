@@ -38,7 +38,30 @@ namespace DKCommerceBussinesLogic
                 throw ex;
             }
         }
-
+        public void Update(int idContactoCliente, ContactoClienteBE beContactoCliente)
+        {
+            try
+            {
+                var daContactoCliente = new ContactoClienteDA();
+                daContactoCliente.Update(idContactoCliente, beContactoCliente);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public void Delete(int idContactoCliente)
+        {
+            try
+            {
+                var daContactoCliente = new ContactoClienteDA();
+                daContactoCliente.Delete(idContactoCliente);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
     }
 }
