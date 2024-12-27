@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DKCommerceBussinesEntity;
+using DKCommerceDataAccess;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,58 @@ namespace DKCommerceBussinesLogic
 {
     public class ClienteBL
     {
+        public ClienteBE SelectById(string clienteId)
+        {
+            try
+            {
+                var daCliente = new ClienteDA();
+                ClienteBE beCliente;
+
+                beCliente = daCliente.SelectById(clienteId);
+                return beCliente;
+            }
+            catch (Exception ex)
+            {
+                // Log de eventos
+                throw ex;
+            }
+        }
+        public void Insert(ClienteBE beCliente)
+        {
+            try
+            {
+                var daCliente = new ClienteDA();
+                daCliente.Insert(beCliente);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public void Update(string clienteId, ClienteBE beCliente)
+        {
+            try
+            {
+                var daCliente = new ClienteDA();
+                daCliente.Update(clienteId, beCliente);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void Delete(string clienteId)
+        {
+            try
+            {
+                var daCliente = new ClienteDA();
+                daCliente.Delete(clienteId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
