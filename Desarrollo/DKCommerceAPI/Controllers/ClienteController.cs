@@ -1,12 +1,30 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DKCommerceBussinesEntity;
+using DKCommerceBussinesLogic;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DKCommerceAPI.Controllers
 {
-    public class ClienteController : Controller
+    [ApiController]
+    [Route("api/cliente")]
+
+    public class ClienteController : ControllerBase
     {
-        public IActionResult Index()
+        [HttpGet]// Método HTTP GET
+        [Route("select-by-id/{idCliente}")]// Ruta en la web del método
+        public ClienteBE SelectById(string idCliente)
         {
-            return View();
+            var blCliente = new ClienteBL();
+
+            return blCliente.SelectById(idCliente);
+        }
+
+        [HttpPost]
+        [Route("insert")]
+        public void Insert(ClienteBE beCliente)
+        {
+            var blCliente= new ClienteBL();
+
+            blCliente.Insert(beCliente);
         }
     }
 }
