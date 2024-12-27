@@ -1,12 +1,30 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DKCommerceBussinesEntity;
+using DKCommerceBussinesLogic;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DKCommerceAPI.Controllers
 {
-    public class ContactoClienteController : Controller
+    [ApiController]
+    [Route("api/contactoCliente")]
+    public class ContactoClienteController : ControllerBase
     {
-        public IActionResult Index()
+        [HttpGet]
+        [Route("select-by-id/{idContactoCliente}")]
+        public ContactoClienteBE SelectById(int idContactoCliente)
         {
-            return View();
+            var blContactoCliente= new ContactoClienteBL();
+
+            return blContactoCliente.SelectById(idContactoCliente);
         }
+
+        [HttpPost]
+        [Route("insert")]
+        public void Insert(ContactoClienteBE beContactoCliente)
+        {
+            var blContactoCliente = new ContactoClienteBL();
+
+            blContactoCliente.Insert(beContactoCliente);
+        }
+
     }
 }
