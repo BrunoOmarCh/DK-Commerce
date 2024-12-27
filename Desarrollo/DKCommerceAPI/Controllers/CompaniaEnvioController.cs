@@ -1,12 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DKCommerceBussinesEntity;
+using DKCommerceBussinesLogic;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DKCommerceAPI.Controllers
 {
-    public class CompaniaEnvioController : Controller
+    [ApiController]
+    [Route("api/companiaEnvio")]
+    public class CompaniaEnvioController : ControllerBase
     {
-        public IActionResult Index()
+        [HttpGet]
+        [Route("select-by-id/{idCompaniaEnvio}")]
+        public CompaniaEnvioBE SelectById(int idCompaniaEnvio)
         {
-            return View();
+            var blCompaniaEnvio = new CompaniaEnvioBL();
+
+            return blCompaniaEnvio.SelectById(idCompaniaEnvio);
+        }
+
+        [HttpPost]
+        [Route("insert")]
+        public void Insert(CompaniaEnvioBE beCompaniaEnvio)
+        {
+            var blCompaniaEnvio = new CompaniaEnvioBL();
+
+            blCompaniaEnvio.Insert(beCompaniaEnvio);
         }
     }
 }
