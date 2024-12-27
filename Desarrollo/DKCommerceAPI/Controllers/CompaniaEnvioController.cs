@@ -25,5 +25,23 @@ namespace DKCommerceAPI.Controllers
 
             blCompaniaEnvio.Insert(beCompaniaEnvio);
         }
+        [HttpPut]
+        [Route("update/{idCompaniaEnvio}")]
+        public void Update(int idCompaniaEnvio, CompaniaEnvioBE beCompaniaEnvio)
+        {
+            var blCompaniaEnvio = new CompaniaEnvioBL();
+
+            blCompaniaEnvio.Update(idCompaniaEnvio, beCompaniaEnvio);
+        }
+
+        [HttpDelete]
+        [Route("delete/{idCompaniaEnvio}")]
+        public void Delete(int idComapaniaEnvio)
+        {
+            var blCompaniaEnvio = new CompaniaEnvioBL();
+
+            blCompaniaEnvio.Delete(idComapaniaEnvio);
+        }
     }
+}
 }
