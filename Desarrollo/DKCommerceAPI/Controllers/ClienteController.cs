@@ -22,9 +22,26 @@ namespace DKCommerceAPI.Controllers
         [Route("insert")]
         public void Insert(ClienteBE beCliente)
         {
-            var blCliente= new ClienteBL();
+            var blCliente = new ClienteBL();
 
             blCliente.Insert(beCliente);
+        }
+        [HttpPut]
+        [Route("update/{idCliente}")]
+        public void Update(string idCliente, ClienteBE beCliente)
+        {
+            var blCliente = new ClienteBL();
+
+            blCliente.Update(idCliente, beCliente);
+        }
+
+        [HttpDelete]
+        [Route("delete/{idCliente}")]
+        public void Delete(String idCliente)
+        {
+            var blCliente = new ClienteBL();
+
+            blCliente.Delete(idCliente);
         }
     }
 }
