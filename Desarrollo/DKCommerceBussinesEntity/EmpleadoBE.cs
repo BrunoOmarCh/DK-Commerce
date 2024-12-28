@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DKCommerceBussinesEntity
 {
-    public class Empleado
+    public class EmpleadoBE
     {
         public int EmpleadoId { get; set; } 
         public string Nombres { get; set; } 
@@ -22,7 +22,7 @@ namespace DKCommerceBussinesEntity
         public string? Ciudad { get; set; } 
         public string? Región { get; set; } 
         public string? CodPostal { get; set; } 
-        public string? País { get; set; } 
+        public string? Pais { get; set; } 
         public string? TelefonoFijo { get; set; } 
         public string? Anexo { get; set; } 
         public string? Notas { get; set; } 

@@ -8,7 +8,7 @@ namespace DKCommerceBussinesEntity
 {
     public class ParametroBE
     {
-        public int Clave { get; set; }
+        public string Clave { get; set; }
         public string? Grupo { get; set; }
         public string? Valor { get; set; }
     }
