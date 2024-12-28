@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace DKCommerceDataAccess
 {
-    internal class ParametroDA
+    public class ParametroDA
     {
+        public const string UpParametroInsert = "UpParametroInsert";
+        public const string UpParametroUpdate = "UpParametroUpdate";
+        public const string UpParametroDelete = "UpParametroDelete";
+        public const string UpParametroSelById = "UpParametroSelById";
+       
     }
 }
