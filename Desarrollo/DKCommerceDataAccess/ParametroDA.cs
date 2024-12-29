@@ -97,5 +97,41 @@ namespace DKCommerceDataAccess
             }
         }
 
+        public void Update(string idClave, ParametroBE beParametro)
+        {
+            var conn = Configuration.GetConnectionString("DK Commerce");
+
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    using (var sqlTran = sqlCon.BeginTransaction())
+                    {
+                        try
+                        {
+                            sqlCmd.Connection = sqlCon;
+                            sqlCmd.CommandText = UpParametroUpdate;
+                            sqlCmd.CommandType = CommandType.StoredProcedure;
+                            sqlCmd.Transaction = sqlTran;
+
+                            sqlCmd.Parameters.Add("@clave", SqlDbType.NVarChar).Value = idClave;
+                            sqlCmd.Parameters.Add("@Grupo", SqlDbType.NVarChar).Value =
+                                beParametro.Grupo != null ? (object)beParametro.Grupo: DBNull.Value;
+                            sqlCmd.Parameters.Add("@Valor", SqlDbType.NVarChar).Value =
+                                beParametro.Valor != null ? (object)beParametro.Valor: DBNull.Value;
+                            
+                            sqlCmd.ExecuteNonQuery();
+                            sqlTran.Commit(); 
+                        }
+                        catch (Exception)
+                        {
+                            sqlTran?.Rollback(); 
+                            throw;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
