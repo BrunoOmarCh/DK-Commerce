@@ -63,5 +63,39 @@ namespace DKCommerceDataAccess
         }
 
 
+        public void Insert(ParametroBE beParametro)
+        {
+            var conn = Configuration.GetConnectionString("DK Commerce");
+
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    using (var sqlTran = sqlCon.BeginTransaction())
+                    {
+                        try
+                        {
+                            sqlCmd.Connection = sqlCon;
+                            sqlCmd.CommandText = UpParametroInsert;
+                            sqlCmd.CommandType = CommandType.StoredProcedure;
+                            sqlCmd.Transaction = sqlTran;
+
+                            sqlCmd.Parameters.Add("@Grupo", SqlDbType.NVarChar).Value = beParametro.Grupo ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@Valor", SqlDbType.NVarChar).Value = beParametro.Valor ?? (object)DBNull.Value;
+                           
+                            sqlCmd.ExecuteNonQuery();
+                            sqlTran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            sqlTran?.Rollback();
+                            throw ex;
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }
