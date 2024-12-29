@@ -121,6 +121,53 @@ namespace DKCommerceDataAccess
                 }
             }
         }
+        public void Update(int pedidoId, PedidoBE bePedido)
+        {
+            var conn = Configuration.GetConnectionString("DK Commerce");
+
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    using (var sqlTran = sqlCon.BeginTransaction())
+                    {
+                        try
+                        {
+                            sqlCmd.Connection = sqlCon;
+                            sqlCmd.CommandText = UpPedidoUpdate;
+                            sqlCmd.CommandType = CommandType.StoredProcedure;
+                            sqlCmd.Transaction = sqlTran;
+
+                            sqlCmd.Parameters.Add("@PedidoId", SqlDbType.Int).Value = pedidoId;
+                            sqlCmd.Parameters.Add("@ClienteId", SqlDbType.VarChar).Value = bePedido.ClienteId ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@IdEmpleado", SqlDbType.Int).Value = bePedido.IdEmpleado ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@FechaPedido", SqlDbType.DateTime2).Value = bePedido.FechaPedido ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@FechaEntrega", SqlDbType.DateTime2).Value = bePedido.FechaEntrega ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@FechaEnvío", SqlDbType.DateTime2).Value = bePedido.FechaEnvío ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@FormaEnvío", SqlDbType.Int).Value = bePedido.FormaEnvío ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@Igv", SqlDbType.Decimal).Value = bePedido.Igv ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@Isc", SqlDbType.Decimal).Value = bePedido.Isc ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@MontoTotal", SqlDbType.Decimal).Value = bePedido.MontoTotal ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@Destinatario", SqlDbType.NVarChar).Value = bePedido.Destinatario ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@DirecciónDestinatario", SqlDbType.NVarChar).Value = bePedido.DirecciónDestinatario ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@CiudadDestinatario", SqlDbType.NVarChar).Value = bePedido.CiudadDestinatario ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@RegiónDestinatario", SqlDbType.NVarChar).Value = bePedido.RegiónDestinatario ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@CódPostalDestinatario", SqlDbType.NVarChar).Value = bePedido.CódPostalDestinatario ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@PaísDestinatario", SqlDbType.NVarChar).Value = bePedido.PaísDestinatario ?? (object)DBNull.Value;
+
+                            sqlCmd.ExecuteNonQuery();
+                            sqlTran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            sqlTran?.Rollback();
+                            throw ex;
+                        }
+                    }
+                }
+            }
+        }
 
 
 
