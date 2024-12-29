@@ -8,6 +8,10 @@ namespace DKCommerceDataAccess
 {
     public class DetalleDePedidoDA
     {
+        public const string UpDetalleDePedidoInsert = "UpDetalleDePedidoInsert";
+        public const string UpDetalleDePedidoUpdate = "UpDetalleDePedidoUpdate";
+        public const string UpDetalleDePedidoDelete = "UpDetalleDePedidoDelete";
+        public const string UpDetalleDePedidoSelById = "UpDetalleDePedidoSelById";
 
     }
 }
