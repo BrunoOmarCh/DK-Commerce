@@ -18,6 +18,56 @@ namespace DKCommerceDataAccess
         public const string UpDetalleDePedidoDelete = "UpDetalleDePedidoDelete";
         public const string UpDetalleDePedidoSelById = "UpDetalleDePedidoSelById";
 
+        public DetalleDePedidoBE SelectById(int pedidoId, int productoId)
+        {
+            DetalleDePedidoBE detalle = null;
+            var conn = Configuration.GetConnectionString("DK Commerce");
+            SqlDataReader dr = null;
+
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    try
+                    {
+                        sqlCmd.Connection = sqlCon;
+                        sqlCmd.CommandText = "UpDetalleDePedidoSelectById"; // Nombre del procedimiento almacenado
+                        sqlCmd.CommandType = CommandType.StoredProcedure;
+
+                        sqlCmd.Parameters.Add("@PedidoId", SqlDbType.Int).Value = pedidoId;
+                        sqlCmd.Parameters.Add("@ProductoId", SqlDbType.Int).Value = productoId;
+
+                        dr = sqlCmd.ExecuteReader();
+                        if (dr.Read())
+                        {
+                            detalle = new DetalleDePedidoBE
+                            {
+                                PedidoId = pedidoId,
+                                ProductoId = productoId,
+                                PrecioNeto = (decimal)dr["PrecioNeto"],
+                                Cantidad = (int)dr["Cantidad"],
+                                Descuento = (decimal)dr["Descuento"],
+                                Igv = dr["Igv"] == DBNull.Value ? null : (decimal?)dr["Igv"],
+                                Isc = dr["Isc"] == DBNull.Value ? null : (decimal?)dr["Isc"],
+                                MontoSubTotal = dr["MontoSubTotal"] == DBNull.Value ? null : (decimal?)dr["MontoSubTotal"]
+                            };
+                        }
+                        return detalle;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                    finally
+                    {
+                        dr?.Close();
+                        dr?.Dispose();
+                    }
+                }
+            }
+        }
+
         public void Insert(DetalleDePedidoBE detallebe)
         {
             var conn = Configuration.GetConnectionString("DK Commerce");
