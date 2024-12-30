@@ -80,5 +80,56 @@ namespace DKCommerceDataAccess
             }
         }
 
+        public void Insert(EmpleadoBE beEmpleado)
+        {
+            var conn = Configuration.GetConnectionString("DK Commerce");
+
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    using (var sqlTran = sqlCon.BeginTransaction())
+                    {
+                        try
+                        {
+                            sqlCmd.Connection = sqlCon;
+                            sqlCmd.CommandType = CommandType.StoredProcedure;
+                            sqlCmd.CommandText = UpEmpleadoInsert;
+                            sqlCmd.Transaction = sqlTran;
+
+                            sqlCmd.Parameters.AddWithValue("@Nombres", beEmpleado.Nombres);
+                            sqlCmd.Parameters.AddWithValue("@ApellidoPaterno", (object?)beEmpleado.ApellidoPaterno ?? DBNull.Value);
+                            sqlCmd.Parameters.AddWithValue("@ApellidoMaterno", (object?)beEmpleado.ApellidoMaterno ?? DBNull.Value);
+                            sqlCmd.Parameters.AddWithValue("@TipoDocIdentidad", (object?)beEmpleado.TipoDocIdentidad ?? DBNull.Value);
+                            sqlCmd.Parameters.AddWithValue("@NroDocIdentidad", (object?)beEmpleado.NroDocIdentidad ?? DBNull.Value);
+                            sqlCmd.Parameters.AddWithValue("@Cargo", (object?)beEmpleado.Cargo ?? DBNull.Value);
+                            sqlCmd.Parameters.AddWithValue("@Tratamiento", (object?)beEmpleado.Tratamiento ?? DBNull.Value);
+                            sqlCmd.Parameters.AddWithValue("@FechaNacimiento", (object?)beEmpleado.FechaNacimiento ?? DBNull.Value);
+                            sqlCmd.Parameters.AddWithValue("@FechaContratación", (object?)beEmpleado.FechaContratación ?? DBNull.Value);
+                            sqlCmd.Parameters.AddWithValue("@Dirección", (object?)beEmpleado.Dirección ?? DBNull.Value);
+                            sqlCmd.Parameters.AddWithValue("@Ciudad", (object?)beEmpleado.Ciudad ?? DBNull.Value);
+                            sqlCmd.Parameters.AddWithValue("@Región", (object?)beEmpleado.Región ?? DBNull.Value);
+                            sqlCmd.Parameters.AddWithValue("@CodPostal", (object?)beEmpleado.CodPostal ?? DBNull.Value);
+                            sqlCmd.Parameters.AddWithValue("@Pais", (object?)beEmpleado.Pais ?? DBNull.Value);
+                            sqlCmd.Parameters.AddWithValue("@TelefonoFijo", (object?)beEmpleado.TelefonoFijo ?? DBNull.Value);
+                            sqlCmd.Parameters.AddWithValue("@Anexo", (object?)beEmpleado.Anexo ?? DBNull.Value);
+                            sqlCmd.Parameters.AddWithValue("@Notas", (object?)beEmpleado.Notas ?? DBNull.Value);
+                            sqlCmd.Parameters.AddWithValue("@JefeId", (object?)beEmpleado.JefeId ?? DBNull.Value);
+                            sqlCmd.Parameters.AddWithValue("@Email", (object?)beEmpleado.Email ?? DBNull.Value);
+                            sqlCmd.Parameters.AddWithValue("@EstadoCivil", (object?)beEmpleado.EstadoCivil ?? DBNull.Value);
+
+                            sqlCmd.ExecuteNonQuery();
+                            sqlTran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            sqlTran.Rollback();
+                            throw new Exception("Error al insertar empleado.", ex);
+                        }
+                    }
+                }
+            }
+        }
     }
 }
