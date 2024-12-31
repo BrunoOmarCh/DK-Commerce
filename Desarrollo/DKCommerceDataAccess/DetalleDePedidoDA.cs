@@ -20,7 +20,7 @@ namespace DKCommerceDataAccess
 
         public DetalleDePedidoBE SelectById(int pedidoId, int productoId)
         {
-            DetalleDePedidoBE detalle = null;
+            DetalleDePedidoBE detallebe = null;
             var conn = Configuration.GetConnectionString("DK Commerce");
             SqlDataReader dr = null;
 
@@ -41,10 +41,10 @@ namespace DKCommerceDataAccess
                         dr = sqlCmd.ExecuteReader();
                         if (dr.Read())
                         {
-                            detalle = new DetalleDePedidoBE
+                            detallebe = new DetalleDePedidoBE
                             {
                                 PedidoId = pedidoId,
-                                ProductoId = productoId,
+                                ProductoId = (int)dr["productoId"],
                                 PrecioNeto = (decimal)dr["PrecioNeto"],
                                 Cantidad = (int)dr["Cantidad"],
                                 Descuento = (decimal)dr["Descuento"],
@@ -53,7 +53,7 @@ namespace DKCommerceDataAccess
                                 MontoSubTotal = dr["MontoSubTotal"] == DBNull.Value ? null : (decimal?)dr["MontoSubTotal"]
                             };
                         }
-                        return detalle;
+                        return detallebe;
                     }
                     catch (Exception ex)
                     {
@@ -108,7 +108,7 @@ namespace DKCommerceDataAccess
             }
         }
 
-        public void Update(DetalleDePedidoBE detalle)
+        public void Update(int idPedido, int idProducto, DetalleDePedidoBE bedetalle)
         {
             var conn = Configuration.GetConnectionString("DK Commerce");
 
@@ -126,14 +126,14 @@ namespace DKCommerceDataAccess
                             sqlCmd.CommandType = CommandType.StoredProcedure;
                             sqlCmd.Transaction = sqlTran;
 
-                            sqlCmd.Parameters.Add("@PedidoId", SqlDbType.Int).Value = detalle.PedidoId;
-                            sqlCmd.Parameters.Add("@ProductoId", SqlDbType.Int).Value = detalle.ProductoId;
-                            sqlCmd.Parameters.Add("@PrecioNeto", SqlDbType.Decimal).Value = detalle.PrecioNeto;
-                            sqlCmd.Parameters.Add("@Cantidad", SqlDbType.Int).Value = detalle.Cantidad;
-                            sqlCmd.Parameters.Add("@Descuento", SqlDbType.Decimal).Value = detalle.Descuento;
-                            sqlCmd.Parameters.Add("@Igv", SqlDbType.Decimal).Value = detalle.Igv ?? (object)DBNull.Value;
-                            sqlCmd.Parameters.Add("@Isc", SqlDbType.Decimal).Value = detalle.Isc ?? (object)DBNull.Value;
-                            sqlCmd.Parameters.Add("@MontoSubTotal", SqlDbType.Decimal).Value = detalle.MontoSubTotal ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@PedidoId", SqlDbType.Int).Value = idPedido;
+                            sqlCmd.Parameters.Add("@ProductoId", SqlDbType.Int).Value = idProducto;
+                            sqlCmd.Parameters.Add("@PrecioNeto", SqlDbType.Decimal).Value = bedetalle.PrecioNeto;
+                            sqlCmd.Parameters.Add("@Cantidad", SqlDbType.Int).Value = bedetalle.Cantidad;
+                            sqlCmd.Parameters.Add("@Descuento", SqlDbType.Decimal).Value = bedetalle.Descuento;
+                            sqlCmd.Parameters.Add("@Igv", SqlDbType.Decimal).Value = bedetalle.Igv ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@Isc", SqlDbType.Decimal).Value = bedetalle.Isc ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@MontoSubTotal", SqlDbType.Decimal).Value = bedetalle.MontoSubTotal ?? (object)DBNull.Value;
 
                             sqlCmd.ExecuteNonQuery();
                             sqlTran.Commit();
@@ -147,7 +147,7 @@ namespace DKCommerceDataAccess
                 }
             }
         }
-        public void Delete(int pedidoId)
+        public void Delete(int pedidoId, int Productoid)
         {
             var conn = Configuration.GetConnectionString("DK Commerce");
 
@@ -166,6 +166,7 @@ namespace DKCommerceDataAccess
                             sqlCmd.Transaction = sqlTran;
 
                             sqlCmd.Parameters.Add("@PedidoId", SqlDbType.Int).Value = pedidoId;
+                            sqlCmd.Parameters.Add("@ProductoId", SqlDbType.Int).Value = pedidoId;
 
                             sqlCmd.ExecuteNonQuery();
                             sqlTran.Commit();
