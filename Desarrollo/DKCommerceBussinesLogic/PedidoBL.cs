@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DKCommerceBussinesEntity;
+using DKCommerceDataAccess;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,35 @@ namespace DKCommerceBussinesLogic
 {
     public class PedidoBL
     {
+        public PedidoBE SelectById(int idPedido)
+        {
+            try
+            {
+                var daPedido = new PedidoDA();
+                PedidoBE bePedido;
+
+                bePedido = daPedido.SelectById(idPedido);
+                return bePedido;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void Insert(PedidoBE bePedido)
+        {
+            try
+            {
+                var daPedido = new PedidoDA();
+                daPedido.Insert(bePedido);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
     }
 }
