@@ -39,6 +39,32 @@ namespace DKCommerceBussinesLogic
             }
         }
 
+        public void Update(int idPedido, PedidoBE bePedido)
+        {
+            try
+            {
+                var daPedido = new PedidoDA();
 
+                daPedido.Update(idPedido, bePedido);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void Delete(int idPedido)
+        {
+            try
+            {
+                var daPedido = new PedidoDA();
+
+                daPedido.Delete(idPedido);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
