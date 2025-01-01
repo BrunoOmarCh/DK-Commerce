@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DKCommerceBussinesEntity;
+using DKCommerceBussinesLogic;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DKCommerceAPI.Controllers
 {
-    public class PedidoController : Controller
+    [ApiController]
+    [Route("api/pedido")]
+    public class PedidoController : ControllerBase
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+
     }
 }
