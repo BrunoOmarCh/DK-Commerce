@@ -2,11 +2,11 @@
 
 namespace DKCommerceAPI.Controllers
 {
+    [ApiController]
+    [Route("api/detalleDePedido")]
+
     public class DetalleDePedidoController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+
     }
 }
