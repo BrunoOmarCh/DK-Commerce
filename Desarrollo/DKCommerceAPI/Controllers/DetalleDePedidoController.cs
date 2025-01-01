@@ -10,12 +10,12 @@ namespace DKCommerceAPI.Controllers
     public class DetalleDePedidoController : ControllerBase
     {
         [HttpGet]
-        [Route("select-by-id/{idDetalleDePedido}")]
-        public DetalleDePedidoBE SelectById(int idDetalleDePedido)
+        [Route("select-by-id/{idDetalleDePedido}/{productoId}")]
+        public DetalleDePedidoBE SelectById(int idDetalleDePedido, int productoId)
         {
             var blDetalleDePedido = new DetalleDePedidoBL();
 
-            return blDetalleDePedido.SelectById(idDetalleDePedido);
+            return blDetalleDePedido.SelectById(idDetalleDePedido, productoId);
         }
 
         [HttpPost]
@@ -28,21 +28,21 @@ namespace DKCommerceAPI.Controllers
         }
 
         [HttpPut]
-        [Route("update/{idDetalleDePedido}")]
-        public void Update(int idDetalleDePedido, DetalleDePedidoBE beDetalleDePedido)
+        [Route("update/{idDetalleDePedido}/{productoId}")]
+        public void Update(int idDetalleDePedido, int productoId, DetalleDePedidoBE beDetalleDePedido)
         {
             var blDetalleDePedido = new DetalleDePedidoBL();
 
-            blDetalleDePedido.Update(idDetalleDePedido, beDetalleDePedido);
+            blDetalleDePedido.Update(idDetalleDePedido,productoId, beDetalleDePedido);
         }
 
         [HttpDelete]
-        [Route("delete/{idDetalleDePedido}")]
-        public void Delete(int idDetalleDePedido)
+        [Route("delete/{idDetalleDePedido}/{productoId}")]
+        public void Delete(int idDetalleDePedido, int productoId)
         {
             var blDetalleDePedido = new DetalleDePedidoBL();
 
-            blDetalleDePedido.Delete(idDetalleDePedido);
+            blDetalleDePedido.Delete(idDetalleDePedido, productoId);
         }
     }
 }
