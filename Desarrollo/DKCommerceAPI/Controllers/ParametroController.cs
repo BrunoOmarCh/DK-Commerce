@@ -25,7 +25,23 @@ namespace DKCommerceAPI.Controllers
 
             blParametro.Insert(beParametro);
         }
+        [HttpPut]
+        [Route("update/{idParametro}")]
+        public void Update(string idParametro, ParametroBE beParametro)
+        {
+            var blParametro = new ParametroBL();
 
+            blParametro.Update(idParametro, beParametro);
+        }
+
+        [HttpDelete]
+        [Route("delete/{idParametro}")]
+        public void Delete(string idParametro)
+        {
+            var blParametro = new ParametroBL();
+
+            blParametro.Delete(idParametro);
+        }
 
     }
 }
