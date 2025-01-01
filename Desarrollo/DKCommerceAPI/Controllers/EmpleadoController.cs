@@ -2,11 +2,11 @@
 
 namespace DKCommerceAPI.Controllers
 {
-    public class EmpleadoController : Controller
+    [ApiController]
+    [Route("api/empleado")]
+    public class EmpleadoController : ControllerBase
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+
+
     }
 }
