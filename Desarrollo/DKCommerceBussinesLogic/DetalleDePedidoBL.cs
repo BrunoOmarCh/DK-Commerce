@@ -10,14 +10,14 @@ namespace DKCommerceBussinesLogic
 {
     public class DetalleDePedidoBL
     {
-        public DetalleDePedidoBE SelectById(int idDetalleDePedido)
+        public DetalleDePedidoBE SelectById(int idDetalleDePedido, int productoId)
         {
             try
             {
                 var daDetalleDePedido = new DetalleDePedidoDA();
                 DetalleDePedidoBE beDetalleDePedido;
 
-                beDetalleDePedido = daDetalleDePedido.SelectById(idDetalleDePedido);
+                beDetalleDePedido = daDetalleDePedido.SelectById(idDetalleDePedido,  productoId);
                 return beDetalleDePedido;
             }
             catch (Exception ex)
@@ -39,24 +39,24 @@ namespace DKCommerceBussinesLogic
             }
         }
 
-        public void Update(int idDetalleDePedido, DetalleDePedidoBE beDetalleDePedido)
+        public void Update(int idDetalleDePedido, int productoId, DetalleDePedidoBE beDetalleDePedido)
         {
             try
             {
                 var daDetalleDePedido = new DetalleDePedidoDA();
-                daDetalleDePedido.Update(idDetalleDePedido, beDetalleDePedido);
+                daDetalleDePedido.Update(idDetalleDePedido, productoId, beDetalleDePedido);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-        public void Delete(int idDetalleDePedido)
+        public void Delete(int idDetalleDePedido, int productoId)
         {
             try
             {
-                var daDetalleDePedidoBE = new DetalleDePedidoDA();
-                daDetalleDePedido.Delete(idDetalleDePedidoBE);
+                var daDetalleDePedido = new DetalleDePedidoDA();
+                daDetalleDePedido.Delete(idDetalleDePedido, productoId);
             }
             catch (Exception ex)
             {
@@ -65,4 +65,4 @@ namespace DKCommerceBussinesLogic
         }
     }
 }
-}
+
