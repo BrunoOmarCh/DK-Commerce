@@ -25,5 +25,23 @@ namespace DKCommerceAPI.Controllers
 
             blPedido.Insert(bePedido);
         }
+
+        [HttpPut]
+        [Route("update/{idPedido}")]
+        public void Update(int idPedido, PedidoBE bePedido)
+        {
+            var blPedido = new PedidoBL();
+
+            blPedido.Update(idPedido, bePedido);
+        }
+
+        [HttpDelete]
+        [Route("delete/{idPedido}")]
+        public void Delete(int idPedido)
+        {
+            var blPedido = new PedidoBL();
+
+            blPedido.Delete(idPedido);
+        }
     }
 }
