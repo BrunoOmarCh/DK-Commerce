@@ -20,6 +20,9 @@ namespace MercurioUI.Models
             CreateMap<ContactoClienteModel, ContactoClienteBE>();
             CreateMap<ContactoClienteBE, ContactoClienteModel>();
 
+            CreateMap<ContactoProveedorModel, ContactoProveedorBE>();
+            CreateMap<ContactoProveedorBE, ContactoProveedorModel>();
+
             CreateMap<ProductoModel, ProductoBE>();
             CreateMap<ProductoBE, ProductoModel>();
 
