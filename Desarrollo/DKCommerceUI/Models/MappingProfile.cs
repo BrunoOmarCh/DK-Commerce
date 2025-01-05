@@ -8,17 +8,20 @@ namespace MercurioUI.Models
     {
         public MappingProfile()
         {
-            CreateMap<ProductoModel, ProductoBE>();
-            CreateMap<ProductoBE, ProductoModel>();
-
-            CreateMap<ProveedorModel, ProveedorBE>();
-            CreateMap<ProveedorBE, ProveedorModel>();
-
             CreateMap<CategoriaModel,CategoriaBE>();
             CreateMap<CategoriaBE, CategoriaModel>();
 
             CreateMap<ClienteModel, ClienteBE>();
             CreateMap<ClienteBE, ClienteModel>();
+
+            CreateMap<CompaniaDeEnvioModel, CompaniaEnvioBE>();
+            CreateMap<CompaniaEnvioBE, CompaniaDeEnvioModel>();
+
+            CreateMap<ProductoModel, ProductoBE>();
+            CreateMap<ProductoBE, ProductoModel>();
+
+            CreateMap<ProveedorModel, ProveedorBE>();
+            CreateMap<ProveedorBE, ProveedorModel>();
 
         }
     }
