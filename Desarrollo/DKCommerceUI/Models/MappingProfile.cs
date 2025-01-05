@@ -17,6 +17,9 @@ namespace MercurioUI.Models
             CreateMap<CategoriaModel,CategoriaBE>();
             CreateMap<CategoriaBE, CategoriaModel>();
 
+            CreateMap<ClienteModel, ClienteBE>();
+            CreateMap<ClienteBE, ClienteModel>();
+
         }
     }
 }
