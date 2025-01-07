@@ -10,12 +10,6 @@ namespace DKCommerceUI.Controllers
         private IMapper _mapper;
         public ClienteController()
         {
-            /*var config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new MappingProfile());
-            });
-            _mapper = config.CreateMapper();*/
-
             var config = new MapperConfiguration(
                 x =>
                 {
@@ -25,5 +19,13 @@ namespace DKCommerceUI.Controllers
             _mapper = config.CreateMapper();
 
         }
+
+        [HttpGet]
+        [Route("index")]
+        public IActionResult Index()
+        {
+            return View();
+        }
+
     }
 }
