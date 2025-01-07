@@ -51,6 +51,20 @@ namespace DKCommerceUI.Controllers
                 throw ex;
             }
         }
+        [HttpPost]
+        [Route("insert")]
+        public async void Insert(string Cliente)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
  
     }
 }
