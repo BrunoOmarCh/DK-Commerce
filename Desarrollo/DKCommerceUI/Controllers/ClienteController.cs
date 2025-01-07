@@ -39,6 +39,18 @@ namespace DKCommerceUI.Controllers
             return View();
         }
 
-
+        [HttpGet]
+        [Route("select-by-id/{clienteId}")]
+        public async Task<ClienteModel> SelectById(string ClienteId)
+        {
+            try
+            {
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+ 
     }
 }
