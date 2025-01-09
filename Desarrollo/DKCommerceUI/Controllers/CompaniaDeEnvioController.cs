@@ -21,7 +21,44 @@ namespace DKCommerceUI.Controllers
                 _mapper = config.CreateMapper();
 
             }
-
-  
+        [HttpGet]
+        [Route("index")]
+        public IActionResult Index()
+        {
+            return View();
         }
+        [HttpGet]
+        [Route("nuevo")]
+        public IActionResult Nuevo()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Route("select-by-id/{CompaniaDeEnvioId}")]
+        public async Task<CompaniaDeEnvioModel> SelectById(int CompaniaDeEnviod)
+        {
+            try
+            {
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        [HttpPost]
+        [Route("insert")]
+        public async void Insert(string companiaDeEnvio)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }s
+
+    }
 }
