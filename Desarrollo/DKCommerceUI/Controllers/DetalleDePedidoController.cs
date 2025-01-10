@@ -60,6 +60,19 @@ namespace DKCommerceUI.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("update/{idDetalleDePedido}")]
+        public async Task Update(int idDetalleDePedido, string detalleDePedido)
+        {
 
+
+        }
+
+        [HttpDelete]
+        [Route("delete/{idDetalleDePedido}")]
+        public async Task Delete(int idDetalleDePedido)
+        {
+
+        }
     }
 }
