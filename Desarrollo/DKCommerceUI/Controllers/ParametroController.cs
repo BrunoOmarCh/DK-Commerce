@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DKCommerceUI.Models;
 using MercurioUI.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,45 @@ namespace DKCommerceUI.Controllers
                 );
             _mapper = config.CreateMapper();
 
+        }
+
+        [HttpGet]
+        [Route("index")]
+        public IActionResult Index()
+        {
+            return View();
+        }
+        [HttpGet]
+        [Route("nuevo")]
+        public IActionResult Nuevo()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Route("select-by-id/{idParametro}")]
+        public async Task<ParametroModel> SelectById(int idParametro)
+        {
+            try
+            {
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        [HttpPost]
+        [Route("insert")]
+        public async void Insert(string beParametro)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
     }
