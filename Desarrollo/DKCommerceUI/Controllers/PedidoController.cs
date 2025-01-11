@@ -6,6 +6,7 @@ using MercurioUI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace DKCommerceUI.Controllers
 {
@@ -60,7 +61,7 @@ namespace DKCommerceUI.Controllers
                     cliente.DefaultRequestHeaders.Clear();
                     cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));// Será un objeto JSON
 
-                    var res = await cliente.GetAsync("api/producto/select-by-id/" + idPedido+ "/");
+                    var res = await cliente.GetAsync("api/pedido/select-by-id/" + idPedido+ "/");
                     if (res.IsSuccessStatusCode)
                     {
                         //ReadAsStringAsync: el producto la Api lo convierte en string y lo envia a través de la web en ese formato
@@ -82,7 +83,21 @@ namespace DKCommerceUI.Controllers
         {
             try
             {
+                var dtoPedido = JsonConvert.DeserializeObject<PedidoModel>(jsonPedido);
 
+                using (var cliente = new HttpClient())
+                {
+                    cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                    cliente.DefaultRequestHeaders.Clear();
+                    cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    var bePedido = _mapper.Map<PedidoBE>(dtoPedido);
+                    var jsonContent = new StringContent(JsonConvert.SerializeObject(bePedido), Encoding.UTF8, "application/json");
+                    var res = await cliente.PostAsync("api/pedido/insert", jsonContent);
+                    if (!res.IsSuccessStatusCode)// Si el mensaje indica no éxito, disparar una excepción.
+                    {
+                        throw new Exception(res.StatusCode.ToString());
+                    }
+                }
             }
             catch (Exception ex)
             {
