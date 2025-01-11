@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DKCommerceUI.Controllers
 {
-    [Route("DetalleDePedido")]
+    [Route("detalleDePedido")]
 
     public class DetalleDePedidoController : Controller
     {
@@ -35,8 +35,8 @@ namespace DKCommerceUI.Controllers
         }
 
         [HttpGet]
-        [Route("select-by-id/{DetalleDePedidoId}")]
-        public async Task<ContactoClienteModel> SelectById(int DetalleDePedidoId)
+        [Route("select-by-id/{idDetalleDePedido}")]
+        public async Task<DetalleDePedidoModel> SelectById(int idDetalleDePedido)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace DKCommerceUI.Controllers
         }
         [HttpPost]
         [Route("insert")]
-        public async void Insert(string detalleDePedido)
+        public async void Insert(string jsonDetalleDePedido)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace DKCommerceUI.Controllers
 
         [HttpPut]
         [Route("update/{idDetalleDePedido}")]
-        public async Task Update(int idDetalleDePedido, string detalleDePedido)
+        public async Task Update(int idDetalleDePedido, string jsonDetalleDePedido)
         {
 
 
