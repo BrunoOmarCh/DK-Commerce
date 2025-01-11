@@ -1,7 +1,11 @@
 ﻿using AutoMapper;
+using DKCommerceBussinesEntity;
 using DKCommerceUI.Models;
+using Libreria;
 using MercurioUI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace DKCommerceUI.Controllers
 {
@@ -46,6 +50,26 @@ namespace DKCommerceUI.Controllers
         {
             try
             {
+                PedidoModel dtoPedido = null;
+                PedidoBE bePedido = null;
+
+                using (var cliente = new HttpClient())
+                {
+
+                    cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                    cliente.DefaultRequestHeaders.Clear();
+                    cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));// Será un objeto JSON
+
+                    var res = await cliente.GetAsync("api/producto/select-by-id/" + idPedido+ "/");
+                    if (res.IsSuccessStatusCode)
+                    {
+                        //ReadAsStringAsync: el producto la Api lo convierte en string y lo envia a través de la web en ese formato
+                        var pedidoResult = res.Content.ReadAsStringAsync().Result;
+                        bePedido = JsonConvert.DeserializeObject<PedidoBE>(pedidoResult)!;
+                        dtoPedido = _mapper.Map<PedidoModel>(bePedido);
+                    }
+                }
+                return dtoPedido;
             }
             catch (Exception ex)
             {
