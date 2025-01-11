@@ -36,8 +36,8 @@ namespace DKCommerceUI.Controllers
         }
 
         [HttpGet]
-        [Route("select-by-id/{idParametro}")]
-        public async Task<ParametroModel> SelectById(int idParametro)
+        [Route("select-by-id/{stringParametro}")]
+        public async Task<ParametroModel> SelectById(string stringParametro)
         {
             try
             {
@@ -61,16 +61,16 @@ namespace DKCommerceUI.Controllers
             }
         }
         [HttpPut]
-        [Route("update/{idParametro}")]
-        public async Task Update(int idParametro, string beParametro)
+        [Route("update/{stringParametro}")]
+        public async Task Update(string stringParametro, string beParametro)
         {
 
 
         }
 
         [HttpDelete]
-        [Route("delete/{idParametro}")]
-        public async Task Delete(int idParametro)
+        [Route("delete/{stringParametro}")]
+        public async Task Delete(string stringParametro)
         {
 
         }
