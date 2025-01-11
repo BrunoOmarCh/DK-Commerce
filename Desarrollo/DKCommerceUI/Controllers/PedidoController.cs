@@ -48,7 +48,7 @@ namespace DKCommerceUI.Controllers
         }
         [HttpPost]
         [Route("insert")]
-        public async void Insert(string bePedido)
+        public async void Insert(string jsonPedido)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace DKCommerceUI.Controllers
         }
         [HttpPut]
         [Route("update/{idPedido}")]
-        public async Task Update(int idPedido, string bePedido)
+        public async Task Update(int idPedido, string jsonPedido)
         {
 
 
