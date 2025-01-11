@@ -35,8 +35,8 @@ namespace DKCommerceUI.Controllers
         }
 
         [HttpGet]
-        [Route("select-by-id/{EmpleadoId}")]
-        public async Task<EmpleadoModel> SelectById(int EmpleadoId)
+        [Route("select-by-id/{idEmpleado}")]
+        public async Task<EmpleadoModel> SelectById(int idEmpleado)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace DKCommerceUI.Controllers
         }
         [HttpPost]
         [Route("insert")]
-        public async void Insert(string empleado)
+        public async void Insert(string jsonEmpleado)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace DKCommerceUI.Controllers
 
         [HttpPut]
         [Route("update/{idEmpleado}")]
-        public async Task Update(int idEmpleado, string empleado)
+        public async Task Update(int idEmpleado, string jsonEmpleado)
         {
 
 
