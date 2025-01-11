@@ -13,19 +13,9 @@ namespace DKCommerceUI.Controllers
     [Route("categoria")]
     public class CategoriaController : Controller
     {
-        //private readonly IMapper _mapper;
-
-        private IMapper _mapper;// IMapper: Es una interfaz, es decir,
-        //permite heredar de una clase adicional
-
+        private IMapper _mapper;
         public CategoriaController()
         {
-            /*var config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new MappingProfile());
-            });
-            _mapper = config.CreateMapper();*/
-
             var config = new MapperConfiguration(
                 x =>
                 {
@@ -45,11 +35,11 @@ namespace DKCommerceUI.Controllers
         [Route("nuevo")]
         public IActionResult Nuevo()
         {
-            return View();// Vista -> Página web
+            return View();
         }
         [HttpGet]
-        [Route("select-by-id/{categoriaId}")]
-        public async Task<CategoriaModel> SelectById(int categoriaId)
+        [Route("select-by-id/{idCategoria}")]
+        public async Task<CategoriaModel> SelectById(int idCategoria)
         {
             try
             {
@@ -62,7 +52,7 @@ namespace DKCommerceUI.Controllers
                     cliente.DefaultRequestHeaders.Clear();
                     cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    var res = await cliente.GetAsync("api/categoria/select-by-id/" + categoriaId + "/");
+                    var res = await cliente.GetAsync("api/categoria/select-by-id/" + idCategoria + "/");
                     if (res.IsSuccessStatusCode)
                     {
                         var categoriaResult = res.Content.ReadAsStringAsync().Result;
@@ -79,11 +69,11 @@ namespace DKCommerceUI.Controllers
         }
         [HttpPost]
         [Route("insert")]
-        public async void Insert(string categoria)// Javascript esta enviando un string por un método Ajax
+        public async void Insert(string jsonCategoria)// Javascript esta enviando un string por un método Ajax
         {
             try
             { 
-                var dtoCategoria = JsonConvert.DeserializeObject<CategoriaModel>(categoria);
+                var dtoCategoria = JsonConvert.DeserializeObject<CategoriaModel>(jsonCategoria);
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceApi"));
@@ -108,9 +98,9 @@ namespace DKCommerceUI.Controllers
 
         [HttpPut]
         [Route("update/{idCategoria}")]
-        public async Task Update(int idCategoria, string categoria)
+        public async Task Update(int idCategoria, string jsonCategoria)
         {
-            var dtoCategoria = JsonConvert.DeserializeObject<CategoriaModel>(categoria);
+            var dtoCategoria = JsonConvert.DeserializeObject<CategoriaModel>(jsonCategoria);
 
             using (var cliente = new HttpClient())
             {
