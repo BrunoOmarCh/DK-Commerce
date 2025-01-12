@@ -6,6 +6,7 @@ using MercurioUI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace DKCommerceUI.Controllers
 {
@@ -79,11 +80,25 @@ namespace DKCommerceUI.Controllers
         }
         [HttpPost]
         [Route("insert")]
-        public async void Insert(string beParametro)
+        public async void Insert(string jsonParametro)
         {
             try
             {
+                var dtoParametro = JsonConvert.DeserializeObject<ParametroModel>(jsonParametro);
 
+                using (var cliente = new HttpClient())
+                {
+                    cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                    cliente.DefaultRequestHeaders.Clear();
+                    cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    var beParametro = _mapper.Map<ParametroBE>(dtoParametro);
+                    var jsonContent = new StringContent(JsonConvert.SerializeObject(beParametro), Encoding.UTF8, "application/json");
+                    var res = await cliente.PostAsync("api/parametro/insert", jsonContent);
+                    if (!res.IsSuccessStatusCode)
+                    {
+                        throw new Exception(res.StatusCode.ToString());
+                    }
+                }
             }
             catch (Exception ex)
             {
