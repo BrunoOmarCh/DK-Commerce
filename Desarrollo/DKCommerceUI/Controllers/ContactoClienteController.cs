@@ -35,6 +35,13 @@ namespace DKCommerceUI.Controllers
         }
 
         [HttpGet]
+        [Route("editar/{idContactoCliente}")]
+        public IActionResult Editar(int idContactoCliente)
+        {
+            return View();
+        }
+
+        [HttpGet]
         [Route("select-by-id/{idContactoCliente}")]
         public async Task<ContactoClienteModel> SelectById(int idContactoCliente)
         {
