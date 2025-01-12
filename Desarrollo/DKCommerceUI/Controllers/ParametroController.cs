@@ -131,7 +131,18 @@ namespace DKCommerceUI.Controllers
         [Route("delete/{stringParametro}")]
         public async Task Delete(string stringParametro)
         {
+            using (var cliente = new HttpClient())
+            {
+                cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                cliente.DefaultRequestHeaders.Clear();
+                cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+                var res = await cliente.DeleteAsync("api/parametro/delete/" + stringParametro + "/");
+                if (!res.IsSuccessStatusCode)
+                {
+                    throw new Exception(res.StatusCode.ToString());
+                }
+            }
         }
     }
 }
