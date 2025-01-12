@@ -110,7 +110,22 @@ namespace DKCommerceUI.Controllers
         [Route("update/{idEmpleado}")]
         public async Task Update(int idEmpleado, string jsonEmpleado)
         {
+            var dtoEmpleado= JsonConvert.DeserializeObject<EmpleadoModel>(jsonEmpleado);
 
+            using (var cliente = new HttpClient())
+            {
+                cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                cliente.DefaultRequestHeaders.Clear();
+                cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var beEmpleado = _mapper.Map<EmpleadoBE>(dtoEmpleado);
+                var jsonContent = new StringContent(JsonConvert.SerializeObject(beEmpleado), Encoding.UTF8, "application/json");
+                var res = await cliente.PutAsync("api/empleado/update/" + idEmpleado, jsonContent);
+                if (!res.IsSuccessStatusCode)
+                {
+                    throw new Exception(res.StatusCode.ToString());
+                }
+            }
 
         }
 
