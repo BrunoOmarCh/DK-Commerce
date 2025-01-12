@@ -1,7 +1,11 @@
 ﻿using AutoMapper;
+using DKCommerceBussinesEntity;
 using DKCommerceUI.Models;
+using Libreria;
 using MercurioUI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace DKCommerceUI.Controllers
 {
@@ -47,8 +51,29 @@ namespace DKCommerceUI.Controllers
         {
             try
             {
-            }
-            catch (Exception ex)
+                try
+                {
+                    EmpleadoModel dtoEmpleado = null;
+                    EmpleadoBE beEmpleado = null;
+
+                    using (var cliente = new HttpClient())
+                    {
+
+                        cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                        cliente.DefaultRequestHeaders.Clear();
+                        cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                        var res = await cliente.GetAsync("api/empleado/select-by-id/" + idEmpleado + "/");
+                        if (res.IsSuccessStatusCode)
+                        {
+                            var empleadoResult = res.Content.ReadAsStringAsync().Result;
+                            beEmpleado = JsonConvert.DeserializeObject<EmpleadoBE>(empleadoResult)!;
+                            dtoEmpleado = _mapper.Map<EmpleadoModel>(beEmpleado);
+                        }
+                    }
+                    return dtoEmpleado;
+
+                }
+                catch (Exception ex)
             {
                 throw ex;
             }
