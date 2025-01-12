@@ -6,6 +6,7 @@ using MercurioUI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace DKCommerceUI.Controllers
 {
@@ -51,29 +52,28 @@ namespace DKCommerceUI.Controllers
         {
             try
             {
-                try
+                EmpleadoModel dtoEmpleado = null;
+                EmpleadoBE beEmpleado = null;
+
+                using (var cliente = new HttpClient())
                 {
-                    EmpleadoModel dtoEmpleado = null;
-                    EmpleadoBE beEmpleado = null;
 
-                    using (var cliente = new HttpClient())
+                    cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                    cliente.DefaultRequestHeaders.Clear();
+                    cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var res = await cliente.GetAsync("api/empleado/select-by-id/" + idEmpleado+ "/");
+                    if (res.IsSuccessStatusCode)
                     {
-
-                        cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
-                        cliente.DefaultRequestHeaders.Clear();
-                        cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                        var res = await cliente.GetAsync("api/empleado/select-by-id/" + idEmpleado + "/");
-                        if (res.IsSuccessStatusCode)
-                        {
-                            var empleadoResult = res.Content.ReadAsStringAsync().Result;
-                            beEmpleado = JsonConvert.DeserializeObject<EmpleadoBE>(empleadoResult)!;
-                            dtoEmpleado = _mapper.Map<EmpleadoModel>(beEmpleado);
-                        }
+                        var EmpleadoResult = res.Content.ReadAsStringAsync().Result;
+                        beEmpleado = JsonConvert.DeserializeObject<EmpleadoBE>(EmpleadoResult)!;
+                        dtoEmpleado = _mapper.Map<EmpleadoModel>(beEmpleado);
                     }
-                    return dtoEmpleado;
-
                 }
-                catch (Exception ex)
+                return dtoEmpleado;
+
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
