@@ -34,6 +34,12 @@ namespace DKCommerceUI.Controllers
         {
             return View();
         }
+        [HttpGet]
+        [Route("editar/{idParametro}")]
+        public IActionResult Editar(int idParametro)
+        {
+            return View();
+        }
 
         [HttpGet]
         [Route("select-by-id/{stringParametro}")]
