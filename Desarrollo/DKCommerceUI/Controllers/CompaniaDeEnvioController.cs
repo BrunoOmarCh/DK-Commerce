@@ -1,7 +1,12 @@
 ﻿using AutoMapper;
+using DKCommerceBussinesEntity;
 using DKCommerceUI.Models;
+using Libreria;
 using MercurioUI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
+using System.Text;
 
 namespace DKCommerceUI.Controllers
 {
@@ -59,7 +64,6 @@ namespace DKCommerceUI.Controllers
         {
             try
             {
-
             }
             catch (Exception ex)
             {
@@ -71,15 +75,14 @@ namespace DKCommerceUI.Controllers
         [Route("update/{idCompaniaDeEnvio}")]
         public async Task Update(string idCompaniaDeEnvio, string jsonCompaniaDeEnvio)
         {
-
-
+ 
         }
 
         [HttpDelete]
         [Route("delete/{idCompaniaDeEnvio}")]
         public async Task Delete(int idCompaniaDeEnvio)
         {
-
+ 
         }
     }
 }
