@@ -1,7 +1,12 @@
 ﻿using AutoMapper;
+using DKCommerceBussinesEntity;
 using DKCommerceUI.Models;
+using Libreria;
 using MercurioUI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
+using System.Text;
 
 namespace DKCommerceUI.Controllers
 {
@@ -47,6 +52,26 @@ namespace DKCommerceUI.Controllers
         {
             try
             {
+                ContactoProveedorModel dtoContactoProveedor = null;
+                ContactoProveedorBE beContactoProveedor = null;
+
+                using (var cliente = new HttpClient())
+                {
+
+                    cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                    cliente.DefaultRequestHeaders.Clear();
+                    cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var res = await cliente.GetAsync("api/contactoProveedor/select-by-id/" + idContactoProveedor + "/");
+                    if (res.IsSuccessStatusCode)
+                    {
+                        var ContactoProveedorResult = res.Content.ReadAsStringAsync().Result;
+                        beContactoProveedor = JsonConvert.DeserializeObject<ContactoProveedorBE>(ContactoProveedorResult)!;
+                        dtoContactoProveedor = _mapper.Map<ContactoProveedorModel>(beContactoProveedor);
+                    }
+                }
+                return dtoContactoProveedor;
+
             }
             catch (Exception ex)
             {
@@ -59,7 +84,7 @@ namespace DKCommerceUI.Controllers
         {
             try
             {
-
+            
             }
             catch (Exception ex)
             {
@@ -71,15 +96,13 @@ namespace DKCommerceUI.Controllers
         [Route("update/{idContactoProveedor}")]
         public async Task Update(int idContactoProveedor, string  jsonContactoProveedor)
         {
-
-
+           
         }
 
         [HttpDelete]
         [Route("delete/{idContactoProveedor}")]
         public async Task Delete(int idContactoProveedor)
         {
-
         }
     }
 }
