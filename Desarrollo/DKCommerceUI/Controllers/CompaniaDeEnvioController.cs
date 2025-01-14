@@ -83,6 +83,23 @@ namespace DKCommerceUI.Controllers
         {
             try
             {
+
+                var dtoCompaniaDeEnvio = JsonConvert.DeserializeObject<CompaniaDeEnvioModel>(jsonCompaniaDeEnvio);
+
+                using (var cliente = new HttpClient())
+                {
+                    cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                    cliente.DefaultRequestHeaders.Clear();
+                    cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    var beCompaniaDeEnvio = _mapper.Map<ParametroBE>(dtoCompaniaDeEnvio);
+                    var jsonContent = new StringContent(JsonConvert.SerializeObject(beCompaniaDeEnvio), Encoding.UTF8, "application/json");
+                    var res = await cliente.PostAsync("api/companiaDeEnvio/insert", jsonContent);
+                    if (!res.IsSuccessStatusCode)
+                    {
+                        throw new Exception(res.StatusCode.ToString());
+                    }
+                }
+
             }
             catch (Exception ex)
             {
