@@ -1,7 +1,11 @@
 ﻿using AutoMapper;
+using DKCommerceBussinesEntity;
 using DKCommerceUI.Models;
+using Libreria;
 using MercurioUI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace DKCommerceUI.Controllers
 {
@@ -30,6 +34,11 @@ namespace DKCommerceUI.Controllers
         [HttpGet]
         [Route("nuevo")]
         public IActionResult Nuevo()
+        {
+            return View();
+        }
+        [Route("editar/{idDetalleDePedido}")]
+        public IActionResult Editar(int idDetalleDePedido)
         {
             return View();
         }
