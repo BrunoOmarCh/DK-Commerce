@@ -10,7 +10,7 @@ using System.Text;
 
 namespace DKCommerceUI.Controllers
 {
-    [Route("Pedido")]
+    [Route("pedido")]
     public class PedidoController : Controller
     {
         private IMapper _mapper;
@@ -59,12 +59,10 @@ namespace DKCommerceUI.Controllers
 
                     cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
                     cliente.DefaultRequestHeaders.Clear();
-                    cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));// Será un objeto JSON
-
+                    cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     var res = await cliente.GetAsync("api/pedido/select-by-id/" + idPedido+ "/");
                     if (res.IsSuccessStatusCode)
                     {
-                        //ReadAsStringAsync: el producto la Api lo convierte en string y lo envia a través de la web en ese formato
                         var pedidoResult = res.Content.ReadAsStringAsync().Result;
                         bePedido = JsonConvert.DeserializeObject<PedidoBE>(pedidoResult)!;
                         dtoPedido = _mapper.Map<PedidoModel>(bePedido);
@@ -93,7 +91,7 @@ namespace DKCommerceUI.Controllers
                     var bePedido = _mapper.Map<PedidoBE>(dtoPedido);
                     var jsonContent = new StringContent(JsonConvert.SerializeObject(bePedido), Encoding.UTF8, "application/json");
                     var res = await cliente.PostAsync("api/pedido/insert", jsonContent);
-                    if (!res.IsSuccessStatusCode)// Si el mensaje indica no éxito, disparar una excepción.
+                    if (!res.IsSuccessStatusCode)
                     {
                         throw new Exception(res.StatusCode.ToString());
                     }
@@ -125,8 +123,6 @@ namespace DKCommerceUI.Controllers
                     throw new Exception(res.StatusCode.ToString());
                 }
             }
-
-
         }
 
         [HttpDelete]
@@ -146,6 +142,5 @@ namespace DKCommerceUI.Controllers
                 }
             }
         }
-
     }
 }
