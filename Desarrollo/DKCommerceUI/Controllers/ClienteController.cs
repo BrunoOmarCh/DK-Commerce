@@ -79,11 +79,25 @@ namespace DKCommerceUI.Controllers
         }
         [HttpPost]
         [Route("insert")]
-        public async void Insert(string Cliente)
+        public async void Insert(string jsonCliente)
         {
             try
             {
+                var dtoCliente= JsonConvert.DeserializeObject<ClienteModel>(jsonCliente);
 
+                using (var cliente = new HttpClient())
+                {
+                    cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                    cliente.DefaultRequestHeaders.Clear();
+                    cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    var beCliente = _mapper.Map<ClienteBE>(dtoCliente);
+                    var jsonContent = new StringContent(JsonConvert.SerializeObject(beCliente), Encoding.UTF8, "application/json");
+                    var res = await cliente.PostAsync("api/cliente/insert", jsonContent);
+                    if (!res.IsSuccessStatusCode)
+                    {
+                        throw new Exception(res.StatusCode.ToString());
+                    }
+                }
             }
             catch (Exception ex)
             {
