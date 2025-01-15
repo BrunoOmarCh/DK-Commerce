@@ -40,8 +40,8 @@ namespace DKCommerceUI.Controllers
             return View();
         }
         [HttpGet]
-        [Route("editar/{idParametro}")]
-        public IActionResult Editar(int idParametro)
+        [Route("editar/{stringParametro}")]
+        public IActionResult Editar(string stringParametro)
         {
             return View();
         }
