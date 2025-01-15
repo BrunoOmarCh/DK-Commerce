@@ -6,6 +6,7 @@ using MercurioUI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace DKCommerceUI.Controllers
 {
@@ -80,7 +81,21 @@ namespace DKCommerceUI.Controllers
         {
             try
             {
+                var dtoDetalleDePedido = JsonConvert.DeserializeObject<DetalleDePedidoModel>(jsonDetalleDePedido);
 
+                using (var cliente = new HttpClient())
+                {
+                    cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                    cliente.DefaultRequestHeaders.Clear();
+                    cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    var beDetalleDePedido = _mapper.Map<DetalleDePedidoBE>(dtoDetalleDePedido);
+                    var jsonContent = new StringContent(JsonConvert.SerializeObject(beDetalleDePedido), Encoding.UTF8, "application/json");
+                    var res = await cliente.PostAsync("api/detalleDePedido/insert", jsonContent);
+                    if (!res.IsSuccessStatusCode)
+                    {
+                        throw new Exception(res.StatusCode.ToString());
+                    }
+                }
             }
             catch (Exception ex)
             {
