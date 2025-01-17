@@ -97,9 +97,8 @@ namespace DKCommerceUI.Controllers
                     {
                         throw new Exception(res.StatusCode.ToString());
                     }
-
-
                 }
+            }
             catch (Exception ex)
             {
                 throw ex;
