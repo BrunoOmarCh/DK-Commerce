@@ -40,10 +40,44 @@ namespace DKCommerceUI.Controllers
         }
         [HttpGet]
         [Route("editar/{idPedido}")]
-        public IActionResult Editar(int idPedido)
+        public async Task<IActionResult> Editar(int idPedido)
         {           
-            return View();
-        }
+            ViewBag.PedidoId = idPedido;
+            var dtoPedido = new PedidoModel();
+            using(var client = new  HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var res = await client.GetAsync("api/pedido/select-by-id/" + idPedido + "/");
+                if (res.IsSuccessStatusCode)
+                {
+                    var mainPedidoResult = await res.Content.ReadAsStringAsync();
+                    var bePedido = JsonConvert.DeserializeObject<PedidoBE>(mainPedidoResult);
+
+                    dtoPedido= _mapper.Map<PedidoModel>(bePedido);
+                }
+            }
+            ViewBag.Pedido = dtoPedido;
+            ViewBag.ClienteId = dtoPedido.ClienteId;
+            ViewBag.IdEmpleado = dtoPedido.IdEmpleado;
+            ViewBag.FechaPedido = dtoPedido.FechaPedido;
+            ViewBag.FechaEntrega = dtoPedido.FechaEntrega;
+            ViewBag.FechaEnvío = dtoPedido.FechaEnvío;
+            ViewBag.FormaEnvío = dtoPedido.FormaEnvío;
+            ViewBag.Igv = dtoPedido.Igv;
+            ViewBag.Isc = dtoPedido.Isc;
+            ViewBag.MontoTotal = dtoPedido.MontoTotal;
+            ViewBag.Destinatario = dtoPedido.Destinatario;  
+            ViewBag.DirecciónDestinatario = dtoPedido.DirecciónDestinatario;
+            ViewBag.CiudadDestinatario = dtoPedido.CiudadDestinatario;
+            ViewBag.RegiónDestinatario = dtoPedido.RegiónDestinatario;
+            ViewBag.CódPostalDestinatario = dtoPedido.CódPostalDestinatario;
+            ViewBag.PaísDestinatario = dtoPedido.PaísDestinatario;
+
+            return View(dtoPedido);
+        }   
 
         [HttpGet]
         [Route("select-by-id/{idPedido}")]
