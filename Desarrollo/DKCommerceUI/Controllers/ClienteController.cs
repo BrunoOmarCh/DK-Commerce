@@ -41,9 +41,39 @@ namespace DKCommerceUI.Controllers
 
         [HttpGet]
         [Route("editar/{idCliente}")]
-        public IActionResult Editar(string idCliente)
+        public async Task<IActionResult> Editar(string idCliente)
         {
-            return View();
+            var dtoCliente = new ClienteModel();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var res = await client.GetAsync("api/cliente/select-by-id/" + idCliente + "/");
+                if (res.IsSuccessStatusCode)
+                {
+                    var mainResult = await res.Content.ReadAsStringAsync();
+                    var beCliente = JsonConvert.DeserializeObject<ClienteBE>(mainResult);
+
+                    dtoCliente = _mapper.Map<ClienteModel>(beCliente);
+                }
+            }
+
+            ViewBag.ClienteId = dtoCliente.ClienteId;
+            ViewBag.NombreRazonSocial = dtoCliente.NombreRazonSocial;
+            ViewBag.TipoDocumento = dtoCliente.TipoDocumento;
+            ViewBag.NroDocumento = dtoCliente.NroDocumento;
+            ViewBag.ContactoId = dtoCliente.ContactoId;
+            ViewBag.Direccion = dtoCliente.Direccion;
+            ViewBag.Ciudad = dtoCliente.Ciudad;
+            ViewBag.Region = dtoCliente.Region;
+            ViewBag.CodPostal = dtoCliente.CodPostal;
+            ViewBag.Pais = dtoCliente.Pais;
+            ViewBag.Telefono = dtoCliente.Telefono;
+            ViewBag.Fax = dtoCliente.Fax;
+
+            return View(dtoCliente);
         }
 
         [HttpGet]
