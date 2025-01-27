@@ -41,9 +41,49 @@ namespace DKCommerceUI.Controllers
 
         [HttpGet]
         [Route("editar/{idEmpleado}")]
-        public IActionResult Editar(int idEmpleado)
+        public async Task<IActionResult> Editar(int idEmpleado)
         {
-            return View();
+            var dtoEmpleado = new EmpleadoModel();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var res = await client.GetAsync("api/empleado/select-by-id/" + idEmpleado + "/");
+                if (res.IsSuccessStatusCode)
+                {
+                    var mainEmpleadoResult = await res.Content.ReadAsStringAsync();
+                    var beEmpleado = JsonConvert.DeserializeObject<EmpleadoBE>(mainEmpleadoResult);
+
+                    dtoEmpleado = _mapper.Map<EmpleadoModel>(beEmpleado);
+                }
+            }
+
+            // Asignar todos los valores del modelo a ViewBag
+            ViewBag.EmpleadoId = dtoEmpleado.EmpleadoId;
+            ViewBag.Nombres = dtoEmpleado.Nombres;
+            ViewBag.ApellidoPaterno = dtoEmpleado.ApellidoPaterno;
+            ViewBag.ApellidoMaterno = dtoEmpleado.ApellidoMaterno;
+            ViewBag.TipoDocIdentidad = dtoEmpleado.TipoDocIdentidad;
+            ViewBag.NroDocIdentidad = dtoEmpleado.NroDocIdentidad;
+            ViewBag.Cargo = dtoEmpleado.Cargo;
+            ViewBag.Tratamiento = dtoEmpleado.Tratamiento;
+            ViewBag.FechaNacimiento = dtoEmpleado.FechaNacimiento;
+            ViewBag.FechaContratación = dtoEmpleado.FechaContratación;
+            ViewBag.Dirección = dtoEmpleado.Dirección;
+            ViewBag.Ciudad = dtoEmpleado.Ciudad;
+            ViewBag.Región = dtoEmpleado.Región;
+            ViewBag.CodPostal = dtoEmpleado.CodPostal;
+            ViewBag.Pais = dtoEmpleado.Pais;
+            ViewBag.TelefonoFijo = dtoEmpleado.TelefonoFijo;
+            ViewBag.Anexo = dtoEmpleado.Anexo;
+            ViewBag.Notas = dtoEmpleado.Notas;
+            ViewBag.JefeId = dtoEmpleado.JefeId;
+            ViewBag.Email = dtoEmpleado.Email;
+            ViewBag.EstadoCivil = dtoEmpleado.EstadoCivil;
+
+            return View(dtoEmpleado);
         }
 
         [HttpGet]
