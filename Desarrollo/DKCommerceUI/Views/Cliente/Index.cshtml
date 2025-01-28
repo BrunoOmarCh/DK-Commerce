@@ -1,17 +1,30 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-
 @{
     ViewBag.Title = "Cliente - Index";
 }
 @section Styles {
     <link href="~/views/cliente/index.css" rel="stylesheet" />
 }
-<form id="EditarFrm">
-    <button id="GuardarBtn" type="button">Guardar</button>
 
+<form id="ClienteIndexFrm">
+    <!-- Búsqueda de cliente -->
+    <label for="ClienteBuscarTxt">Buscar Cliente</label>
+    <input id="ClienteBuscarTxt" type="text" autocomplete="off" />
+    <button id="BuscarBtn" type="button">Buscar</button>
+    <br />
+
+    <!-- Resultados -->
+    <div id="ClienteResult"></div>
+    <br /><br /><br />
+
+    <!-- Eliminar cliente -->
+    <label for="ClienteIdTxt">Cliente ID</label>
+    <input id="ClienteIdTxt" type="text" autocomplete="off" />
+    <button id="EliminarBtn" type="button">Eliminar</button>
 </form>
+
 @section Scripts {
     <script src="~/views/cliente/index.js"></script>
 }
