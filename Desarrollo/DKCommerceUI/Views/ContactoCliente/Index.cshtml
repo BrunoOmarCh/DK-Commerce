@@ -8,10 +8,23 @@
 @section Styles {
     <link href="~/views/contactoCliente/index.css" rel="stylesheet" />
 }
-<form id="EditarFrm">
-    <button id="GuardarBtn" type="button">Guardar</button>
+<form id="ContactoClienteIndexFrm">
+    <!-- Buscar Contacto -->
+    <label for="ContactoClienteBuscarTxt">Buscar Contacto</label>
+    <input id="ContactoClienteBuscarTxt" type="text" autocomplete="off" />
+    <button id="BuscarBtn" type="button">Buscar</button>
+    <br />
 
+    <!-- Resultados de la búsqueda -->
+    <div id="ContactoClienteResult"></div>
+    <br><br>
+
+    <!-- Eliminar Contacto -->
+    <label for="ContactoIdTxt">ID Contacto</label>
+    <input id="ContactoIdTxt" type="text" autocomplete="off" />
+    <button id="EliminarBtn" type="button">Eliminar</button>
 </form>
+
 @section Scripts {
     <script src="~/views/contactoCliente/index.js"></script>
 }
