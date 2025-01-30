@@ -6,13 +6,35 @@
     ViewBag.Title = "DetalleDePedido - Nuevo";
 }
 @section Styles {
-    <link href="~/views/detalleDePedido /nuevo.css" rel="stylesheet" />
+    <link href="~/views/detalleDePedido/nuevo.css" rel="stylesheet" />
 }
-<form id="EditarFrm">
-    <button id="GuardarBtn" type="button">Guardar</button>
 
+<form id="DetalleDePedidoNuevoFrm">
+    <button id="GuardarBtn" type="button">Guardar</button>
+    <br /><br />
+
+    <!-- Campos del formulario -->
+    <label for="PedidoIdTxt">ID Pedido</label>
+    <input id="PedidoIdTxt" type="text" autocomplete="off" />
+    <br />
+
+    <label for="ProductoIdTxt">ID Producto</label>
+    <input id="ProductoIdTxt" type="text" autocomplete="off" />
+    <br />
+
+    <label for="PrecioNetoTxt">Precio Neto</label>
+    <input id="PrecioNetoTxt" type="number" step="0.01" autocomplete="off" />
+    <br />
+
+    <label for="CantidadTxt">Cantidad</label>
+    <input id="CantidadTxt" type="number" autocomplete="off" />
+    <br />
+
+    <label for="MontoSubTotalTxt">Monto SubTotal</label>
+    <input id="MontoSubTotalTxt" type="number" step="0.01" autocomplete="off" readonly="readonly" />
+    <br />
 </form>
+
 @section Scripts {
     <script src="~/views/detalleDePedido/nuevo.js"></script>
 }
-
