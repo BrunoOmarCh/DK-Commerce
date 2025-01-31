@@ -3,15 +3,29 @@
 *@
 
 @{
-    ViewBag.Title = "Parametro - Editar";
+    ViewBag.Title = "Parámetro - Editar";
 }
 @section Styles {
     <link href="~/views/parametro/editar.css" rel="stylesheet" />
 }
-<form id="EditarFrm">
-    <button id="GuardarBtn" type="button">Guardar</button>
 
+<form id="ParametroEditarFrm">
+    <button id="GuardarBtn" type="button">Guardar</button>
+    <br /><br />
+
+    <label for="ClaveTxt">Clave</label>
+    <input id="ClaveTxt" type="text" value="@ViewBag.Clave" readonly="readonly" />
+    <br />
+
+    <label for="GrupoTxt">Grupo</label>
+    <input id="GrupoTxt" type="text" value="@ViewBag.Grupo" />
+    <br />
+
+    <label for="ValorTxt">Valor</label>
+    <input id="ValorTxt" type="text" value="@ViewBag.Valor" />
+    <br />
 </form>
+
 @section Scripts {
     <script src="~/views/parametro/editar.js"></script>
 }
