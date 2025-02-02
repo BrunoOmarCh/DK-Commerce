@@ -1,58 +1,57 @@
-﻿"use strict"; // Fuerza a declarar variables
+﻿"use strict"; // Forzar declaración de variables correctamente
 
-function fnEliminar(idProducto) {
+function fnEliminar(idCompania) {
     $.ajax({
         type: "DELETE",
-        contentType: "application/json; chartset=utf-8",// Trabaja con objetos Json; en formato UTF-8 (soporta tildes)
+        contentType: "application/json; charset=utf-8", // Soporta caracteres especiales
         async: true,
         cache: false,
-        url: "https://localhost:7220/producto/delete/" + idProducto,
+        url: "https://localhost:7220/companiaDeEnvio/delete/" + idCompania,
         success: function () {
-            alert("Se eliminó el producto de código '" + idProducto + "', con éxito.");
+            alert("Se eliminó la compañía de envío con ID '" + idCompania + "' correctamente.");
         },
         error: function (param1, param2, param3) {
             console.error("param1", param1);
             console.error("param2", param2);
             console.error("param3", param3);
-            alert("No se pudo eliminar el producto de código '" + idProducto + "'.");
+            alert("No se pudo eliminar la compañía de envío con ID '" + idCompania + "'.");
         }
     });
 }
 
-function fnGet(idProducto) {
+function fnGet(idCompania) {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: true,
         cache: false,
-        url: "https://localhost:7220/producto/select-by-id/" + idProducto,
+        url: "https://localhost:7220/companiaDeEnvio/select-by-id/" + idCompania,
         success: function (data) {
             console.info("data:", data);
-            var producto = "Nombre: " + data.NombreProducto + "<br>" +
-                "Precio lista: " + data.PrecioLista + "<br>" +
-                "Descuento: " + data.Descuento + "<br>" +
-                "Precio venta: " + data.PrecioVenta;
+            var compania = "Nombre de la Compañía: " + data.NombreCompañia + "<br>" +
+                "RUC: " + (data.Ruc || "No registrado") + "<br>" +
+                "Teléfono: " + (data.Telefono || "No registrado");
 
-            $("#ProductoResult").html(producto);
+            $("#CompaniaDeEnvioResult").html(compania);
         },
         error: function (param1, param2, param3) {
             console.error("param1", param1);
             console.error("param2", param2);
             console.error("param3", param3);
-            alert("No se pudo leer el producto de código '" + idProducto + "'.");
+            alert("No se pudo leer la compañía de envío con ID '" + idCompania + "'.");
         }
     });
 }
 
 $("#BuscarBtn").on("click", function () {
-    let idProdBuscar = $("#ProductoBuscarTxt").val();
+    let idCompaniaBuscar = $("#CompaniaDeEnvioBuscarTxt").val();
 
-    fnGet(idProdBuscar);
+    fnGet(idCompaniaBuscar);
 });
 
 $("#EliminarBtn").on("click", function () {
-    let idProd = $("#IdProductoTxt").val();
+    let idCompania = $("#CompaniaDeEnvioIdTxt").val();
 
-    fnEliminar(idProd);
+    fnEliminar(idCompania);
 });
