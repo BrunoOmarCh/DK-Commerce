@@ -1,58 +1,65 @@
-﻿"use strict"; // Fuerza a declarar variables
+﻿"use strict"; // Fuerza a declarar variables correctamente
 
-function fnEliminar(idProducto) {
+function fnEliminar(idCliente) {
     $.ajax({
         type: "DELETE",
-        contentType: "application/json; chartset=utf-8",// Trabaja con objetos Json; en formato UTF-8 (soporta tildes)
+        contentType: "application/json; charset=utf-8", // Soporta caracteres especiales
         async: true,
         cache: false,
-        url: "https://localhost:7220/producto/delete/" + idProducto,
+        url: "https://localhost:7220/cliente/delete/" + idCliente,
         success: function () {
-            alert("Se eliminó el producto de código '" + idProducto + "', con éxito.");
+            alert("Se eliminó el cliente con ID '" + idCliente + "' correctamente.");
         },
         error: function (param1, param2, param3) {
             console.error("param1", param1);
             console.error("param2", param2);
             console.error("param3", param3);
-            alert("No se pudo eliminar el producto de código '" + idProducto + "'.");
+            alert("No se pudo eliminar el cliente con ID '" + idCliente + "'.");
         }
     });
 }
 
-function fnGet(idProducto) {
+function fnGet(idCliente) {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: true,
         cache: false,
-        url: "https://localhost:7220/producto/select-by-id/" + idProducto,
+        url: "https://localhost:7220/cliente/select-by-id/" + idCliente,
         success: function (data) {
             console.info("data:", data);
-            var producto = "Nombre: " + data.NombreProducto + "<br>" +
-                "Precio lista: " + data.PrecioLista + "<br>" +
-                "Descuento: " + data.Descuento + "<br>" +
-                "Precio venta: " + data.PrecioVenta;
+            var cliente = "Nombre/Razón Social: " + data.NombreRazonSocial + "<br>" +
+                "Tipo de Documento: " + (data.TipoDocumento || "No registrado") + "<br>" +
+                "Número de Documento: " + (data.NroDocumento || "No registrado") + "<br>" +
+                "Contacto ID: " + (data.ContactoId || "No registrado") + "<br>" +
+                "Dirección: " + (data.Direccion || "No registrada") + "<br>" +
+                "Ciudad: " + (data.Ciudad || "No registrada") + "<br>" +
+                "Región: " + (data.Region || "No registrada") + "<br>" +
+                "Código Postal: " + (data.CodPostal || "No registrado") + "<br>" +
+                "País: " + (data.Pais || "No registrado") + "<br>" +
+                "Teléfono: " + (data.Telefono || "No registrado") + "<br>" +
+                "Fax: " + (data.Fax || "No registrado");
 
-            $("#ProductoResult").html(producto);
+            $("#ClienteResult").html(cliente);
         },
         error: function (param1, param2, param3) {
             console.error("param1", param1);
             console.error("param2", param2);
             console.error("param3", param3);
-            alert("No se pudo leer el producto de código '" + idProducto + "'.");
+            alert("No se pudo leer el cliente con ID '" + idCliente + "'.");
         }
     });
 }
 
 $("#BuscarBtn").on("click", function () {
-    let idProdBuscar = $("#ProductoBuscarTxt").val();
+    let idClienteBuscar = $("#ClienteBuscarTxt").val();
 
-    fnGet(idProdBuscar);
+    fnGet(idClienteBuscar);
 });
 
 $("#EliminarBtn").on("click", function () {
-    let idProd = $("#IdProductoTxt").val();
+    let idCliente = $("#ClienteIdTxt").val();
 
-    fnEliminar(idProd);
+    fnEliminar(idCliente);
 });
