@@ -1,35 +1,39 @@
 ﻿"use strict";
 
-function fnUpdateCategoria(categoriaId) {
-    let categoria = {
-        Nombre: $("#NombreTxt").val(),
-        Descripcion: $("#DescripcionTxt").val(),
-        Suspendido: $("#SuspendidoChk").is(":checked")
-    };
+function fnUpdate(idPedido, idProducto) {
+    let detalleDePedido;
 
-    console.log("Datos de la categoría:", categoria);
-    console.log("URL de la solicitud:", "https://localhost:7220/categoria/update/" + categoriaId);
+    detalleDePedido = {
+        PrecioNeto: parseFloat($("#PrecioNetoTxt").val()),
+        Cantidad: parseInt($("#CantidadTxt").val()),
+        Descuento: parseFloat($("#DescuentoTxt").val() || 0),
+        Igv: parseFloat($("#IgvTxt").val() || 0),
+        Isc: parseFloat($("#IscTxt").val() || 0),
+        MontoSubTotal: parseFloat($("#MontoSubTotalTxt").val() || 0)
+    };
 
     $.ajax({
         type: "PUT",
         async: true,
         cache: false,
-        data: JSON.stringify(categoria),
-        contentType: "application/json",
-        url: "https://localhost:7220/categoria/update/" + categoriaId,
+        data: { detalleDePedido: JSON.stringify(detalleDePedido) },
+        url: "https://localhost:7220/detalleDePedido/update/" + idPedido + "/" + idProducto,
+        dataType: "text",
+        crossDomain: true,
         success: function () {
-            alert("Se actualizó la categoría: " + $("#NombreTxt").val());
+            alert("Se actualizó el detalle del pedido: " + idPedido);
         },
-        error: function (xhr, status, error) {
-            console.error("Error Status: " + status);
-            console.error("Error Thrown: " + error);
-            console.error("Response Text: " + xhr.responseText);
-            alert("Ocurrió un error al actualizar: " + xhr.responseText);
+        error: function (param1, param2, param3) {
+            console.error("param1", param1);
+            console.error("param2", param2);
+            console.error("param3", param3);
+            alert("Ocurrió un error al actualizar");
         }
     });
 }
 
 $("#GuardarBtn").on("click", function () {
-    const categoriaId = $("#CategoriaIdTxt").val();
-    fnUpdateCategoria(categoriaId);
+    const idPedido = $("#PedidoIdTxt").val();
+    const idProducto = $("#ProductoIdTxt").val();
+    fnUpdate(idPedido, idProducto);
 });
