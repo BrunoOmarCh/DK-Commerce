@@ -1,35 +1,65 @@
-﻿"use strict";
+﻿"use strict"; // Fuerza a declarar variables correctamente
 
-function fnUpdateCategoria(categoriaId) {
-    let categoria = {
-        Nombre: $("#NombreTxt").val(),
-        Descripcion: $("#DescripcionTxt").val(),
-        Suspendido: $("#SuspendidoChk").is(":checked")
-    };
-
-    console.log("Datos de la categoría:", categoria);
-    console.log("URL de la solicitud:", "https://localhost:7220/categoria/update/" + categoriaId);
-
+function fnEliminar(idCliente) {
     $.ajax({
-        type: "PUT",
+        type: "DELETE",
+        contentType: "application/json; charset=utf-8", // Soporta caracteres especiales
         async: true,
         cache: false,
-        data: JSON.stringify(categoria),
-        contentType: "application/json",
-        url: "https://localhost:7220/categoria/update/" + categoriaId,
+        url: "https://localhost:7220/cliente/delete/" + idCliente,
         success: function () {
-            alert("Se actualizó la categoría: " + $("#NombreTxt").val());
+            alert("Se eliminó el cliente con ID '" + idCliente + "' correctamente.");
         },
-        error: function (xhr, status, error) {
-            console.error("Error Status: " + status);
-            console.error("Error Thrown: " + error);
-            console.error("Response Text: " + xhr.responseText);
-            alert("Ocurrió un error al actualizar: " + xhr.responseText);
+        error: function (param1, param2, param3) {
+            console.error("param1", param1);
+            console.error("param2", param2);
+            console.error("param3", param3);
+            alert("No se pudo eliminar el cliente con ID '" + idCliente + "'.");
         }
     });
 }
 
-$("#GuardarBtn").on("click", function () {
-    const categoriaId = $("#CategoriaIdTxt").val();
-    fnUpdateCategoria(categoriaId);
+function fnGet(idCliente) {
+    $.ajax({
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: true,
+        cache: false,
+        url: "https://localhost:7220/cliente/select-by-id/" + idCliente,
+        success: function (data) {
+            console.info("data:", data);
+            var cliente = "Nombre/Razón Social: " + data.NombreRazonSocial + "<br>" +
+                "Tipo de Documento: " + (data.TipoDocumento || "No registrado") + "<br>" +
+                "Número de Documento: " + (data.NroDocumento || "No registrado") + "<br>" +
+                "Contacto ID: " + (data.ContactoId || "No registrado") + "<br>" +
+                "Dirección: " + (data.Direccion || "No registrada") + "<br>" +
+                "Ciudad: " + (data.Ciudad || "No registrada") + "<br>" +
+                "Región: " + (data.Region || "No registrada") + "<br>" +
+                "Código Postal: " + (data.CodPostal || "No registrado") + "<br>" +
+                "País: " + (data.Pais || "No registrado") + "<br>" +
+                "Teléfono: " + (data.Telefono || "No registrado") + "<br>" +
+                "Fax: " + (data.Fax || "No registrado");
+
+            $("#ClienteResult").html(cliente);
+        },
+        error: function (param1, param2, param3) {
+            console.error("param1", param1);
+            console.error("param2", param2);
+            console.error("param3", param3);
+            alert("No se pudo leer el cliente con ID '" + idCliente + "'.");
+        }
+    });
+}
+
+$("#BuscarBtn").on("click", function () {
+    let idClienteBuscar = $("#ClienteBuscarTxt").val();
+
+    fnGet(idClienteBuscar);
+});
+
+$("#EliminarBtn").on("click", function () {
+    let idCliente = $("#ClienteIdTxt").val();
+
+    fnEliminar(idCliente);
 });
