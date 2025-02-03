@@ -1,63 +1,56 @@
-﻿"use strict"; // Fuerza a declarar variables correctamente
+﻿"use strict"; // Fuerza a declarar variables
 
-function fnEliminarCategoria(idCategoria) {
+function fnEliminar(idContacto) {
     $.ajax({
         type: "DELETE",
-        contentType: "application/json; charset=utf-8", // Trabaja con objetos JSON en formato UTF-8
+        contentType: "application/json; charset=utf-8", // Trabaja con objetos Json; en formato UTF-8 (soporta tildes)
         async: true,
         cache: false,
-        url: "https://localhost:7220/categoria/delete/" + idCategoria,
+        url: "https://localhost:7220/contactocliente/delete/" + idContacto,
         success: function () {
-            alert("Se eliminó la categoría de código '" + idCategoria + "' con éxito.");
+            alert("Se eliminó el contacto de código '" + idContacto + "', con éxito.");
         },
         error: function (param1, param2, param3) {
-            console.error("Error Param1:", param1);
-            console.error("Error Param2:", param2);
-            console.error("Error Param3:", param3);
-            alert("No se pudo eliminar la categoría de código '" + idCategoria + "'.");
+            console.error("param1", param1);
+            console.error("param2", param2);
+            console.error("param3", param3);
+            alert("No se pudo eliminar el contacto de código '" + idContacto + "'.");
         }
     });
 }
 
-function fnGetCategoria(idCategoria) {
+function fnGet(idContacto) {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: true,
         cache: false,
-        url: "https://localhost:7220/categoria/select-by-id/" + idCategoria,
+        url: "https://localhost:7220/contactocliente/select-by-id/" + idContacto,
         success: function (data) {
-            console.info("Datos recibidos:", data);
-            const categoria = "Nombre: " + data.Nombre + "<br>" +
-                "Descripción: " + (data.Descripcion || "N/A") + "<br>" +
-                "Suspendido: " + (data.Suspendido ? "Sí" : "No");
+            console.info("data:", data);
+            var contacto = "Nombre Contacto: " + data.NombreContacto + "<br>" +
+                "Cargo: " + data.CargoContacto + "<br>" +
+                "Tipo Documento: " + data.TipoDocumento + "<br>" +
+                "Número Documento: " + data.NroDocumento;
 
-            $("#CategoriaResult").html(categoria);
+            $("#ContactoClienteResult").html(contacto);
         },
         error: function (param1, param2, param3) {
-            console.error("Error Param1:", param1);
-            console.error("Error Param2:", param2);
-            console.error("Error Param3:", param3);
-            alert("No se pudo obtener la categoría de código '" + idCategoria + "'.");
+            console.error("param1", param1);
+            console.error("param2", param2);
+            console.error("param3", param3);
+            alert("No se pudo leer el contacto de código '" + idContacto + "'.");
         }
     });
 }
 
 $("#BuscarBtn").on("click", function () {
-    const idCategoriaBuscar = $("#CategoriaBuscarTxt").val();
-    if (!idCategoriaBuscar) {
-        alert("Por favor, ingrese un código de categoría para buscar.");
-        return;
-    }
-    fnGetCategoria(idCategoriaBuscar);
+    let idContactoBuscar = $("#ContactoClienteBuscarTxt").val();
+    fnGet(idContactoBuscar);
 });
 
 $("#EliminarBtn").on("click", function () {
-    const idCategoria = $("#CategoriaIdTxt").val();
-    if (!idCategoria) {
-        alert("Por favor, ingrese un código de categoría para eliminar.");
-        return;
-    }
-    fnEliminarCategoria(idCategoria);
+    let idContacto = $("#ContactoIdTxt").val();
+    fnEliminar(idContacto);
 });
