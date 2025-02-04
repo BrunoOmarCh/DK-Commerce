@@ -1,56 +1,65 @@
-﻿"use strict"; // Fuerza a declarar variables
+﻿"use strict"; // Fuerza a declarar variables correctamente
 
-function fnEliminar(idContacto) {
+function fnEliminar(idCliente) {
     $.ajax({
         type: "DELETE",
-        contentType: "application/json; charset=utf-8", // Trabaja con objetos Json; en formato UTF-8 (soporta tildes)
+        contentType: "application/json; charset=utf-8", // Soporta caracteres especiales
         async: true,
         cache: false,
-        url: "https://localhost:7220/contactocliente/delete/" + idContacto,
+        url: "https://localhost:7220/cliente/delete/" + idCliente,
         success: function () {
-            alert("Se eliminó el contacto de código '" + idContacto + "', con éxito.");
+            alert("Se eliminó el cliente con ID '" + idCliente + "' correctamente.");
         },
         error: function (param1, param2, param3) {
             console.error("param1", param1);
             console.error("param2", param2);
             console.error("param3", param3);
-            alert("No se pudo eliminar el contacto de código '" + idContacto + "'.");
+            alert("No se pudo eliminar el cliente con ID '" + idCliente + "'.");
         }
     });
 }
 
-function fnGet(idContacto) {
+function fnGet(idCliente) {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: true,
         cache: false,
-        url: "https://localhost:7220/contactocliente/select-by-id/" + idContacto,
+        url: "https://localhost:7220/cliente/select-by-id/" + idCliente,
         success: function (data) {
             console.info("data:", data);
-            var contacto = "Nombre Contacto: " + data.NombreContacto + "<br>" +
-                "Cargo: " + data.CargoContacto + "<br>" +
-                "Tipo Documento: " + data.TipoDocumento + "<br>" +
-                "Número Documento: " + data.NroDocumento;
+            var cliente = "Nombre/Razón Social: " + data.NombreRazonSocial + "<br>" +
+                "Tipo de Documento: " + (data.TipoDocumento || "No registrado") + "<br>" +
+                "Número de Documento: " + (data.NroDocumento || "No registrado") + "<br>" +
+                "Contacto ID: " + (data.ContactoId || "No registrado") + "<br>" +
+                "Dirección: " + (data.Direccion || "No registrada") + "<br>" +
+                "Ciudad: " + (data.Ciudad || "No registrada") + "<br>" +
+                "Región: " + (data.Region || "No registrada") + "<br>" +
+                "Código Postal: " + (data.CodPostal || "No registrado") + "<br>" +
+                "País: " + (data.Pais || "No registrado") + "<br>" +
+                "Teléfono: " + (data.Telefono || "No registrado") + "<br>" +
+                "Fax: " + (data.Fax || "No registrado");
 
-            $("#ContactoClienteResult").html(contacto);
+            $("#ClienteResult").html(cliente);
         },
         error: function (param1, param2, param3) {
             console.error("param1", param1);
             console.error("param2", param2);
             console.error("param3", param3);
-            alert("No se pudo leer el contacto de código '" + idContacto + "'.");
+            alert("No se pudo leer el cliente con ID '" + idCliente + "'.");
         }
     });
 }
 
 $("#BuscarBtn").on("click", function () {
-    let idContactoBuscar = $("#ContactoClienteBuscarTxt").val();
-    fnGet(idContactoBuscar);
+    let idClienteBuscar = $("#ClienteBuscarTxt").val();
+
+    fnGet(idClienteBuscar);
 });
 
 $("#EliminarBtn").on("click", function () {
-    let idContacto = $("#ContactoIdTxt").val();
-    fnEliminar(idContacto);
+    let idCliente = $("#ClienteIdTxt").val();
+
+    fnEliminar(idCliente);
 });
