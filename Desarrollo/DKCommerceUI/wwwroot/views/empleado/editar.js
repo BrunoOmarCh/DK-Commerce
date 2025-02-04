@@ -1,39 +1,45 @@
 ﻿"use strict";
 
-function fnUpdate(idPedido, idProducto) {
-    let detalleDePedido;
-
-    detalleDePedido = {
-        PrecioNeto: parseFloat($("#PrecioNetoTxt").val()),
-        Cantidad: parseInt($("#CantidadTxt").val()),
-        Descuento: parseFloat($("#DescuentoTxt").val() || 0),
-        Igv: parseFloat($("#IgvTxt").val() || 0),
-        Isc: parseFloat($("#IscTxt").val() || 0),
-        MontoSubTotal: parseFloat($("#MontoSubTotalTxt").val() || 0)
+function fnUpdate(idProveedor) {
+    let proveedor = {
+        Nombre: $("#NombreTxt").val(),
+        Ruc: $("#RucTxt").val(),
+        ContactoId: $("#ContactoTxt").val(),
+        Direccion: $("#DireccionTxt").val(),
+        Ciudad: $("#CiudadTxt").val(),
+        Region: $("#RegionTxt").val(),
+        CodPostal: $("#CodPostalTxt").val(),
+        Pais: $("#PaisTxt").val(),
+        Telefono: $("#TelefonoTxt").val(),
+        Fax: $("#FaxTxt").val(),
+        PaginaPrincipal: $("#PaginaPrincipalTxt").val()
     };
+
+    console.log("Datos del proveedor:", proveedor);
+    console.log("URL de la solicitud:", "https://localhost:7220/proveedor/update/" + idProveedor);
 
     $.ajax({
         type: "PUT",
         async: true,
         cache: false,
-        data: { detalleDePedido: JSON.stringify(detalleDePedido) },
-        url: "https://localhost:7220/detalleDePedido/update/" + idPedido + "/" + idProducto,
-        dataType: "text",
-        crossDomain: true,
+        data: JSON.stringify(proveedor),
+        contentType: "application/json",
+        url: "https://localhost:7220/proveedor/update/" + idProveedor,
         success: function () {
-            alert("Se actualizó el detalle del pedido: " + idPedido);
+            alert("Se actualizó el proveedor: " + $("#NombreTxt").val());
         },
-        error: function (param1, param2, param3) {
-            console.error("param1", param1);
-            console.error("param2", param2);
-            console.error("param3", param3);
-            alert("Ocurrió un error al actualizar");
+        error: function (xhr, status, error) {
+            console.error("Error Status: " + status);
+            console.error("Error Thrown: " + error);
+            console.error("Response Text: " + xhr.responseText);
+            alert("Ocurrió un error al actualizar: " + xhr.responseText);
         }
+
     });
 }
 
 $("#GuardarBtn").on("click", function () {
-    const idPedido = $("#PedidoIdTxt").val();
-    const idProducto = $("#ProductoIdTxt").val();
-    fnUpdate(idPedido, idProducto);
+    const idProveedor = $("#CodigoTxt").val();
+    fnUpdate(idProveedor);
 });
+
