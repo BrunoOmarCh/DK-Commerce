@@ -1,57 +1,65 @@
-﻿"use strict"; // Forzar declaración de variables correctamente
+﻿"use strict"; // Fuerza a declarar variables
 
-function fnEliminar(idCompania) {
+function fnEliminar(idProveedor) {
     $.ajax({
         type: "DELETE",
-        contentType: "application/json; charset=utf-8", // Soporta caracteres especiales
+        contentType: "application/json; chartset=utf-8",// Trabaja con objetos Json; en formato UTF-8 (soporta tildes)
         async: true,
         cache: false,
-        url: "https://localhost:7220/companiaDeEnvio/delete/" + idCompania,
+        url: "https://localhost:7220/proveedor/delete/" + idProveedor,
         success: function () {
-            alert("Se eliminó la compañía de envío con ID '" + idCompania + "' correctamente.");
+            alert("Se eliminó el proveedor de código '" + idProveedor + "', con éxito.");
         },
         error: function (param1, param2, param3) {
             console.error("param1", param1);
             console.error("param2", param2);
             console.error("param3", param3);
-            alert("No se pudo eliminar la compañía de envío con ID '" + idCompania + "'.");
+            alert("No se pudo eliminar el proveedor de código '" + idProveedor + "'.");
         }
     });
 }
 
-function fnGet(idCompania) {
+function fnGet(idProveedor) {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: true,
         cache: false,
-        url: "https://localhost:7220/companiaDeEnvio/select-by-id/" + idCompania,
+        url: "https://localhost:7220/proveedor/select-by-id/" + idProveedor,
         success: function (data) {
             console.info("data:", data);
-            var compania = "Nombre de la Compañía: " + data.NombreCompañia + "<br>" +
-                "RUC: " + (data.Ruc || "No registrado") + "<br>" +
-                "Teléfono: " + (data.Telefono || "No registrado");
+            var proveedor = "Nombre: " + data.Nombre + "<br>" +
+                "Ruc: " + data.Ruc + "<br>" +
+                "Contacto: " + data.ContactoId + "<br>" +
+                "Direccion: " + data.Direccion + "<br>" +
+                "Ciudad: " + data.Ciudad + "<br>" +
+                "Region: " + data.Region + "<br>" +
+                "CodPostal: " + data.CodPostal + "<br>" +
+                "Pais: " + data.Pais + "<br>" +
+                "Telefono: " + data.Telefono + "<br>" +
+                "Fax: " + data.Fax + "<br>" +
+                "PaginaPrincipal: " + data.PaginaPrincipal;
 
-            $("#CompaniaDeEnvioResult").html(compania);
+            $("#ProveedorResult").html(proveedor);
         },
         error: function (param1, param2, param3) {
             console.error("param1", param1);
             console.error("param2", param2);
             console.error("param3", param3);
-            alert("No se pudo leer la compañía de envío con ID '" + idCompania + "'.");
+            alert("No se pudo leer el proveedor de código '" + idProveedor + "'.");
         }
     });
 }
 
 $("#BuscarBtn").on("click", function () {
-    let idCompaniaBuscar = $("#CompaniaDeEnvioBuscarTxt").val();
+    let idProvBuscar = $("#ProveedorBuscarTxt").val();
 
-    fnGet(idCompaniaBuscar);
+    fnGet(idProvBuscar);
 });
 
 $("#EliminarBtn").on("click", function () {
-    let idCompania = $("#CompaniaDeEnvioIdTxt").val();
+    let idProv = $("#ProveedorIdTxt").val();
 
-    fnEliminar(idCompania);
+    fnEliminar(idProv);
 });
