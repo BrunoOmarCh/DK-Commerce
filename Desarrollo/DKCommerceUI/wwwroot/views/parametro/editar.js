@@ -1,35 +1,45 @@
 ﻿"use strict";
 
-function fnUpdate(idCompaniaDeEnvio) {
-    let companiaDeEnvio;
-
-    companiaDeEnvio = {
-        NombreCompañia: $("#NombreCompañiaTxt").val(),
+function fnUpdate(idProveedor) {
+    let proveedor = {
+        Nombre: $("#NombreTxt").val(),
         Ruc: $("#RucTxt").val(),
-        Telefono: $("#TelefonoTxt").val()
+        ContactoId: $("#ContactoTxt").val(),
+        Direccion: $("#DireccionTxt").val(),
+        Ciudad: $("#CiudadTxt").val(),
+        Region: $("#RegionTxt").val(),
+        CodPostal: $("#CodPostalTxt").val(),
+        Pais: $("#PaisTxt").val(),
+        Telefono: $("#TelefonoTxt").val(),
+        Fax: $("#FaxTxt").val(),
+        PaginaPrincipal: $("#PaginaPrincipalTxt").val()
     };
+
+    console.log("Datos del proveedor:", proveedor);
+    console.log("URL de la solicitud:", "https://localhost:7220/proveedor/update/" + idProveedor);
 
     $.ajax({
         type: "PUT",
         async: true,
         cache: false,
-        data: { companiaDeEnvio: JSON.stringify(companiaDeEnvio) },
-        url: "https://localhost:7220/companiaDeEnvio/update/" + idCompaniaDeEnvio,
-        dataType: "text",
-        crossDomain: true,
+        data: JSON.stringify(proveedor),
+        contentType: "application/json",
+        url: "https://localhost:7220/proveedor/update/" + idProveedor,
         success: function () {
-            alert("Se actualizó la compañía: " + $("#NombreCompañiaTxt").val());
+            alert("Se actualizó el proveedor: " + $("#NombreTxt").val());
         },
-        error: function (param1, param2, param3) {
-            console.error("param1", param1);
-            console.error("param2", param2);
-            console.error("param3", param3);
-            alert("Ocurrió un error al actualizar");
+        error: function (xhr, status, error) {
+            console.error("Error Status: " + status);
+            console.error("Error Thrown: " + error);
+            console.error("Response Text: " + xhr.responseText);
+            alert("Ocurrió un error al actualizar: " + xhr.responseText);
         }
+
     });
 }
 
 $("#GuardarBtn").on("click", function () {
-    const idCompaniaDeEnvio = $("#CompaniaDeEnvioIdTxt").val();
-    fnUpdate(idCompaniaDeEnvio);
+    const idProveedor = $("#CodigoTxt").val();
+    fnUpdate(idProveedor);
 });
+
