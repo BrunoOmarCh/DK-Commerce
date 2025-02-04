@@ -1,56 +1,65 @@
 ﻿"use strict"; // Fuerza a declarar variables
 
-function fnEliminar(idContacto) {
+function fnEliminar(idProveedor) {
     $.ajax({
         type: "DELETE",
-        contentType: "application/json; charset=utf-8", // Trabaja con objetos Json; en formato UTF-8 (soporta tildes)
+        contentType: "application/json; chartset=utf-8",// Trabaja con objetos Json; en formato UTF-8 (soporta tildes)
         async: true,
         cache: false,
-        url: "https://localhost:7220/contactocliente/delete/" + idContacto,
+        url: "https://localhost:7220/proveedor/delete/" + idProveedor,
         success: function () {
-            alert("Se eliminó el contacto de código '" + idContacto + "', con éxito.");
+            alert("Se eliminó el proveedor de código '" + idProveedor + "', con éxito.");
         },
         error: function (param1, param2, param3) {
             console.error("param1", param1);
             console.error("param2", param2);
             console.error("param3", param3);
-            alert("No se pudo eliminar el contacto de código '" + idContacto + "'.");
+            alert("No se pudo eliminar el proveedor de código '" + idProveedor + "'.");
         }
     });
 }
 
-function fnGet(idContacto) {
+function fnGet(idProveedor) {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: true,
         cache: false,
-        url: "https://localhost:7220/contactocliente/select-by-id/" + idContacto,
+        url: "https://localhost:7220/proveedor/select-by-id/" + idProveedor,
         success: function (data) {
             console.info("data:", data);
-            var contacto = "Nombre Contacto: " + data.NombreContacto + "<br>" +
-                "Cargo: " + data.CargoContacto + "<br>" +
-                "Tipo Documento: " + data.TipoDocumento + "<br>" +
-                "Número Documento: " + data.NroDocumento;
+            var proveedor = "Nombre: " + data.Nombre + "<br>" +
+                "Ruc: " + data.Ruc + "<br>" +
+                "Contacto: " + data.ContactoId + "<br>" +
+                "Direccion: " + data.Direccion + "<br>" +
+                "Ciudad: " + data.Ciudad + "<br>" +
+                "Region: " + data.Region + "<br>" +
+                "CodPostal: " + data.CodPostal + "<br>" +
+                "Pais: " + data.Pais + "<br>" +
+                "Telefono: " + data.Telefono + "<br>" +
+                "Fax: " + data.Fax + "<br>" +
+                "PaginaPrincipal: " + data.PaginaPrincipal;
 
-            $("#ContactoClienteResult").html(contacto);
+            $("#ProveedorResult").html(proveedor);
         },
         error: function (param1, param2, param3) {
             console.error("param1", param1);
             console.error("param2", param2);
             console.error("param3", param3);
-            alert("No se pudo leer el contacto de código '" + idContacto + "'.");
+            alert("No se pudo leer el proveedor de código '" + idProveedor + "'.");
         }
     });
 }
 
 $("#BuscarBtn").on("click", function () {
-    let idContactoBuscar = $("#ContactoClienteBuscarTxt").val();
-    fnGet(idContactoBuscar);
+    let idProvBuscar = $("#ProveedorBuscarTxt").val();
+
+    fnGet(idProvBuscar);
 });
 
 $("#EliminarBtn").on("click", function () {
-    let idContacto = $("#ContactoIdTxt").val();
-    fnEliminar(idContacto);
+    let idProv = $("#ProveedorIdTxt").val();
+
+    fnEliminar(idProv);
 });
