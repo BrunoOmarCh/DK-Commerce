@@ -1,65 +1,65 @@
-﻿"use strict"; // Fuerza a declarar variables correctamente
+﻿"use strict"; // Fuerza a declarar variables
 
-function fnEliminar(idCliente) {
+function fnEliminar(idProveedor) {
     $.ajax({
         type: "DELETE",
-        contentType: "application/json; charset=utf-8", // Soporta caracteres especiales
+        contentType: "application/json; chartset=utf-8",// Trabaja con objetos Json; en formato UTF-8 (soporta tildes)
         async: true,
         cache: false,
-        url: "https://localhost:7220/cliente/delete/" + idCliente,
+        url: "https://localhost:7220/proveedor/delete/" + idProveedor,
         success: function () {
-            alert("Se eliminó el cliente con ID '" + idCliente + "' correctamente.");
+            alert("Se eliminó el proveedor de código '" + idProveedor + "', con éxito.");
         },
         error: function (param1, param2, param3) {
             console.error("param1", param1);
             console.error("param2", param2);
             console.error("param3", param3);
-            alert("No se pudo eliminar el cliente con ID '" + idCliente + "'.");
+            alert("No se pudo eliminar el proveedor de código '" + idProveedor + "'.");
         }
     });
 }
 
-function fnGet(idCliente) {
+function fnGet(idProveedor) {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: true,
         cache: false,
-        url: "https://localhost:7220/cliente/select-by-id/" + idCliente,
+        url: "https://localhost:7220/proveedor/select-by-id/" + idProveedor,
         success: function (data) {
             console.info("data:", data);
-            var cliente = "Nombre/Razón Social: " + data.NombreRazonSocial + "<br>" +
-                "Tipo de Documento: " + (data.TipoDocumento || "No registrado") + "<br>" +
-                "Número de Documento: " + (data.NroDocumento || "No registrado") + "<br>" +
-                "Contacto ID: " + (data.ContactoId || "No registrado") + "<br>" +
-                "Dirección: " + (data.Direccion || "No registrada") + "<br>" +
-                "Ciudad: " + (data.Ciudad || "No registrada") + "<br>" +
-                "Región: " + (data.Region || "No registrada") + "<br>" +
-                "Código Postal: " + (data.CodPostal || "No registrado") + "<br>" +
-                "País: " + (data.Pais || "No registrado") + "<br>" +
-                "Teléfono: " + (data.Telefono || "No registrado") + "<br>" +
-                "Fax: " + (data.Fax || "No registrado");
+            var proveedor = "Nombre: " + data.Nombre + "<br>" +
+                "Ruc: " + data.Ruc + "<br>" +
+                "Contacto: " + data.ContactoId + "<br>" +
+                "Direccion: " + data.Direccion + "<br>" +
+                "Ciudad: " + data.Ciudad + "<br>" +
+                "Region: " + data.Region + "<br>" +
+                "CodPostal: " + data.CodPostal + "<br>" +
+                "Pais: " + data.Pais + "<br>" +
+                "Telefono: " + data.Telefono + "<br>" +
+                "Fax: " + data.Fax + "<br>" +
+                "PaginaPrincipal: " + data.PaginaPrincipal;
 
-            $("#ClienteResult").html(cliente);
+            $("#ProveedorResult").html(proveedor);
         },
         error: function (param1, param2, param3) {
             console.error("param1", param1);
             console.error("param2", param2);
             console.error("param3", param3);
-            alert("No se pudo leer el cliente con ID '" + idCliente + "'.");
+            alert("No se pudo leer el proveedor de código '" + idProveedor + "'.");
         }
     });
 }
 
 $("#BuscarBtn").on("click", function () {
-    let idClienteBuscar = $("#ClienteBuscarTxt").val();
+    let idProvBuscar = $("#ProveedorBuscarTxt").val();
 
-    fnGet(idClienteBuscar);
+    fnGet(idProvBuscar);
 });
 
 $("#EliminarBtn").on("click", function () {
-    let idCliente = $("#ClienteIdTxt").val();
+    let idProv = $("#ProveedorIdTxt").val();
 
-    fnEliminar(idCliente);
+    fnEliminar(idProv);
 });
