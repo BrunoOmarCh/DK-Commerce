@@ -1,34 +1,34 @@
 ﻿"use strict";
-
 function fnInsert() {
-    let categoria;
+    let producto;
 
-    categoria = {
-        Nombre: $("#NombreTxt").val(),
-        Descripcion: $("#DescripcionTxt").val(),
-        Suspendido: $("#SuspendidoChk").is(":checked")
+    producto = {
+        NombreProducto: $("#NombreTxt").val(),
+        PrecioVenta: $("#PrecioTxt").val(),
+        ProveedorId: $("#ProveedorIdTxt").val(),
+        CategoriaId: $("#CategoriaIdTxt").val()
     };
 
-    $.ajax({
-        type: "POST",
-        async: true,
-        cache: false,
-        data: { categoria: JSON.stringify(categoria) },
-        url: "https://localhost:7220/categoria/insert",
-        dataType: "text",
-        crossDomain: true,
-        success: function () {
-            alert("La categoría se insertó con éxito.");
+    $.ajax({ // Es un llamado con JavaScript a métodos de servidor
+        type: "POST", // Método HTTP
+        async: true, // Será asíncrono
+        cache: false, // No usará la cache
+        data: { producto: JSON.stringify(producto) }, // Se envía serializado, solo pasa texto
+        url: "https://localhost:7220/producto/insert",
+        dataType: "text", // 'text' porque está serializado
+        crossDomain: true,// Los nombres de las propiedades de los objetos empiezan en minúsculas
+        success: function () { // Invoca a una función anónima
+            alert("Se insertó con éxito.");
         },
         error: function (param1, param2, param3) {
             console.error("param1", param1);
             console.error("param2", param2);
             console.error("param3", param3);
-            alert("Ocurrió un error al insertar la categoría.");
+            alert("Ocurrió un error al insertar.");
         }
     });
 }
 
-$("#GuardarBtn").on("click", function () {
+$("#GuardarBtn").on("click", function () {// Evento click
     fnInsert();
 });
