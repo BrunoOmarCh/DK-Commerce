@@ -1,60 +1,58 @@
 ﻿"use strict"; // Fuerza a declarar variables
 
-function fnEliminar(pedidoId, productoId) {
+function fnEliminar(idProducto) {
     $.ajax({
         type: "DELETE",
-        contentType: "application/json; charset=utf-8", // Trabaja con objetos Json; en formato UTF-8 (soporta tildes)
+        contentType: "application/json; chartset=utf-8",// Trabaja con objetos Json; en formato UTF-8 (soporta tildes)
         async: true,
         cache: false,
-        url: "https://localhost:7220/detallepedido/delete/" + pedidoId + "/" + productoId,
+        url: "https://localhost:7220/producto/delete/" + idProducto,
         success: function () {
-            alert("Se eliminó el detalle de pedido con ID Pedido '" + pedidoId + "' y ID Producto '" + productoId + "' con éxito.");
+            alert("Se eliminó el producto de código '" + idProducto + "', con éxito.");
         },
         error: function (param1, param2, param3) {
             console.error("param1", param1);
             console.error("param2", param2);
             console.error("param3", param3);
-            alert("No se pudo eliminar el detalle de pedido con ID Pedido '" + pedidoId + "' y ID Producto '" + productoId + "'.");
+            alert("No se pudo eliminar el producto de código '" + idProducto + "'.");
         }
     });
 }
 
-function fnGet(pedidoId, productoId) {
+function fnGet(idProducto) {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: true,
         cache: false,
-        url: "https://localhost:7220/detallepedido/select-by-id/" + pedidoId + "/" + productoId,
+        url: "https://localhost:7220/producto/select-by-id/" + idProducto,
         success: function (data) {
             console.info("data:", data);
-            var detalleDePedido = "Precio Neto: " + data.PrecioNeto + "<br>" +
-                "Cantidad: " + data.Cantidad + "<br>" +
+            var producto = "Nombre: " + data.NombreProducto + "<br>" +
+                "Precio lista: " + data.PrecioLista + "<br>" +
                 "Descuento: " + data.Descuento + "<br>" +
-                "IGV: " + data.Igv + "<br>" +
-                "ISC: " + data.Isc + "<br>" +
-                "Monto SubTotal: " + data.MontoSubTotal;
+                "Precio venta: " + data.PrecioVenta;
 
-            $("#DetalleDePedidoResult").html(detalleDePedido);
+            $("#ProductoResult").html(producto);
         },
         error: function (param1, param2, param3) {
             console.error("param1", param1);
             console.error("param2", param2);
             console.error("param3", param3);
-            alert("No se pudo leer el detalle de pedido con ID Pedido '" + pedidoId + "' y ID Producto '" + productoId + "'.");
+            alert("No se pudo leer el producto de código '" + idProducto + "'.");
         }
     });
 }
 
 $("#BuscarBtn").on("click", function () {
-    let pedidoId = $("#PedidoIdTxt").val();
-    let productoId = $("#ProductoIdTxt").val();
-    fnGet(pedidoId, productoId);
+    let idProdBuscar = $("#ProductoBuscarTxt").val();
+
+    fnGet(idProdBuscar);
 });
 
 $("#EliminarBtn").on("click", function () {
-    let pedidoId = $("#EliminarPedidoIdTxt").val();
-    let productoId = $("#EliminarProductoIdTxt").val();
-    fnEliminar(pedidoId, productoId);
+    let idProd = $("#IdProductoTxt").val();
+
+    fnEliminar(idProd);
 });
