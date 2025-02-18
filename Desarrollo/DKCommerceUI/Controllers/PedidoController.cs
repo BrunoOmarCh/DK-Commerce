@@ -79,6 +79,37 @@ namespace DKCommerceUI.Controllers
             return View(dtoPedido);
         }
 
+        [HttpGet]
+        [Route("select-by-id/{idPedido}")]
+        public async Task<PedidoModel> SelectById(int idPedido)
+        {
+            try
+            {
+                PedidoModel dtoPedido = null;
+                PedidoBE bePedido = null;
+
+                using (var cliente = new HttpClient())
+                {
+
+                    cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                    cliente.DefaultRequestHeaders.Clear();
+                    cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    var res = await cliente.GetAsync("api/pedido/select-by-id/" + idPedido + "/");
+                    if (res.IsSuccessStatusCode)
+                    {
+                        var pedidoResult = res.Content.ReadAsStringAsync().Result;
+                        bePedido = JsonConvert.DeserializeObject<PedidoBE>(pedidoResult)!;
+                        dtoPedido = _mapper.Map<PedidoModel>(bePedido);
+                    }
+                }
+                return dtoPedido;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
     }
 }
