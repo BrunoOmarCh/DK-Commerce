@@ -1,45 +1,34 @@
 ﻿"use strict";
 
-function fnUpdate(idProveedor) {
-    let proveedor = {
-        Nombre: $("#NombreTxt").val(),
-        Ruc: $("#RucTxt").val(),
-        ContactoId: $("#ContactoTxt").val(),
-        Direccion: $("#DireccionTxt").val(),
-        Ciudad: $("#CiudadTxt").val(),
-        Region: $("#RegionTxt").val(),
-        CodPostal: $("#CodPostalTxt").val(),
-        Pais: $("#PaisTxt").val(),
-        Telefono: $("#TelefonoTxt").val(),
-        Fax: $("#FaxTxt").val(),
-        PaginaPrincipal: $("#PaginaPrincipalTxt").val()
-    };
+function fnUpdate(idProducto) {
+    let producto;
 
-    console.log("Datos del proveedor:", proveedor);
-    console.log("URL de la solicitud:", "https://localhost:7220/proveedor/update/" + idProveedor);
+    producto = {
+        NombreProducto: $("#NombreTxt").val(),
+        PrecioVenta: $("#PrecioTxt").val()
+    };
 
     $.ajax({
         type: "PUT",
         async: true,
         cache: false,
-        data: JSON.stringify(proveedor),
-        contentType: "application/json",
-        url: "https://localhost:7220/proveedor/update/" + idProveedor,
+        data: { producto: JSON.stringify(producto) },
+        url: "https://localhost:7220/producto/update/" + idProducto,
+        dataType: "text",
+        crossDomain: true,
         success: function () {
-            alert("Se actualizó el proveedor: " + $("#NombreTxt").val());
+            alert("Se actualizó el producto: " + $("#NombreTxt").val());
         },
-        error: function (xhr, status, error) {
-            console.error("Error Status: " + status);
-            console.error("Error Thrown: " + error);
-            console.error("Response Text: " + xhr.responseText);
-            alert("Ocurrió un error al actualizar: " + xhr.responseText);
+        error: function (param1, param2, param3) {
+            console.error("param1", param1);
+            console.error("param2", param2);
+            console.error("param3", param3);
+            alert("Ocurrió un error al actualizar");
         }
-
     });
 }
 
 $("#GuardarBtn").on("click", function () {
-    const idProveedor = $("#CodigoTxt").val();
-    fnUpdate(idProveedor);
+    const idProducto = $("#CodigoTxt").val();
+    fnUpdate(idProducto);
 });
-
