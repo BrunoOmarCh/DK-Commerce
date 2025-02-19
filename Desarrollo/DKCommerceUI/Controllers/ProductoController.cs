@@ -27,6 +27,16 @@ namespace DKCommerceUI.Controllers
 
             _mapper = config.CreateMapper();
         }
+        public IActionResult Index()
+        {
+            return View();
+        }
+        [HttpGet]
+        [Route("nuevo")]
+        public IActionResult Nuevo()
+        {
+            return View();
+        }
 
     }
 }
