@@ -38,5 +38,17 @@ namespace DKCommerceUI.Controllers
             return View();
         }
 
+        [HttpGet]
+        [Route("editar/{idProducto}")]
+        public IActionResult Editar(int idProducto)
+        {
+            ViewBag.IdProducto = idProducto;
+            ViewBag.Nombre = "Manzana Roja";
+            ViewBag.Precio = 3.59;
+
+            return View();
+        }
+
+
     }
 }
