@@ -1,24 +1,23 @@
 ﻿"use strict";
 
-function fnUpdate(idContactoProveedor) {
-    let contactoProveedor;
+function fnUpdate(idProducto) {
+    let producto;
 
-    contactoProveedor = {
-        NombreContacto: $("#NombreContactoTxt").val(),
-        CargoContacto: $("#CargoContactoTxt").val(),
-        Dni: $("#DniTxt").val()
+    producto = {
+        NombreProducto: $("#NombreTxt").val(),
+        PrecioVenta: $("#PrecioTxt").val()
     };
 
     $.ajax({
         type: "PUT",
         async: true,
         cache: false,
-        data: { contactoProveedor: JSON.stringify(contactoProveedor) },
-        url: "https://localhost:7220/contactoProveedor/update/" + idContactoProveedor,
+        data: { producto: JSON.stringify(producto) },
+        url: "https://localhost:7220/producto/update/" + idProducto,
         dataType: "text",
         crossDomain: true,
         success: function () {
-            alert("Se actualizó el contacto: " + $("#NombreContactoTxt").val());
+            alert("Se actualizó el producto: " + $("#NombreTxt").val());
         },
         error: function (param1, param2, param3) {
             console.error("param1", param1);
@@ -30,6 +29,6 @@ function fnUpdate(idContactoProveedor) {
 }
 
 $("#GuardarBtn").on("click", function () {
-    const idContactoProveedor = $("#ContactoProveedorIdTxt").val();
-    fnUpdate(idContactoProveedor);
+    const idProducto = $("#CodigoTxt").val();
+    fnUpdate(idProducto);
 });
