@@ -39,6 +39,40 @@ namespace DKCommerceUI.Controllers
         {
             return View();
         }
+        [HttpGet]
+        [Route("editar/{idDetalleDePedido}")]
+        public async Task<IActionResult> Editar(int idDetalleDePedido)
+        {
+            var dtoDetalleDePedido = new DetalleDePedidoModel();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var res = await client.GetAsync("api/detallepedido/select-by-id/" + idDetalleDePedido + "/");
+                if (res.IsSuccessStatusCode)
+                {
+                    var mainDetalleResult = await res.Content.ReadAsStringAsync();
+                    var beDetalleDePedido = JsonConvert.DeserializeObject<DetalleDePedidoBE>(mainDetalleResult);
+
+                    dtoDetalleDePedido = _mapper.Map<DetalleDePedidoModel>(beDetalleDePedido);
+                }
+            }
+
+            // Asignar todos los valores del modelo a ViewBag
+            ViewBag.PedidoId = dtoDetalleDePedido.PedidoId;
+            ViewBag.ProductoId = dtoDetalleDePedido.ProductoId;
+            ViewBag.PrecioNeto = dtoDetalleDePedido.PrecioNeto;
+            ViewBag.Cantidad = dtoDetalleDePedido.Cantidad;
+            ViewBag.Descuento = dtoDetalleDePedido.Descuento;
+            ViewBag.Igv = dtoDetalleDePedido.Igv;
+            ViewBag.Isc = dtoDetalleDePedido.Isc;
+            ViewBag.MontoSubTotal = dtoDetalleDePedido.MontoSubTotal;
+
+            return View(dtoDetalleDePedido);
+        }
+
 
     }
 }
