@@ -9,6 +9,58 @@
 }
 
 <form id="ClienteEditarFrm">
+    <!-- Botón para guardar cambios -->
+    <button id="GuardarBtn" type="button">Guardar</button>
+    <br /><br />
+
+    <!-- Campos del formulario -->
+    <label for="ClienteIdTxt">Cliente ID</label>
+    <input id="ClienteIdTxt" type="text" value="@ViewBag.ClienteId" readonly="readonly" />
+    <br />
+
+    <label for="NombreRazonSocialTxt">Nombre / Razón Social</label>
+    <input id="NombreRazonSocialTxt" type="text" value="@ViewBag.NombreRazonSocial" />
+    <br />
+
+    <label for="TipoDocumentoTxt">Tipo de Documento</label>
+    <input id="TipoDocumentoTxt" type="text" value="@ViewBag.TipoDocumento" />
+    <br />
+
+    <label for="NroDocumentoTxt">Número de Documento</label>
+    <input id="NroDocumentoTxt" type="text" value="@ViewBag.NroDocumento" />
+    <br />
+
+    <label for="ContactoTxt">Contacto ID</label>
+    <input id="ContactoTxt" type="number" value="@ViewBag.ContactoId" />
+    <br />
+
+    <label for="DireccionTxt">Dirección</label>
+    <input id="DireccionTxt" type="text" value="@ViewBag.Direccion" />
+    <br />
+
+    <label for="CiudadTxt">Ciudad</label>
+    <input id="CiudadTxt" type="text" value="@ViewBag.Ciudad" />
+    <br />
+
+    <label for="RegionTxt">Región</label>
+    <input id="RegionTxt" type="text" value="@ViewBag.Region" />
+    <br />
+
+    <label for="CodPostalTxt">Código Postal</label>
+    <input id="CodPostalTxt" type="text" value="@ViewBag.CodPostal" />
+    <br />
+
+    <label for="PaisTxt">País</label>
+    <input id="PaisTxt" type="text" value="@ViewBag.Pais" />
+    <br />
+
+    <label for="TelefonoTxt">Teléfono</label>
+    <input id="TelefonoTxt" type="text" value="@ViewBag.Telefono" />
+    <br />
+
+    <label for="FaxTxt">Fax</label>
+    <input id="FaxTxt" type="text" value="@ViewBag.Fax" />
+    <br />
 </form>
 
 @section Scripts {
