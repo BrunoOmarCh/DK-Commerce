@@ -79,5 +79,36 @@ namespace DKCommerceUI.Controllers
         }
 
 
+        [HttpGet]
+        [Route("select-by-id/{proveedorId}")]
+        public async Task<ProveedorModel> SelectById(int proveedorId)
+        {
+            try
+            {
+                ProveedorModel dtoProveedor = null;
+                ProveedorBE beProveedor = null;
+
+                using (var cliente = new HttpClient())
+                {
+                    cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                    cliente.DefaultRequestHeaders.Clear();
+                    cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var res = await cliente.GetAsync("api/proveedor/select-by-id/" + proveedorId + "/");
+                    if (res.IsSuccessStatusCode)
+                    {
+                        var proveedorResult = await res.Content.ReadAsStringAsync();
+                        beProveedor = JsonConvert.DeserializeObject<ProveedorBE>(proveedorResult)!;
+                        dtoProveedor = _mapper.Map<ProveedorModel>(beProveedor);
+                    }
+                }
+                return dtoProveedor;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }
