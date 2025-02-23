@@ -137,6 +137,45 @@ namespace DKCommerceUI.Controllers
                 throw ex;
             }
         }
+        [HttpPut]
+        [Route("update/{idProveedor}")]
+        public async Task<IActionResult> Update(int idProveedor, [FromBody] ProveedorModel proveedor)
+        {
+            if (proveedor == null)
+            {
+                return BadRequest("Proveedor data is null");
+            }
+
+            try
+            {
+                var beProveedor = _mapper.Map<ProveedorBE>(proveedor);
+
+                using (var cliente = new HttpClient())
+                {
+                    cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                    cliente.DefaultRequestHeaders.Clear();
+                    cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var jsonContent = new StringContent(JsonConvert.SerializeObject(beProveedor), Encoding.UTF8, "application/json");
+                    var res = await cliente.PutAsync("api/proveedor/update/" + idProveedor, jsonContent);
+
+                    if (res.IsSuccessStatusCode)
+                    {
+                        return Ok();
+                    }
+                    else
+                    {
+                        var errorMessage = await res.Content.ReadAsStringAsync();
+                        return StatusCode((int)res.StatusCode, errorMessage);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
 
     }
 }
