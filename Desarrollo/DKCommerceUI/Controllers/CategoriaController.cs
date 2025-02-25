@@ -39,6 +39,34 @@ namespace DKCommerceUI.Controllers
         {
             return View();
         }
+        [HttpGet]
+        [Route("editar/{idCategoria}")]
+        public async Task<IActionResult> Editar(int idCategoria)
+        {
+            var dtoCategoria = new CategoriaModel();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var res = await client.GetAsync("api/categoria/select-by-id/" + idCategoria + "/");
+                if (res.IsSuccessStatusCode)
+                {
+                    var mainResult = await res.Content.ReadAsStringAsync();
+                    var beCategoria = JsonConvert.DeserializeObject<CategoriaBE>(mainResult);
+
+                    dtoCategoria = _mapper.Map<CategoriaModel>(beCategoria);
+                }
+            }
+
+            ViewBag.CategoriaId = dtoCategoria.CategoriaId;
+            ViewBag.Nombre = dtoCategoria.Nombre;
+            ViewBag.Descripcion = dtoCategoria.Descripcion;
+            ViewBag.Suspendido = dtoCategoria.Suspendido;
+
+            return View(dtoCategoria);
+        }
 
 
     }
