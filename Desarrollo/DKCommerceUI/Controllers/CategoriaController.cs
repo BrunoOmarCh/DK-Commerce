@@ -100,5 +100,34 @@ namespace DKCommerceUI.Controllers
                 throw ex;
             }
         }
+        [HttpPost]
+        [Route("insert")]
+        public async void Insert(string jsonCategoria)// Javascript esta enviando un string por un método Ajax
+        {
+            try
+            {
+                var dtoCategoria = JsonConvert.DeserializeObject<CategoriaModel>(jsonCategoria);
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceApi"));
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var beCategoria = _mapper.Map<CategoriaBE>(dtoCategoria);
+                    var content = new StringContent(JsonConvert.SerializeObject(beCategoria), Encoding.UTF8, "application/json");
+                    var res = await client.PostAsync("api/categoria/insert", content);
+                    if (!res.IsSuccessStatusCode)
+                    {
+                        throw new Exception(res.StatusCode.ToString());
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }
