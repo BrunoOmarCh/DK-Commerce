@@ -105,7 +105,33 @@ namespace DKCommerceUI.Controllers
                 throw ex;
             }
         }
+        [HttpPost]
+        [Route("insert")]
+        public async void Insert(string jsonParametro)
+        {
+            try
+            {
+                var dtoParametro = JsonConvert.DeserializeObject<ParametroModel>(jsonParametro);
 
+                using (var cliente = new HttpClient())
+                {
+                    cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                    cliente.DefaultRequestHeaders.Clear();
+                    cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    var beParametro = _mapper.Map<ParametroBE>(dtoParametro);
+                    var jsonContent = new StringContent(JsonConvert.SerializeObject(beParametro), Encoding.UTF8, "application/json");
+                    var res = await cliente.PostAsync("api/parametro/insert", jsonContent);
+                    if (!res.IsSuccessStatusCode)
+                    {
+                        throw new Exception(res.StatusCode.ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
     }
 }
