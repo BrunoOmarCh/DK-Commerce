@@ -14,18 +14,31 @@ namespace DKCommerceUI.Controllers
 
     public class CompaniaDeEnvioController : Controller
     {
-            private IMapper _mapper;
-            public CompaniaDeEnvioController()
-            {
-                var config = new MapperConfiguration(
-                    x =>
-                    {
-                        x.AddProfile(new MappingProfile());
-                    }
-                    );
-                _mapper = config.CreateMapper();
+        private IMapper _mapper;
+        public CompaniaDeEnvioController()
+        {
+            var config = new MapperConfiguration(
+                x =>
+                {
+                    x.AddProfile(new MappingProfile());
+                }
+                );
+            _mapper = config.CreateMapper();
 
-            }
+        }
+
+        [HttpGet]
+        [Route("index")]
+        public IActionResult Index()
+        {
+            return View();
+        }
+        [HttpGet]
+        [Route("nuevo")]
+        public IActionResult Nuevo()
+        {
+            return View();
+        }
 
     }
 }
