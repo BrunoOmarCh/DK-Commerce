@@ -109,6 +109,34 @@ namespace DKCommerceUI.Controllers
                 throw ex;
             }
         }
+        [HttpPost]
+        [Route("insert")]
+        public async Task Insert(string jsonProveedor)
+        {
+            try
+            {
+                var dtoProveedor = JsonConvert.DeserializeObject<ProveedorModel>(jsonProveedor);
+                using (var cliente = new HttpClient())
+                {
+                    cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                    cliente.DefaultRequestHeaders.Clear();
+                    cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var beProveedor = _mapper.Map<ProveedorBE>(dtoProveedor);
+                    var jsonContent = new StringContent(JsonConvert.SerializeObject(beProveedor), Encoding.UTF8, "application/json");
+
+                    var res = await cliente.PostAsync("api/proveedor/insert", jsonContent);
+                    if (!res.IsSuccessStatusCode)
+                    {
+                        throw new Exception(res.StatusCode.ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
     }
 }
