@@ -111,6 +111,33 @@ namespace DKCommerceUI.Controllers
                 throw ex;
             }
         }
+        [HttpPost]
+        [Route("insert")]
+        public async void Insert(string jsonPedido)
+        {
+            try
+            {
+                var dtoPedido = JsonConvert.DeserializeObject<PedidoModel>(jsonPedido);
+
+                using (var cliente = new HttpClient())
+                {
+                    cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                    cliente.DefaultRequestHeaders.Clear();
+                    cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    var bePedido = _mapper.Map<PedidoBE>(dtoPedido);
+                    var jsonContent = new StringContent(JsonConvert.SerializeObject(bePedido), Encoding.UTF8, "application/json");
+                    var res = await cliente.PostAsync("api/pedido/insert", jsonContent);
+                    if (!res.IsSuccessStatusCode)
+                    {
+                        throw new Exception(res.StatusCode.ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
     }
