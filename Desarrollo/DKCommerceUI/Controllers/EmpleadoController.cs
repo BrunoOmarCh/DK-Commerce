@@ -86,5 +86,37 @@ namespace DKCommerceUI.Controllers
         }
 
 
+        [HttpGet]
+        [Route("select-by-id/{idEmpleado}")]
+        public async Task<EmpleadoModel> SelectById(int idEmpleado)
+        {
+            try
+            {
+                EmpleadoModel dtoEmpleado = null;
+                EmpleadoBE beEmpleado = null;
+
+                using (var cliente = new HttpClient())
+                {
+
+                    cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                    cliente.DefaultRequestHeaders.Clear();
+                    cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var res = await cliente.GetAsync("api/empleado/select-by-id/" + idEmpleado + "/");
+                    if (res.IsSuccessStatusCode)
+                    {
+                        var EmpleadoResult = res.Content.ReadAsStringAsync().Result;
+                        beEmpleado = JsonConvert.DeserializeObject<EmpleadoBE>(EmpleadoResult)!;
+                        dtoEmpleado = _mapper.Map<EmpleadoModel>(beEmpleado);
+                    }
+                }
+                return dtoEmpleado;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
