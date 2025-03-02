@@ -67,5 +67,39 @@ namespace DKCommerceUI.Controllers
             return View(dtoParametro);
         }
 
+
+        [HttpGet]
+        [Route("select-by-id/{stringParametro}")]
+        public async Task<ParametroModel> SelectById(string stringParametro)
+        {
+            try
+            {
+                ParametroModel dtoParametro = null;
+                ParametroBE beParametro = null;
+
+                using (var cliente = new HttpClient())
+                {
+
+                    cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                    cliente.DefaultRequestHeaders.Clear();
+                    cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var res = await cliente.GetAsync("api/parametro/select-by-id/" + stringParametro + "/");
+                    if (res.IsSuccessStatusCode)
+                    {
+                        var ParametroResult = res.Content.ReadAsStringAsync().Result;
+                        beParametro = JsonConvert.DeserializeObject<ParametroBE>(ParametroResult)!;
+                        dtoParametro = _mapper.Map<ParametroModel>(beParametro);
+                    }
+                }
+                return dtoParametro;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }
