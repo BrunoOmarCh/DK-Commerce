@@ -26,6 +26,8 @@ namespace DKCommerceUI.Controllers
             _mapper = config.CreateMapper();
 
         }
+
+
         [HttpGet]
         [Route("index")]
         public IActionResult Index()
@@ -37,6 +39,32 @@ namespace DKCommerceUI.Controllers
         public IActionResult Nuevo()
         {
             return View();
+        }
+        [HttpGet]
+        [Route("editar/{stringParametro}")]
+        public async Task<IActionResult> Editar(string stringParametro)
+        {
+            var dtoParametro = new ParametroModel();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var res = await client.GetAsync("api/parametro/select-by-clave/" + stringParametro + "/");
+                if (res.IsSuccessStatusCode)
+                {
+                    var mainParametroResult = await res.Content.ReadAsStringAsync();
+                    var beParametro = JsonConvert.DeserializeObject<ParametroBE>(mainParametroResult);
+
+                    dtoParametro = _mapper.Map<ParametroModel>(beParametro);
+                }
+            }
+            ViewBag.Clave = dtoParametro.Clave;
+            ViewBag.Grupo = dtoParametro.Grupo;
+            ViewBag.Valor = dtoParametro.Valor;
+
+            return View(dtoParametro);
         }
 
     }
