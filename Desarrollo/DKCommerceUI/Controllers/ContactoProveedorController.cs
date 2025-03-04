@@ -26,6 +26,8 @@ namespace DKCommerceUI.Controllers
             _mapper = config.CreateMapper();
 
         }
+
+
         [HttpGet]
         [Route("index")]
         public IActionResult Index()
@@ -38,5 +40,33 @@ namespace DKCommerceUI.Controllers
         {
             return View();
         }
+        [HttpGet]
+        [Route("editar/{idContactoProveedor}")]
+        public async Task<IActionResult> Editar(int idContactoProveedor)
+        {
+            var dtoContactoProveedor = new ContactoProveedorModel();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var res = await client.GetAsync("api/contactoproveedor/select-by-id/" + idContactoProveedor + "/");
+                if (res.IsSuccessStatusCode)
+                {
+                    var mainContactoResult = await res.Content.ReadAsStringAsync();
+                    var beContactoProveedor = JsonConvert.DeserializeObject<ContactoProveedorBE>(mainContactoResult);
+
+                    dtoContactoProveedor = _mapper.Map<ContactoProveedorModel>(beContactoProveedor);
+                }
+            }
+            ViewBag.ContactoProveedorId = dtoContactoProveedor.ContactoProveedorId;
+            ViewBag.NombreContacto = dtoContactoProveedor.NombreContacto;
+            ViewBag.CargoContacto = dtoContactoProveedor.CargoContacto;
+            ViewBag.Dni = dtoContactoProveedor.Dni;
+
+            return View(dtoContactoProveedor);
+        }
+
     }
 }
