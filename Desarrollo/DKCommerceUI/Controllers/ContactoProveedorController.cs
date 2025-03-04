@@ -150,6 +150,22 @@ namespace DKCommerceUI.Controllers
                 }
             }
         }
+        [HttpDelete]
+        [Route("delete/{idContactoProveedor}")]
+        public async Task Delete(int idContactoProveedor)
+        {
+            using (var cliente = new HttpClient())
+            {
+                cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                cliente.DefaultRequestHeaders.Clear();
+                cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+                var res = await cliente.DeleteAsync("api/contactoProveedor/delete/" + idContactoProveedor + "/");
+                if (!res.IsSuccessStatusCode)
+                {
+                    throw new Exception(res.StatusCode.ToString());
+                }
+            }
+        }
     }
 }
