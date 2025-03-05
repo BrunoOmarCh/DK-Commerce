@@ -40,6 +40,34 @@ namespace DKCommerceUI.Controllers
         {
             return View();
         }
+        [HttpGet]
+        [Route("editar/{idContactoCliente}")]
+        public async Task<IActionResult> Editar(int idContactoCliente)
+        {
+            var dtoContactoCliente = new ContactoClienteModel();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var res = await client.GetAsync("api/contactocliente/select-by-id/" + idContactoCliente + "/");
+                if (res.IsSuccessStatusCode)
+                {
+                    var mainContactoClienteResult = await res.Content.ReadAsStringAsync();
+                    var beContactoCliente = JsonConvert.DeserializeObject<ContactoClienteBE>(mainContactoClienteResult);
+
+                    dtoContactoCliente = _mapper.Map<ContactoClienteModel>(beContactoCliente);
+                }
+            }
+            ViewBag.ContactoId = dtoContactoCliente.ContactoId;
+            ViewBag.NombreContacto = dtoContactoCliente.NombreContacto;
+            ViewBag.CargoContacto = dtoContactoCliente.CargoContacto;
+            ViewBag.TipoDocumento = dtoContactoCliente.TipoDocumento;
+            ViewBag.NroDocumento = dtoContactoCliente.NroDocumento;
+
+            return View(dtoContactoCliente);
+        }
 
     }
 }
