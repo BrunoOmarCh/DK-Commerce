@@ -101,6 +101,33 @@ namespace DKCommerceUI.Controllers
                 throw ex;
             }
         }
+        [HttpPost]
+        [Route("insert")]
+        public async void Insert(string jsonContactoCliente)
+        {
+            try
+            {
+                var dtoContactoCliente = JsonConvert.DeserializeObject<ContactoClienteModel>(jsonContactoCliente);
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceApi"));
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var beContactoCliente = _mapper.Map<ContactoClienteBE>(dtoContactoCliente);
+                    var content = new StringContent(JsonConvert.SerializeObject(beContactoCliente), Encoding.UTF8, "application/json");
+                    var res = await client.PostAsync("api/contactoCliente/insert", content);
+                    if (!res.IsSuccessStatusCode)
+                    {
+                        throw new Exception(res.StatusCode.ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
     }
