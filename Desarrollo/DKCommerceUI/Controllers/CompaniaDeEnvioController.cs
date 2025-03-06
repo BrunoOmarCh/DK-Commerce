@@ -150,5 +150,22 @@ namespace DKCommerceUI.Controllers
                 }
             }
         }
+        [HttpDelete]
+        [Route("delete/{idCompaniaDeEnvio}")]
+        public async Task Delete(int idCompaniaDeEnvio)
+        {
+            using (var cliente = new HttpClient())
+            {
+                cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                cliente.DefaultRequestHeaders.Clear();
+                cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var res = await cliente.DeleteAsync("api/companiaDeEnvio/delete/" + idCompaniaDeEnvio + "/");
+                if (!res.IsSuccessStatusCode)
+                {
+                    throw new Exception(res.StatusCode.ToString());
+                }
+            }
+        }
     }
 }
