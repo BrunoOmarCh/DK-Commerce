@@ -134,6 +134,26 @@ namespace DKCommerceUI.Controllers
                 throw ex;
             }
         }
+        [HttpPut]
+        [Route("update/{idCliente}")]
+        public async Task Update(string idCliente, string jsonCliente)
+        {
+            var dtoCliente = JsonConvert.DeserializeObject<ClienteModel>(jsonCliente);
 
+            using (var cliente = new HttpClient())
+            {
+                cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                cliente.DefaultRequestHeaders.Clear();
+                cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var beCliente = _mapper.Map<ClienteBE>(dtoCliente);
+                var jsonContent = new StringContent(JsonConvert.SerializeObject(beCliente), Encoding.UTF8, "application/json");
+                var res = await cliente.PutAsync("api/cliente/update/" + idCliente, jsonContent);
+                if (!res.IsSuccessStatusCode)
+                {
+                    throw new Exception(res.StatusCode.ToString());
+                }
+            }
+        }
     }
 }
