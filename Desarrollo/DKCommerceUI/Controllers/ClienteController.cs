@@ -26,5 +26,19 @@ namespace DKCommerceUI.Controllers
 
         }
 
+
+        [HttpGet]
+        [Route("index")]
+        public IActionResult Index()
+        {
+            return View();
+        }
+        [HttpGet]
+        [Route("nuevo")]
+        public IActionResult Nuevo()
+        {
+            return View();
+        }
+
     }
 }
