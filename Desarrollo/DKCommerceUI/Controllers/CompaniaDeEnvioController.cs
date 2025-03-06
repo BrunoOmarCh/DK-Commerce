@@ -67,5 +67,39 @@ namespace DKCommerceUI.Controllers
 
             return View(dtoCompaniaDeEnvio);
         }
+
+
+        [HttpGet]
+        [Route("select-by-id/{idCompaniaDeEnvio}")]
+        public async Task<CompaniaDeEnvioModel> SelectById(int idCompaniaDeEnvio)
+        {
+            try
+            {
+                CompaniaDeEnvioModel dtoCompaniaDeEnvio = null;
+                CompaniaEnvioBE beCompaniaDeEnvio = null;
+
+                using (var cliente = new HttpClient())
+                {
+
+                    cliente.BaseAddress = new Uri(ConfigurationJson.GetAppSettings("DKCommerceAPI"));
+                    cliente.DefaultRequestHeaders.Clear();
+                    cliente.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var res = await cliente.GetAsync("api/companiaDeEnvio/select-by-id/" + idCompaniaDeEnvio + "/");
+                    if (res.IsSuccessStatusCode)
+                    {
+                        var CompaniaDeEnvioResult = res.Content.ReadAsStringAsync().Result;
+                        beCompaniaDeEnvio = JsonConvert.DeserializeObject<CompaniaEnvioBE>(CompaniaDeEnvioResult)!;
+                        dtoCompaniaDeEnvio = _mapper.Map<CompaniaDeEnvioModel>(beCompaniaDeEnvio);
+                    }
+                }
+                return dtoCompaniaDeEnvio;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }
