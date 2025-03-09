@@ -124,6 +124,44 @@ namespace DKCommerceDataAccess
                 }
             }
         }
+        public bool Exists(int idProducto)
+        {
+            bool existe = false;// bool equivale a bit en SQL Server
+            var conn = Configuration.GetConnectionString("Dk Commerce");
+            SqlDataReader dr = null;
+
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    try
+                    {
+                        sqlCmd.Connection = sqlCon;
+                        sqlCmd.CommandText = UpProductoExists;
+                        sqlCmd.CommandType = CommandType.StoredProcedure;
+
+                        sqlCmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
+                        dr = sqlCmd.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            existe = Convert.ToBoolean(dr["Exists"]);// Convierte bit a boolean
+                        }
+
+                        return existe;
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        dr?.Close();
+                        dr?.Dispose();
+                    }
+                }
+            }
+        }
 
 
 
