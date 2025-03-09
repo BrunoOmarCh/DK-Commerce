@@ -47,9 +47,7 @@ namespace DKCommerceDataAccess
                             beContactoCliente.CargoContacto = dr["CargoContacto"] == DBNull.Value ? null : Convert.ToString(dr["CargoContacto"])!;
                             beContactoCliente.TipoDocumento = dr["TipoDocumento"] == DBNull.Value ? null : Convert.ToString(dr["TipoDocumento"])!;
                             beContactoCliente.NroDocumento = dr["NroDocumento"] == DBNull.Value ? null : Convert.ToString(dr["NroDocumento"])!;
-
                         }
-
                         return beContactoCliente;
                     }
                     catch (Exception ex)
@@ -60,6 +58,41 @@ namespace DKCommerceDataAccess
                     {
                         dr?.Close();
                         dr?.Dispose();
+                    }
+                }
+            }
+        }
+        public void Insert(ContactoClienteBE beContactoCliente)
+        {
+            var conn = Configuration.GetConnectionString("DK Commerce");
+
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    using (var sqlTran = sqlCon.BeginTransaction())
+                    {
+                        try
+                        {
+                            sqlCmd.Connection = sqlCon;
+                            sqlCmd.CommandText = UpContactoClienteInsert;
+                            sqlCmd.CommandType = CommandType.StoredProcedure;
+                            sqlCmd.Transaction = sqlTran;
+
+                            sqlCmd.Parameters.Add("@NombreContacto", SqlDbType.NVarChar).Value = beContactoCliente.NombreContacto ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@CargoContacto", SqlDbType.NVarChar).Value = beContactoCliente.CargoContacto ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@TipoDocumento", SqlDbType.NVarChar).Value = beContactoCliente.TipoDocumento ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@NroDocumento", SqlDbType.NVarChar).Value = beContactoCliente.NroDocumento ?? (object)DBNull.Value;
+
+                            sqlCmd.ExecuteNonQuery();
+                            sqlTran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            sqlTran?.Rollback();
+                            throw ex;
+                        }
                     }
                 }
             }
