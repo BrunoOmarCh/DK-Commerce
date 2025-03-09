@@ -107,6 +107,45 @@ namespace DKCommerceDataAccess
                 }
             }
         }
+        public void Update(int idPedido, int idProducto, DetalleDePedidoBE bedetalle)
+        {
+            var conn = Configuration.GetConnectionString("DK Commerce");
+
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    using (var sqlTran = sqlCon.BeginTransaction())
+                    {
+                        try
+                        {
+                            sqlCmd.Connection = sqlCon;
+                            sqlCmd.CommandText = "UpDetalleDePedidoUpdate"; // Nombre del procedimiento almacenado
+                            sqlCmd.CommandType = CommandType.StoredProcedure;
+                            sqlCmd.Transaction = sqlTran;
+
+                            sqlCmd.Parameters.Add("@PedidoId", SqlDbType.Int).Value = idPedido;
+                            sqlCmd.Parameters.Add("@ProductoId", SqlDbType.Int).Value = idProducto;
+                            sqlCmd.Parameters.Add("@PrecioNeto", SqlDbType.Decimal).Value = bedetalle.PrecioNeto;
+                            sqlCmd.Parameters.Add("@Cantidad", SqlDbType.Int).Value = bedetalle.Cantidad;
+                            sqlCmd.Parameters.Add("@Descuento", SqlDbType.Decimal).Value = bedetalle.Descuento;
+                            sqlCmd.Parameters.Add("@Igv", SqlDbType.Decimal).Value = bedetalle.Igv ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@Isc", SqlDbType.Decimal).Value = bedetalle.Isc ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@MontoSubTotal", SqlDbType.Decimal).Value = bedetalle.MontoSubTotal ?? (object)DBNull.Value;
+
+                            sqlCmd.ExecuteNonQuery();
+                            sqlTran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            sqlTran?.Rollback();
+                            throw ex;
+                        }
+                    }
+                }
+            }
+        }
 
 
 
