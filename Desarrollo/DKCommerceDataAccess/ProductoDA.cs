@@ -163,6 +163,99 @@ namespace DKCommerceDataAccess
             }
         }
 
+        public List<ProductoBE> Paginacion(string texto, int tamañoPagina, int nroPagina, string nombreColumna, bool? orderBy)
+        {
+            var ProductoList = new List<ProductoBE>();
+            var conn = Configuration.GetConnectionString("DK Commerce");
+            SqlDataReader dr = null;
+
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    try
+                    {
+                        sqlCmd.Connection = sqlCon;
+                        sqlCmd.CommandText = UpProductoPagination;
+                        sqlCmd.CommandType = CommandType.StoredProcedure;
+
+                        sqlCmd.Parameters.Add("@Texto", SqlDbType.NVarChar).Value = texto;
+                        sqlCmd.Parameters.Add("@TamañoPagina", SqlDbType.Int).Value = tamañoPagina;
+                        sqlCmd.Parameters.Add("@NroPagina", SqlDbType.Int).Value = nroPagina;
+
+                        // Manejo de valores opcionales
+                        sqlCmd.Parameters.Add("@NombreColumna", SqlDbType.VarChar).Value =
+                            string.IsNullOrWhiteSpace(nombreColumna) ? (object)DBNull.Value : nombreColumna;
+                        sqlCmd.Parameters.Add("@OrderBy", SqlDbType.Bit).Value =
+                            orderBy.HasValue ? (object)orderBy.Value : DBNull.Value;
+
+                        dr = sqlCmd.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            var beProducto = new ProductoBE();
+
+                            // Los valores obligatorios
+                            beProducto.IdProducto = int.Parse(dr["IdProducto"].ToString()!);
+                            beProducto.NombreProducto = dr["NombreProducto"].ToString()!; // Siempre tiene valor
+                            beProducto.Suspendido = bool.Parse(dr["Suspendido"].ToString()!);
+
+                            // Los valores opcionales
+                            beProducto.ProveedorId = dr["ProveedorId"] != DBNull.Value
+                                ? int.Parse(dr["ProveedorId"].ToString()!)
+                                : null;
+                            beProducto.CategoriaId = dr["CategoriaId"] != DBNull.Value
+                                ? int.Parse(dr["CategoriaId"].ToString()!)
+                                : null;
+                            beProducto.CantidadPorUnidad = dr["CantidadPorUnidad"] != DBNull.Value
+                                ? dr["CantidadPorUnidad"].ToString()
+                                : null;
+                            beProducto.PrecioLista = dr["PrecioLista"] != DBNull.Value
+                                ? decimal.Parse(dr["PrecioLista"].ToString()!)
+                                : null;
+                            beProducto.Descuento = dr["Descuento"] != DBNull.Value
+                                ? decimal.Parse(dr["Descuento"].ToString()!)
+                                : null;
+                            beProducto.Igv = dr["Igv"] != DBNull.Value
+                                ? decimal.Parse(dr["Igv"].ToString()!)
+                                : null;
+                            beProducto.Isc = dr["Isc"] != DBNull.Value
+                                ? decimal.Parse(dr["Isc"].ToString()!)
+                                : null;
+                            beProducto.PrecioVenta = dr["PrecioVenta"] != DBNull.Value
+                                ? decimal.Parse(dr["PrecioVenta"].ToString()!)
+                                : null;
+                            beProducto.UnidadesEnExistencia = dr["UnidadesEnExistencia"] != DBNull.Value
+                                ? short.Parse(dr["UnidadesEnExistencia"].ToString()!)
+                                : null;
+                            beProducto.UnidadesEnPedido = dr["UnidadesEnPedido"] != DBNull.Value
+                                ? short.Parse(dr["UnidadesEnPedido"].ToString()!)
+                                : null;
+                            beProducto.NivelNuevoPedido = dr["NivelNuevoPedido"] != DBNull.Value
+                                ? int.Parse(dr["NivelNuevoPedido"].ToString()!)
+                                : null;
+                            beProducto.UsuarioId = dr["UsuarioId"] != DBNull.Value
+                                ? int.Parse(dr["UsuarioId"].ToString()!)
+                                : null;
+
+                            ProductoList.Add(beProducto);
+                        }
+
+                        return ProductoList;
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        dr?.Close(); // Si no es null, cierra el objeto
+                        dr?.Dispose(); // Libera memoria si no es null
+                    }
+                }
+            }
+        }
+
 
 
     }
