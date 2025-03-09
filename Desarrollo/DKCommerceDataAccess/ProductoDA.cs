@@ -255,6 +255,68 @@ namespace DKCommerceDataAccess
                 }
             }
         }
+        public void Update(int idProducto, ProductoBE beProducto)
+        {
+            var conn = Configuration.GetConnectionString("DK Commerce");
+
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    using (var sqlTran = sqlCon.BeginTransaction())
+                    {
+                        try
+                        {
+                            sqlCmd.Connection = sqlCon;
+                            sqlCmd.CommandText = "UpProductoUpdate";
+                            sqlCmd.CommandType = CommandType.StoredProcedure;
+                            sqlCmd.Transaction = sqlTran;
+
+                            // Parámetros obligatorios
+                            sqlCmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
+                            sqlCmd.Parameters.Add("@NombreProducto", SqlDbType.NVarChar).Value = beProducto.NombreProducto;
+                            sqlCmd.Parameters.Add("@Suspendido", SqlDbType.Bit).Value = beProducto.Suspendido;
+
+                            // Parámetros opcionales
+                            sqlCmd.Parameters.Add("@ProveedorId", SqlDbType.Int).Value =
+                                beProducto.ProveedorId.HasValue ? (object)beProducto.ProveedorId.Value : DBNull.Value;
+                            sqlCmd.Parameters.Add("@CategoriaId", SqlDbType.Int).Value =
+                                beProducto.CategoriaId.HasValue ? (object)beProducto.CategoriaId.Value : DBNull.Value;
+                            sqlCmd.Parameters.Add("@CantidadPorUnidad", SqlDbType.NVarChar).Value =
+                                beProducto.CantidadPorUnidad ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@PrecioLista", SqlDbType.Decimal).Value =
+                                beProducto.PrecioLista.HasValue ? (object)beProducto.PrecioLista.Value : DBNull.Value;
+                            sqlCmd.Parameters.Add("@Descuento", SqlDbType.Decimal).Value =
+                                beProducto.Descuento.HasValue ? (object)beProducto.Descuento.Value : DBNull.Value;
+                            sqlCmd.Parameters.Add("@Igv", SqlDbType.Decimal).Value =
+                                beProducto.Igv.HasValue ? (object)beProducto.Igv.Value : DBNull.Value;
+                            sqlCmd.Parameters.Add("@Isc", SqlDbType.Decimal).Value =
+                                beProducto.Isc.HasValue ? (object)beProducto.Isc.Value : DBNull.Value;
+                            sqlCmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value =
+                                beProducto.PrecioVenta.HasValue ? (object)beProducto.PrecioVenta.Value : DBNull.Value;
+                            sqlCmd.Parameters.Add("@UnidadesEnExistencia", SqlDbType.SmallInt).Value =
+                                beProducto.UnidadesEnExistencia.HasValue ? (object)beProducto.UnidadesEnExistencia.Value : DBNull.Value;
+                            sqlCmd.Parameters.Add("@UnidadesEnPedido", SqlDbType.SmallInt).Value =
+                                beProducto.UnidadesEnPedido.HasValue ? (object)beProducto.UnidadesEnPedido.Value : DBNull.Value;
+                            sqlCmd.Parameters.Add("@NivelNuevoPedido", SqlDbType.Int).Value =
+                                beProducto.NivelNuevoPedido.HasValue ? (object)beProducto.NivelNuevoPedido.Value : DBNull.Value;
+                            sqlCmd.Parameters.Add("@UsuarioId", SqlDbType.Int).Value =
+                                beProducto.UsuarioId.HasValue ? (object)beProducto.UsuarioId.Value : DBNull.Value;
+
+                            // Ejecutar la consulta
+                            sqlCmd.ExecuteNonQuery();
+                            sqlTran.Commit(); // Confirmar la transacción
+                        }
+                        catch (Exception)
+                        {
+                            sqlTran?.Rollback(); // Rollback en caso de error
+                            throw;
+                        }
+                    }
+                }
+            }
+        }
 
 
 
