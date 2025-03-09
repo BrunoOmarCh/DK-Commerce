@@ -75,6 +75,55 @@ namespace DKCommerceDataAccess
                 }
             }
         }
+        public void Insert(ProductoBE beProducto)
+        {
+            var conn = Configuration.GetConnectionString("Dk Commerce");
+
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    using (var sqlTran = sqlCon.BeginTransaction())
+                    {
+                        try
+                        {
+                            sqlCmd.Connection = sqlCon;
+                            sqlCmd.CommandText = UpProductoInsert;  // Nombre del procedimiento almacenado
+                            sqlCmd.CommandType = CommandType.StoredProcedure;
+                            sqlCmd.Transaction = sqlTran;
+
+                            // Los valores no nulos se asignan directamente
+                            sqlCmd.Parameters.Add("@NombreProducto", SqlDbType.NVarChar).Value = beProducto.NombreProducto;
+                            sqlCmd.Parameters.Add("@Suspendido", SqlDbType.Bit).Value = beProducto.Suspendido;
+                            //    sqlCmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value = beProducto.IdProducto;
+
+                            // Los valores nulos se manejan con DBNull.Value (si es null en el modelo, pasamos DBNull.Value)
+                            sqlCmd.Parameters.Add("@ProveedorId", SqlDbType.Int).Value = beProducto.ProveedorId ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@CategoriaId", SqlDbType.Int).Value = beProducto.CategoriaId ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@CantidadPorUnidad", SqlDbType.NVarChar).Value = beProducto.CantidadPorUnidad ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@PrecioLista", SqlDbType.Decimal).Value = beProducto.PrecioLista ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@Descuento", SqlDbType.Decimal).Value = beProducto.Descuento ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@Igv", SqlDbType.Decimal).Value = beProducto.Igv ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@Isc", SqlDbType.Decimal).Value = beProducto.Isc ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@PrecioVenta", SqlDbType.Decimal).Value = beProducto.PrecioVenta ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@UnidadesEnExistencia", SqlDbType.SmallInt).Value = beProducto.UnidadesEnExistencia ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@UnidadesEnPedido", SqlDbType.SmallInt).Value = beProducto.UnidadesEnPedido ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@NivelNuevoPedido", SqlDbType.Int).Value = beProducto.NivelNuevoPedido ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = beProducto.UsuarioId ?? (object)DBNull.Value;
+
+                            sqlCmd.ExecuteNonQuery(); // Ejecuta el procedimiento almacenado
+                            sqlTran.Commit(); // Confirma la transacción
+                        }
+                        catch (Exception ex)
+                        {
+                            sqlTran?.Rollback(); // Deshace si ocurre un error
+                            throw ex;
+                        }
+                    }
+                }
+            }
+        }
 
 
 
