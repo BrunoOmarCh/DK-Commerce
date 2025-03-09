@@ -317,6 +317,37 @@ namespace DKCommerceDataAccess
                 }
             }
         }
+        public void Status(int idProducto, ProductoBE beProducto)
+        {
+            var conn = Configuration.GetConnectionString("DK Commerce");
+
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    using (var sqlTran = sqlCon.BeginTransaction())
+                    {
+                        try
+                        {
+                            sqlCmd.Connection = sqlCon;
+                            sqlCmd.CommandText = UpProductoStatus;
+                            sqlCmd.CommandType = CommandType.StoredProcedure;
+                            sqlCmd.Transaction = sqlTran;
+
+                            sqlCmd.Parameters.Add("@IdProducto", SqlDbType.Int).Value = idProducto;
+                            sqlCmd.Parameters.Add("@Suspendido", SqlDbType.Bit).Value = beProducto.Suspendido;
+
+                        }
+                        catch (Exception)
+                        {
+                            sqlTran?.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+        }
 
 
 
