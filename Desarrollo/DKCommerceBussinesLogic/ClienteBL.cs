@@ -50,5 +50,18 @@ namespace DKCommerceBussinesLogic
             }
         }
 
+        public void Delete(string clienteId)
+        {
+            try
+            {
+                var daCliente = new ClienteDA();
+                daCliente.Delete(clienteId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }
