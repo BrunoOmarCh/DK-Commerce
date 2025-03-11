@@ -37,7 +37,18 @@ namespace DKCommerceBussinesLogic
                 throw ex;
             }
         }
-
+        public void Update(int idCategoria, CategoriaBE beCategoria)
+        {
+            try
+            {
+                var daCategoria = new CategoriaDA();
+                daCategoria.Update(idCategoria, beCategoria);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
     }
 }
