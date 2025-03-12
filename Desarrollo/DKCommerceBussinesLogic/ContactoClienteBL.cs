@@ -50,6 +50,19 @@ namespace DKCommerceBussinesLogic
                 throw ex;
             }
         }
+        public void Delete(int idContactoCliente)
+        {
+            try
+            {
+                var daContactoCliente = new ContactoClienteDA();
+                daContactoCliente.Delete(idContactoCliente);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
     }
 }
