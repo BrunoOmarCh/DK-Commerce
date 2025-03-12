@@ -10,6 +10,22 @@ namespace DKCommerceBussinesLogic
 {
     public class DetalleDePedidoBL
     {
+        public DetalleDePedidoBE SelectById(int idDetalleDePedido, int productoId)
+        {
+            try
+            {
+                var daDetalleDePedido = new DetalleDePedidoDA();
+                DetalleDePedidoBE beDetalleDePedido;
+
+                beDetalleDePedido = daDetalleDePedido.SelectById(idDetalleDePedido, productoId);
+                return beDetalleDePedido;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }
 
