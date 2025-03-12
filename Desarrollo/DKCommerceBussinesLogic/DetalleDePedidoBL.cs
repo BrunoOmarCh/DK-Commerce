@@ -49,6 +49,18 @@ namespace DKCommerceBussinesLogic
                 throw ex;
             }
         }
+        public void Delete(int idDetalleDePedido, int productoId)
+        {
+            try
+            {
+                var daDetalleDePedido = new DetalleDePedidoDA();
+                daDetalleDePedido.Delete(idDetalleDePedido, productoId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
 
