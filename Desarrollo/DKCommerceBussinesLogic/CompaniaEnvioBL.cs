@@ -10,6 +10,20 @@ namespace DKCommerceBussinesLogic
 {
     public class CompaniaEnvioBL
     {
-  
+        public CompaniaEnvioBE SelectById(int idCompaniaEnvio)
+        {
+            try
+            {
+                var daCompaniaEnvio = new CompaniaEnvioDA();
+                CompaniaEnvioBE beCompaniaEnvio;
+
+                beCompaniaEnvio = daCompaniaEnvio.SelectById(idCompaniaEnvio);
+                return beCompaniaEnvio;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
