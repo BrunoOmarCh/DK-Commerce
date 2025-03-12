@@ -10,6 +10,21 @@ namespace DKCommerceBussinesLogic
 {
     public class ContactoProveedorBL
     {
+        public ContactoProveedorBE SelectById(int idContactoProveedor)
+        {
+            try
+            {
+                var daContactoProveedor = new ContactoProveedorDA();
+                ContactoProveedorBE beContactoProveedor;
+
+                beContactoProveedor = daContactoProveedor.SelectById(idContactoProveedor);
+                return beContactoProveedor;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
     }
 }
