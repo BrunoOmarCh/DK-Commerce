@@ -37,6 +37,18 @@ namespace DKCommerceBussinesLogic
                 throw ex;
             }
         }
+        public void Update(int idCompaniaEnvio, CompaniaEnvioBE beCompaniaEnvio)
+        {
+            try
+            {
+                var daCompaniaEnvio = new CompaniaEnvioDA();
+                daCompaniaEnvio.Update(idCompaniaEnvio, beCompaniaEnvio);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
     }
 }
