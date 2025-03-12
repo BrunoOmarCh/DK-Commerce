@@ -25,6 +25,18 @@ namespace DKCommerceBussinesLogic
                 throw ex;
             }
         }
+        public void Insert(ContactoProveedorBE beContactoProveedor)
+        {
+            try
+            {
+                var daContactoProveedor = new ContactoProveedorDA();
+                daContactoProveedor.Insert(beContactoProveedor);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
     }
 }
