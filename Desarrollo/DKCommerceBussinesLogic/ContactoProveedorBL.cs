@@ -50,7 +50,18 @@ namespace DKCommerceBussinesLogic
                 throw ex;
             }
         }
+        public void Delete(int idContactoProveedor)
+        {
+            try
+            {
+                var daContactoProveedor = new ContactoProveedorDA();
 
-
+                daContactoProveedor.Delete(idContactoProveedor);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
