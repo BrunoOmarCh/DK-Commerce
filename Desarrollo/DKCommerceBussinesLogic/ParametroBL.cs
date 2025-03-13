@@ -49,7 +49,17 @@ namespace DKCommerceBussinesLogic
                 throw ex;
             }
         }
-
-
+        public void Delete(string idParametro)
+        {
+            try
+            {
+                var daParametro = new ParametroDA();
+                daParametro.Delete(idParametro);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
