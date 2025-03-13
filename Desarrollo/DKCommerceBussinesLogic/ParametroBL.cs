@@ -10,6 +10,20 @@ namespace DKCommerceBussinesLogic
 {
     public class ParametroBL
     {
+        public ParametroBE SelectById(string idParametro)
+        {
+            try
+            {
+                var daParametro = new ParametroDA();
+                ParametroBE beParametro;
 
+                beParametro = daParametro.SelectById(idParametro);
+                return beParametro;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
