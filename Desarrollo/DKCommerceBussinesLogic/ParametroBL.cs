@@ -37,6 +37,19 @@ namespace DKCommerceBussinesLogic
                 throw ex;
             }
         }
+        public void Update(string idParametro, ParametroBE beParametro)
+        {
+            try
+            {
+                var daParametro = new ParametroDA();
+                daParametro.Update(idParametro, beParametro);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
     }
 }
