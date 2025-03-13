@@ -49,6 +49,17 @@ namespace DKCommerceBussinesLogic
                 throw ex;
             }
         }
-
+        public void Delete(int idEmpleado)
+        {
+            try
+            {
+                var daEmpleado = new EmpleadoDA();
+                daEmpleado.Delete(idEmpleado);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
