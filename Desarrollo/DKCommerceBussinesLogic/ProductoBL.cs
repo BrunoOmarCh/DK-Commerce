@@ -92,9 +92,18 @@ namespace DKCommerceBussinesLogic
                 throw ex;
             }
         }
+        public void Delete(int idProducto)
+        {
+            try
+            {
+                var daProducto = new ProductoDA();
 
-
-
-
+                daProducto.Delete(idProducto);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
