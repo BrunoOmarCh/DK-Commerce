@@ -25,6 +25,20 @@ namespace DKCommerceBussinesLogic
                 throw ex;
             }
         }
+        public void Insert(ProductoBE beProducto)
+        {
+            try
+            {
+
+                var daProducto = new ProductoDA();
+
+                daProducto.Insert(beProducto);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
     }
 }
