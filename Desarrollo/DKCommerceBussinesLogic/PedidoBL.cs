@@ -50,8 +50,18 @@ namespace DKCommerceBussinesLogic
                 throw ex;
             }
         }
+        public void Delete(int idPedido)
+        {
+            try
+            {
+                var daPedido = new PedidoDA();
 
-
-
+                daPedido.Delete(idPedido);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
