@@ -1,58 +1,65 @@
 ﻿"use strict"; // Fuerza a declarar variables
 
-function fnEliminar(idProducto) {
+function fnEliminar(idProveedor) {
     $.ajax({
         type: "DELETE",
         contentType: "application/json; chartset=utf-8",// Trabaja con objetos Json; en formato UTF-8 (soporta tildes)
         async: true,
         cache: false,
-        url: "https://localhost:7220/producto/delete/" + idProducto,
+        url: "https://localhost:7220/proveedor/delete/" + idProveedor,
         success: function () {
-            alert("Se eliminó el producto de código '" + idProducto + "', con éxito.");
+            alert("Se eliminó el proveedor de código '" + idProveedor + "', con éxito.");
         },
         error: function (param1, param2, param3) {
             console.error("param1", param1);
             console.error("param2", param2);
             console.error("param3", param3);
-            alert("No se pudo eliminar el producto de código '" + idProducto + "'.");
+            alert("No se pudo eliminar el proveedor de código '" + idProveedor + "'.");
         }
     });
 }
 
-function fnGet(idProducto) {
+function fnGet(idProveedor) {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: true,
         cache: false,
-        url: "https://localhost:7220/producto/select-by-id/" + idProducto,
+        url: "https://localhost:7220/proveedor/select-by-id/" + idProveedor,
         success: function (data) {
             console.info("data:", data);
-            var producto = "Nombre: " + data.NombreProducto + "<br>" +
-                "Precio lista: " + data.PrecioLista + "<br>" +
-                "Descuento: " + data.Descuento + "<br>" +
-                "Precio venta: " + data.PrecioVenta;
+            var proveedor = "Nombre: " + data.Nombre + "<br>" +
+                "Ruc: " + data.Ruc + "<br>" +
+                "Contacto: " + data.ContactoId + "<br>" +
+                "Direccion: " + data.Direccion + "<br>" +
+                "Ciudad: " + data.Ciudad + "<br>" +
+                "Region: " + data.Region + "<br>" +
+                "CodPostal: " + data.CodPostal + "<br>" +
+                "Pais: " + data.Pais + "<br>" +
+                "Telefono: " + data.Telefono + "<br>" +
+                "Fax: " + data.Fax + "<br>" +
+                "PaginaPrincipal: " + data.PaginaPrincipal;
 
-            $("#ProductoResult").html(producto);
+            $("#ProveedorResult").html(proveedor);
         },
         error: function (param1, param2, param3) {
             console.error("param1", param1);
             console.error("param2", param2);
             console.error("param3", param3);
-            alert("No se pudo leer el producto de código '" + idProducto + "'.");
+            alert("No se pudo leer el proveedor de código '" + idProveedor + "'.");
         }
     });
 }
 
 $("#BuscarBtn").on("click", function () {
-    let idProdBuscar = $("#ProductoBuscarTxt").val();
+    let idProvBuscar = $("#ProveedorBuscarTxt").val();
 
-    fnGet(idProdBuscar);
+    fnGet(idProvBuscar);
 });
 
 $("#EliminarBtn").on("click", function () {
-    let idProd = $("#IdProductoTxt").val();
+    let idProv = $("#ProveedorIdTxt").val();
 
-    fnEliminar(idProd);
+    fnEliminar(idProv);
 });
