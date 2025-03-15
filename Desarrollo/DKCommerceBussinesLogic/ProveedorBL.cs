@@ -10,5 +10,21 @@ namespace DKCommerceBussinesLogic
 {
     public class ProveedorBL
     {
+        public ProveedorBE SelectById(int idProveedor)
+        {
+            try
+            {
+                var daProveedor = new ProveedorDA();
+                ProveedorBE beProveedor;
+
+                beProveedor = daProveedor.SelectById(idProveedor);
+                return beProveedor;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }
