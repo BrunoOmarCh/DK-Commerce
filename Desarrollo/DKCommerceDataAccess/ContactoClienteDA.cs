@@ -13,5 +13,11 @@ namespace DKCommerceDataAccess
 {
     public class ContactoClienteDA: ConfigDataAccess
     {
+        public const string UpContactoClienteInsert = "UpContactoClienteInsert";
+        public const string UpContactoClienteUpdate = "UpContactoClienteUpdate";
+        public const string UpContactoClienteDelete = "UpContactoClienteDelete";
+        public const string UpContactoClienteSelById = "UpContactoClienteSelById";
+
+
     }
 }
