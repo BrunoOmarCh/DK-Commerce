@@ -93,5 +93,46 @@ namespace DKCommerceDataAccess
                 }
             }
         }
+
+        public void Update(int idCompaniaEnvio, CompaniaEnvioBE beCompaniaEnvio)
+        {
+            var conn = Configuration.GetConnectionString("DK Commerce");
+
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    using (var sqlTran = sqlCon.BeginTransaction())
+                    {
+                        try
+                        {
+                            sqlCmd.Connection = sqlCon;
+                            sqlCmd.CommandText = UpCompaniaEnvioUpdate;
+                            sqlCmd.CommandType = CommandType.StoredProcedure;
+                            sqlCmd.Transaction = sqlTran;
+
+                            sqlCmd.Parameters.Add("@CompañiaDeEnvioId", SqlDbType.Int).Value = idCompaniaEnvio;
+                            sqlCmd.Parameters.Add("@NombreCompañia", SqlDbType.NVarChar).Value =
+                                beCompaniaEnvio.NombreCompañia != null ? (object)beCompaniaEnvio.NombreCompañia : DBNull.Value;
+                            sqlCmd.Parameters.Add("@Ruc", SqlDbType.NVarChar).Value =
+                                beCompaniaEnvio.Ruc != null ? (object)beCompaniaEnvio.Ruc: DBNull.Value;
+                            sqlCmd.Parameters.Add("@Telefono", SqlDbType.NVarChar).Value =
+                                beCompaniaEnvio.Telefono != null ? (object)beCompaniaEnvio.Telefono: DBNull.Value;
+
+                            // Ejecutar la consulta
+                            sqlCmd.ExecuteNonQuery();
+                            sqlTran.Commit(); // Confirmar la transacción
+                        }
+                        catch (Exception)
+                        {
+                            sqlTran?.Rollback(); // Rollback en caso de error
+                            throw;
+                        }
+                    }
+                }
+            }
+        }
+        
     }
 }
