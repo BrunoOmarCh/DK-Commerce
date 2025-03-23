@@ -72,6 +72,53 @@ namespace DKCommerceDataAccess
                 }
             }
         }
+        public void Insert(ClienteBE becliente)
+        {
+            if (string.IsNullOrEmpty(becliente.NombreRazonSocial))
+            {
+                throw new ArgumentException("El campo 'NombreRazonSocial' no puede ser nulo ni vacío.");
+            }
+            var conn = Configuration.GetConnectionString("DK Commerce");
+
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    using (var sqlTran = sqlCon.BeginTransaction())
+                    {
+                        try
+                        {
+                            sqlCmd.Connection = sqlCon;
+                            sqlCmd.CommandText = UpClienteInsert;
+                            sqlCmd.CommandType = CommandType.StoredProcedure;
+                            sqlCmd.Transaction = sqlTran;
+
+                            sqlCmd.Parameters.Add("@NombreRazonSocial", SqlDbType.NVarChar).Value = becliente.NombreRazonSocial;
+                            sqlCmd.Parameters.Add("@TipoDocumento", SqlDbType.NVarChar).Value = becliente.TipoDocumento ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@NroDocumento", SqlDbType.NVarChar).Value = becliente.NroDocumento ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@ContactoId", SqlDbType.Int).Value = becliente.ContactoId ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@Direccion", SqlDbType.NVarChar).Value = becliente.Direccion ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@Ciudad", SqlDbType.NVarChar).Value = becliente.Ciudad ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@Region", SqlDbType.NVarChar).Value = becliente.Region ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@CodPostal", SqlDbType.NVarChar).Value = becliente.CodPostal ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@Pais", SqlDbType.NVarChar).Value = becliente.Pais ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@Telefono", SqlDbType.NVarChar).Value = becliente.Telefono ?? (object)DBNull.Value;
+                            sqlCmd.Parameters.Add("@Fax", SqlDbType.NVarChar).Value = becliente.Fax ?? (object)DBNull.Value;
+
+                            sqlCmd.ExecuteNonQuery();
+                            sqlTran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            sqlTran?.Rollback();
+                            throw ex;
+                        }
+                    }
+                }
+            }
+        }
+
 
     }
 }
