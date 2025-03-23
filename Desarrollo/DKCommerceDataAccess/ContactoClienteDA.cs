@@ -97,5 +97,47 @@ namespace DKCommerceDataAccess
                 }
             }
         }
+        public void Update(int idContactoCliente, ContactoClienteBE beContactoCliente)
+        {
+            var conn = Configuration.GetConnectionString("DK Commerce");
+
+            using (var sqlCon = new SqlConnection(conn))
+            {
+                sqlCon.Open();
+                using (var sqlCmd = new SqlCommand())
+                {
+                    using (var sqlTran = sqlCon.BeginTransaction())
+                    {
+                        try
+                        {
+                            sqlCmd.Connection = sqlCon;
+                            sqlCmd.CommandText = UpContactoClienteUpdate;
+                            sqlCmd.CommandType = CommandType.StoredProcedure;
+                            sqlCmd.Transaction = sqlTran;
+
+                            sqlCmd.Parameters.Add("@ContactoId", SqlDbType.Int).Value = idContactoCliente;
+                            sqlCmd.Parameters.Add("@NombreContacto", SqlDbType.NVarChar).Value =
+                                beContactoCliente.NombreContacto != null ? (object)beContactoCliente.NombreContacto : DBNull.Value;
+                            sqlCmd.Parameters.Add("@CargoContacto", SqlDbType.NVarChar).Value =
+                                beContactoCliente.CargoContacto != null ? (object)beContactoCliente.CargoContacto : DBNull.Value;
+                            sqlCmd.Parameters.Add("@TipoDocumento", SqlDbType.NVarChar).Value =
+                                beContactoCliente.TipoDocumento != null ? (object)beContactoCliente.TipoDocumento : DBNull.Value;
+                            sqlCmd.Parameters.Add("@NroDocumento", SqlDbType.NVarChar).Value =
+                                beContactoCliente.NroDocumento != null ? (object)beContactoCliente.NroDocumento : DBNull.Value;
+
+                            // Ejecutar la consulta
+                            sqlCmd.ExecuteNonQuery();
+                            sqlTran.Commit(); // Confirmar la transacción
+                        }
+                        catch (Exception)
+                        {
+                            sqlTran?.Rollback(); // Rollback en caso de error
+                            throw;
+                        }
+                    }
+                }
+            }
+        }
+        
     }
 }
