@@ -1,37 +1,29 @@
 ﻿"use strict";
-function fnInsert() {
-    let proveedor;
 
-    proveedor = {
-        Nombre: $("#NombreTxt").val(),
-        Ruc: $("#RucTxt").val(),
-        ContactoId: $("#ContactoTxt").val(),
-        Direccion: $("#DireccionTxt").val(),
-        Ciudad: $("#CiudadTxt").val(),
-        Region: $("#RegionTxt").val(),
-        CodPostal: $("#CodPostalTxt").val(),
-        Pais: $("#PaisTxt").val(),
-        Telefono: $("#TelefonoTxt").val(),
-        Fax: $("#FaxTxt").val(),
-        PaginaPrincipal: $("#PaginaPrincipalTxt").val()
+function fnInsert() {
+    let empleado = {
+        Nombres: $("#NombresTxt").val(),
+        ApellidoPaterno: $("#ApellidoPaternoTxt").val(),
+        ApellidoMaterno: $("#ApellidoMaternoTxt").val(),
+        TipoDocIdentidad: $("#TipoDocTxt").val(),
+        NroDocIdentidad: $("#NroDocTxt").val(),
+        Cargo: $("#CargoTxt").val(),
+        Email: $("#EmailTxt").val()
     };
 
     $.ajax({
         type: "POST",
         async: true,
         cache: false,
-        data: { proveedor: JSON.stringify(proveedor) },
-        url: "https://localhost:7220/proveedor/insert",
-        dataType: "text",
-        crossDomain: true,
+        data: JSON.stringify(empleado),
+        url: "https://localhost:7220/empleado/insert",
+        contentType: "application/json",
         success: function () {
-            alert("Se insertó con éxito.");
+            alert("Se insertó el empleado con éxito.");
         },
-        error: function (param1, param2, param3) {
-            console.error("param1", param1);
-            console.error("param2", param2);
-            console.error("param3", param3);
-            alert("Ocurrió un error al insertar.");
+        error: function (xhr) {
+            console.error("Error:", xhr.responseText);
+            alert("Ocurrió un error al insertar el empleado.");
         }
     });
 }
