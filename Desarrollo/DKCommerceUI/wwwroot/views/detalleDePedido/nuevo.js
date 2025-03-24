@@ -1,37 +1,30 @@
 ﻿"use strict";
-function fnInsert() {
-    let proveedor;
 
-    proveedor = {
-        Nombre: $("#NombreTxt").val(),
-        Ruc: $("#RucTxt").val(),
-        ContactoId: $("#ContactoTxt").val(),
-        Direccion: $("#DireccionTxt").val(),
-        Ciudad: $("#CiudadTxt").val(),
-        Region: $("#RegionTxt").val(),
-        CodPostal: $("#CodPostalTxt").val(),
-        Pais: $("#PaisTxt").val(),
-        Telefono: $("#TelefonoTxt").val(),
-        Fax: $("#FaxTxt").val(),
-        PaginaPrincipal: $("#PaginaPrincipalTxt").val()
+function fnInsert() {
+    let detalleDePedido = {
+        PedidoId: $("#PedidoIdTxt").val(),
+        ProductoId: $("#ProductoIdTxt").val(),
+        PrecioNeto: $("#PrecioNetoTxt").val(),
+        Cantidad: $("#CantidadTxt").val(),
+        Descuento: 0, // Se puede permitir modificar en el formulario si es necesario
+        Igv: null, // Puede ser calculado en backend
+        Isc: null, // Puede ser calculado en backend
+        MontoSubTotal: $("#MontoSubTotalTxt").val()
     };
 
     $.ajax({
         type: "POST",
         async: true,
         cache: false,
-        data: { proveedor: JSON.stringify(proveedor) },
-        url: "https://localhost:7220/proveedor/insert",
-        dataType: "text",
-        crossDomain: true,
+        data: JSON.stringify(detalleDePedido),
+        url: "https://localhost:7220/detalleDePedido/insert",
+        contentType: "application/json",
         success: function () {
-            alert("Se insertó con éxito.");
+            alert("Se insertó el detalle del pedido con éxito.");
         },
         error: function (param1, param2, param3) {
-            console.error("param1", param1);
-            console.error("param2", param2);
-            console.error("param3", param3);
-            alert("Ocurrió un error al insertar.");
+            console.error("Error:", param1, param2, param3);
+            alert("Ocurrió un error al insertar el detalle del pedido.");
         }
     });
 }
