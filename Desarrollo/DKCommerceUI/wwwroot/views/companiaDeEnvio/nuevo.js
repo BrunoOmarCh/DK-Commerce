@@ -1,27 +1,19 @@
 ﻿"use strict";
 function fnInsert() {
-    let proveedor;
+    let companiaDeEnvio;
 
-    proveedor = {
-        Nombre: $("#NombreTxt").val(),
+    companiaDeEnvio = {
+        NombreCompañia: $("#NombreCompañiaTxt").val(),
         Ruc: $("#RucTxt").val(),
-        ContactoId: $("#ContactoTxt").val(),
-        Direccion: $("#DireccionTxt").val(),
-        Ciudad: $("#CiudadTxt").val(),
-        Region: $("#RegionTxt").val(),
-        CodPostal: $("#CodPostalTxt").val(),
-        Pais: $("#PaisTxt").val(),
-        Telefono: $("#TelefonoTxt").val(),
-        Fax: $("#FaxTxt").val(),
-        PaginaPrincipal: $("#PaginaPrincipalTxt").val()
+        Telefono: $("#TelefonoTxt").val()
     };
 
     $.ajax({
         type: "POST",
         async: true,
         cache: false,
-        data: { proveedor: JSON.stringify(proveedor) },
-        url: "https://localhost:7220/proveedor/insert",
+        data: { companiaDeEnvio: JSON.stringify(companiaDeEnvio) },
+        url: "https://localhost:7220/companiaDeEnvio/insert",
         dataType: "text",
         crossDomain: true,
         success: function () {
