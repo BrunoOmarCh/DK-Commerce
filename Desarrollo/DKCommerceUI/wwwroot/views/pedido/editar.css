@@ -1,2 +1,9 @@
-﻿body {
+﻿/* Estilos para Editar Pedido */
+#PedidoEditarFrm {
+    max-width: 700px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fdf6e3;
 }
