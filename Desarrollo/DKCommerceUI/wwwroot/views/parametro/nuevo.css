@@ -1,2 +1,10 @@
-﻿body {
+﻿/* Estilos para Nuevo Parámetro */
+#ParametroNuevoFrm {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
 }
+
