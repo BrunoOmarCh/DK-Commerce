@@ -1,65 +1,51 @@
-﻿"use strict"; // Fuerza a declarar variables
+﻿"use strict";
 
-function fnEliminar(idProveedor) {
+function fnEliminar(clave) {
     $.ajax({
         type: "DELETE",
-        contentType: "application/json; chartset=utf-8",// Trabaja con objetos Json; en formato UTF-8 (soporta tildes)
+        contentType: "application/json; charset=utf-8",
         async: true,
         cache: false,
-        url: "https://localhost:7220/proveedor/delete/" + idProveedor,
+        url: `https://localhost:7220/parametro/delete/${clave}`,
         success: function () {
-            alert("Se eliminó el proveedor de código '" + idProveedor + "', con éxito.");
+            alert(`Se eliminó el parámetro con clave: ${clave} con éxito.`);
         },
-        error: function (param1, param2, param3) {
-            console.error("param1", param1);
-            console.error("param2", param2);
-            console.error("param3", param3);
-            alert("No se pudo eliminar el proveedor de código '" + idProveedor + "'.");
+        error: function (xhr) {
+            console.error("Error:", xhr.responseText);
+            alert(`No se pudo eliminar el parámetro con clave: ${clave}.`);
         }
     });
 }
 
-function fnGet(idProveedor) {
+function fnGet(clave) {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: true,
         cache: false,
-        url: "https://localhost:7220/proveedor/select-by-id/" + idProveedor,
+        url: `https://localhost:7220/parametro/select?clave=${clave}`,
         success: function (data) {
-            console.info("data:", data);
-            var proveedor = "Nombre: " + data.Nombre + "<br>" +
-                "Ruc: " + data.Ruc + "<br>" +
-                "Contacto: " + data.ContactoId + "<br>" +
-                "Direccion: " + data.Direccion + "<br>" +
-                "Ciudad: " + data.Ciudad + "<br>" +
-                "Region: " + data.Region + "<br>" +
-                "CodPostal: " + data.CodPostal + "<br>" +
-                "Pais: " + data.Pais + "<br>" +
-                "Telefono: " + data.Telefono + "<br>" +
-                "Fax: " + data.Fax + "<br>" +
-                "PaginaPrincipal: " + data.PaginaPrincipal;
+            console.info("Datos obtenidos:", data);
+            let resultado = `<strong>Clave:</strong> ${data.Clave} <br>
+                <strong>Grupo:</strong> ${data.Grupo || "N/A"} <br>
+                <strong>Valor:</strong> ${data.Valor || "N/A"}`;
 
-            $("#ProveedorResult").html(proveedor);
+            $("#ParametroResult").html(resultado);
         },
-        error: function (param1, param2, param3) {
-            console.error("param1", param1);
-            console.error("param2", param2);
-            console.error("param3", param3);
-            alert("No se pudo leer el proveedor de código '" + idProveedor + "'.");
+        error: function (xhr) {
+            console.error("Error:", xhr.responseText);
+            alert("No se pudo obtener el parámetro.");
         }
     });
 }
 
 $("#BuscarBtn").on("click", function () {
-    let idProvBuscar = $("#ProveedorBuscarTxt").val();
-
-    fnGet(idProvBuscar);
+    let clave = $("#ClaveTxt").val();
+    fnGet(clave);
 });
 
 $("#EliminarBtn").on("click", function () {
-    let idProv = $("#ProveedorIdTxt").val();
-
-    fnEliminar(idProv);
+    let clave = $("#EliminarClaveTxt").val();
+    fnEliminar(clave);
 });
