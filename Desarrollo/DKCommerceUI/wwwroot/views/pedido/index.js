@@ -1,58 +1,47 @@
-﻿"use strict"; // Fuerza a declarar variables
+﻿"use strict";
 
-function fnEliminar(idProducto) {
-    $.ajax({
-        type: "DELETE",
-        contentType: "application/json; chartset=utf-8",// Trabaja con objetos Json; en formato UTF-8 (soporta tildes)
-        async: true,
-        cache: false,
-        url: "https://localhost:7220/producto/delete/" + idProducto,
-        success: function () {
-            alert("Se eliminó el producto de código '" + idProducto + "', con éxito.");
-        },
-        error: function (param1, param2, param3) {
-            console.error("param1", param1);
-            console.error("param2", param2);
-            console.error("param3", param3);
-            alert("No se pudo eliminar el producto de código '" + idProducto + "'.");
-        }
-    });
-}
+$("#BuscarBtn").on("click", function () {
+    let pedidoId = $("#PedidoIdTxt").val();
 
-function fnGet(idProducto) {
     $.ajax({
         type: "GET",
+        url: `https://localhost:7220/pedido/select?pedidoId=${pedidoId}`,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: true,
         cache: false,
-        url: "https://localhost:7220/producto/select-by-id/" + idProducto,
         success: function (data) {
-            console.info("data:", data);
-            var producto = "Nombre: " + data.NombreProducto + "<br>" +
-                "Precio lista: " + data.PrecioLista + "<br>" +
-                "Descuento: " + data.Descuento + "<br>" +
-                "Precio venta: " + data.PrecioVenta;
+            let resultado = `<strong>Pedido ID:</strong> ${data.PedidoId} <br>
+                <strong>Cliente ID:</strong> ${data.ClienteId} <br>
+                <strong>ID Empleado:</strong> ${data.IdEmpleado || "N/A"} <br>
+                <strong>Fecha Pedido:</strong> ${data.FechaPedido || "N/A"} <br>
+                <strong>Fecha Entrega:</strong> ${data.FechaEntrega || "N/A"} <br>
+                <strong>Monto Total:</strong> ${data.MontoTotal || "N/A"}`;
 
-            $("#ProductoResult").html(producto);
+            $("#PedidoResult").html(resultado);
         },
-        error: function (param1, param2, param3) {
-            console.error("param1", param1);
-            console.error("param2", param2);
-            console.error("param3", param3);
-            alert("No se pudo leer el producto de código '" + idProducto + "'.");
+        error: function (xhr) {
+            alert("No se pudo obtener el pedido.");
+            console.error("Error:", xhr.responseText);
         }
     });
-}
-
-$("#BuscarBtn").on("click", function () {
-    let idProdBuscar = $("#ProductoBuscarTxt").val();
-
-    fnGet(idProdBuscar);
 });
 
 $("#EliminarBtn").on("click", function () {
-    let idProd = $("#IdProductoTxt").val();
+    let pedidoId = $("#EliminarPedidoIdTxt").val();
 
-    fnEliminar(idProd);
+    $.ajax({
+        type: "DELETE",
+        url: `https://localhost:7220/pedido/delete/${pedidoId}`,
+        contentType: "application/json; charset=utf-8",
+        async: true,
+        cache: false,
+        success: function () {
+            alert(`Se eliminó el pedido con ID: ${pedidoId} con éxito.`);
+        },
+        error: function (xhr) {
+            alert(`No se pudo eliminar el pedido con ID: ${pedidoId}.`);
+            console.error("Error:", xhr.responseText);
+        }
+    });
 });
