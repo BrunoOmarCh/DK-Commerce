@@ -1,37 +1,25 @@
 ﻿"use strict";
-function fnInsert() {
-    let proveedor;
 
-    proveedor = {
-        Nombre: $("#NombreTxt").val(),
-        Ruc: $("#RucTxt").val(),
-        ContactoId: $("#ContactoTxt").val(),
-        Direccion: $("#DireccionTxt").val(),
-        Ciudad: $("#CiudadTxt").val(),
-        Region: $("#RegionTxt").val(),
-        CodPostal: $("#CodPostalTxt").val(),
-        Pais: $("#PaisTxt").val(),
-        Telefono: $("#TelefonoTxt").val(),
-        Fax: $("#FaxTxt").val(),
-        PaginaPrincipal: $("#PaginaPrincipalTxt").val()
+function fnInsert() {
+    let parametro = {
+        Clave: $("#ClaveTxt").val(),
+        Grupo: $("#GrupoTxt").val(),
+        Valor: $("#ValorTxt").val()
     };
 
     $.ajax({
         type: "POST",
         async: true,
         cache: false,
-        data: { proveedor: JSON.stringify(proveedor) },
-        url: "https://localhost:7220/proveedor/insert",
-        dataType: "text",
-        crossDomain: true,
+        data: JSON.stringify(parametro),
+        url: "https://localhost:7220/parametro/insert",
+        contentType: "application/json",
         success: function () {
-            alert("Se insertó con éxito.");
+            alert("Se insertó el parámetro con éxito.");
         },
-        error: function (param1, param2, param3) {
-            console.error("param1", param1);
-            console.error("param2", param2);
-            console.error("param3", param3);
-            alert("Ocurrió un error al insertar.");
+        error: function (xhr) {
+            console.error("Error:", xhr.responseText);
+            alert("Ocurrió un error al insertar el parámetro.");
         }
     });
 }
