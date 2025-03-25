@@ -1,34 +1,27 @@
 ﻿"use strict";
-function fnInsert() {
-    let producto;
 
-    producto = {
-        NombreProducto: $("#NombreTxt").val(),
-        PrecioVenta: $("#PrecioTxt").val(),
-        ProveedorId: $("#ProveedorIdTxt").val(),
-        CategoriaId: $("#CategoriaIdTxt").val()
+$("#GuardarBtn").on("click", function () {
+    let pedido = {
+        ClienteId: $("#ClienteIdTxt").val(),
+        IdEmpleado: $("#IdEmpleadoTxt").val(),
+        FechaPedido: $("#FechaPedidoTxt").val(),
+        FechaEntrega: $("#FechaEntregaTxt").val(),
+        MontoTotal: $("#MontoTotalTxt").val()
     };
 
-    $.ajax({ // Es un llamado con JavaScript a métodos de servidor
-        type: "POST", // Método HTTP
-        async: true, // Será asíncrono
-        cache: false, // No usará la cache
-        data: { producto: JSON.stringify(producto) }, // Se envía serializado, solo pasa texto
-        url: "https://localhost:7220/producto/insert",
-        dataType: "text", // 'text' porque está serializado
-        crossDomain: true,// Los nombres de las propiedades de los objetos empiezan en minúsculas
-        success: function () { // Invoca a una función anónima
-            alert("Se insertó con éxito.");
+    $.ajax({
+        type: "POST",
+        url: "https://localhost:7220/pedido/insert",
+        data: JSON.stringify(pedido),
+        contentType: "application/json",
+        async: true,
+        cache: false,
+        success: function () {
+            alert("Se insertó el pedido con éxito.");
         },
-        error: function (param1, param2, param3) {
-            console.error("param1", param1);
-            console.error("param2", param2);
-            console.error("param3", param3);
-            alert("Ocurrió un error al insertar.");
+        error: function (xhr) {
+            alert("Ocurrió un error al insertar el pedido.");
+            console.error("Error:", xhr.responseText);
         }
     });
-}
-
-$("#GuardarBtn").on("click", function () {// Evento click
-    fnInsert();
 });
